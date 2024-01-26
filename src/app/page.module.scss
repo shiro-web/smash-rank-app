@@ -1,0 +1,53 @@
+.main{
+  padding:0 80px;
+  background-image: url("/public/body_background.jpg");
+
+  .rankTable{
+    text-align: center;
+    width: 100%;
+    color: white;
+    border: 1px solid gray;
+    border-collapse: collapse;
+  
+    .rankTableHead{
+      background-image: linear-gradient(90deg, rgba(248, 15, 15, 1), rgba(207, 63, 245, 1));
+        
+      .headRank, .headUserName,  .headPower, .headDate{
+        padding: 10px 0;
+        border-right: 1px solid gray;
+        vertical-align: middle;
+
+      }
+    }
+  
+    .rankTableBody{
+      color: white;
+  
+      .bodyRow{
+        border-bottom: 1px solid gray;
+
+        .userDisplay{
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 20px;
+
+          .character{
+            width: 44px;
+            height: 44px;
+
+            img{
+              width: 100%;
+            }
+          }
+        }
+      }
+  
+      .bodyRank, .bodyUserName,  .bodyPower, .bodyDate{
+        padding: 10px 0;
+        border-right: 1px solid gray;
+        vertical-align: middle;
+      }
+    }
+  }
+}
