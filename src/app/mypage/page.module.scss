@@ -1,5 +1,7 @@
 .cropper{
-    display: none;
+    position: absolute;
+    top: -10000px;
+    visibility: hidden;
 }
 
 .Url{

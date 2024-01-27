@@ -67,7 +67,7 @@ export default function Home() {
                 </div>  
               </td >
               <td className={classes.bodyPower}>{data.power}</td>
-              <td className={classes.bodyDate}>{dayjs(data.createdAt.toDate()).format('YYYY年MM月DD日hh:mm')}</td>
+              <td className={classes.bodyDate}>{dayjs(data.createdAt.toDate()).format('YYYY/MM/DD')}</td>
             </tr>         
           </tbody>
         ))}

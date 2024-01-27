@@ -1,11 +1,10 @@
 "use client";
-import { create } from 'domain';
-import React, { useContext, useEffect, useRef, useState } from 'react';
-import Tesseract, { createWorker } from "tesseract.js";
+import React, { useContext, useRef, useState } from 'react';
+import Tesseract from "tesseract.js";
 import Cropper, { ReactCropperElement } from 'react-cropper';
 import 'cropperjs/dist/cropper.css';
 import classes from "./page.module.scss";
-import { Timestamp, addDoc, collection, serverTimestamp,FieldValue, doc, setDoc } from 'firebase/firestore';
+import { serverTimestamp,FieldValue, doc, setDoc } from 'firebase/firestore';
 import { db } from '@/firebase';
 import AppContext from '@/context/AppContext';
 
@@ -22,8 +21,8 @@ const MyPage = () => {
     const {user} = useContext(AppContext);
     const [url,setUrl] = useState<string | null>();
     const [newUrl,setNewUrl] = useState<string | null>();
-    const fileInputRef = useRef<HTMLInputElement>();
-    const cropperRef = useRef<ReactCropperElement>();
+    const fileInputRef = useRef<HTMLInputElement>(null);
+    const cropperRef = useRef<ReactCropperElement>(null);
     const [newPower,setNewPower] = useState<number>();
 
     
@@ -67,26 +66,26 @@ const MyPage = () => {
 
     const onCrop = () => {
         const cropper = cropperRef.current?.cropper;
-        cropper?.setCropBoxData({left:600,top:308, width:30, height:30})
-        let canvas = cropper!.getCroppedCanvas();
-        let data = canvas.toDataURL();
+        cropper!.setCropBoxData({left:600,top:308, width:30, height:30})
+        const canvas = cropper!.getCroppedCanvas();
+        const data = canvas.toDataURL();
         setNewUrl(data);
         return newUrl;
       };
 
-    const handleSubmit = async(e: { preventDefault: () => void; }) => {
+    const handleSubmit = async(e:React.FormEvent) => {
         e.preventDefault();
         convertImagetoText();
         onCrop();
-        if(newPower && newUrl && user){
-            const docRef = doc(db,"ranks",user.uid);
+        if(newPower && newUrl){
+            const docRef = doc(db,"ranks",user!.uid);
             const data:Data = {
                 character:newUrl,
                 createdAt:serverTimestamp(),
-                id:user.uid,
-                name:user.displayName,
+                id:user!.uid,
+                name:user?.displayName || "",
                 power:newPower,
-                userImage:user.photoURL,
+                userImage:user?.photoURL || "",
             }
                 await setDoc(docRef,data)
             
@@ -96,14 +95,13 @@ const MyPage = () => {
     return (
         <div>
             <Cropper
-            // className={classes.cropper}
+            className={classes.cropper}
             src={url ? url : ""}
             style={{ height: 400, width: 900 }}
             // Cropper.js options
-            initialAspectRatio={1 / 1}
+            initialAspectRatio={1/ 1}
             guides={false}
             ref={cropperRef}
-            movable={false}
             />
         <form action="" onSubmit={handleSubmit}>
             <input type="file" onChange={handleFileChange} ref={fileInputRef}/>
@@ -113,7 +111,7 @@ const MyPage = () => {
         className={classes.Url}
         />
         <img src={newUrl ? newUrl : ""} alt="" 
-        // className={classes.newUrl}
+        className={classes.newUrl}
         />
     </div>
   )
