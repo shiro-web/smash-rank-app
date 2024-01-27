@@ -1,12 +1,13 @@
 "use client";
 import { create } from 'domain';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import Tesseract, { createWorker } from "tesseract.js";
 import Cropper, { ReactCropperElement } from 'react-cropper';
 import 'cropperjs/dist/cropper.css';
 import classes from "./page.module.scss";
-import { Timestamp, addDoc, collection, serverTimestamp,FieldValue } from 'firebase/firestore';
+import { Timestamp, addDoc, collection, serverTimestamp,FieldValue, doc, setDoc } from 'firebase/firestore';
 import { db } from '@/firebase';
+import AppContext from '@/context/AppContext';
 
 type Data = {
     character:string;
@@ -18,10 +19,11 @@ type Data = {
 }
 
 const MyPage = () => {
-    const [url,setUrl] = useState<string | null>(null);
-    const [newUrl,setNewUrl] = useState<string | null>(null);
-    const fileInputRef = useRef<HTMLInputElement>(null);
-    const cropperRef = useRef<ReactCropperElement>(null);
+    const {user} = useContext(AppContext);
+    const [url,setUrl] = useState<string | null>();
+    const [newUrl,setNewUrl] = useState<string | null>();
+    const fileInputRef = useRef<HTMLInputElement>();
+    const cropperRef = useRef<ReactCropperElement>();
     const [newPower,setNewPower] = useState<number>();
 
     
@@ -76,17 +78,17 @@ const MyPage = () => {
         e.preventDefault();
         convertImagetoText();
         onCrop();
-        if(newPower && newUrl){
-            const docRef = collection(db,"ranks");
+        if(newPower && newUrl && user){
+            const docRef = doc(db,"ranks",user.uid);
             const data:Data = {
                 character:newUrl,
                 createdAt:serverTimestamp(),
-                id:"a",
-                name:"a",
+                id:user.uid,
+                name:user.displayName,
                 power:newPower,
-                userImage:"ss",
+                userImage:user.photoURL,
             }
-                await addDoc(docRef,data)
+                await setDoc(docRef,data)
             
         }
     }
