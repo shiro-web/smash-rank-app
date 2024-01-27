@@ -2,10 +2,11 @@
 
 import Image from "next/image";
 import classes from "./page.module.scss";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Timestamp, collection, doc, onSnapshot, orderBy, query } from "firebase/firestore";
 import { db } from "@/firebase";
 import dayjs from 'dayjs';
+import AppContext from "@/context/AppContext";
 
 type RankProps = {
   id:string;
@@ -25,12 +26,13 @@ type Ranks = {
 }
 
 export default function Home() {
+  const {user} = useContext(AppContext)
   const [datas,setDatas] = useState<Ranks[]>([]);
   useEffect(() => {
     const fetchRanks = async () => {
       const rankDocRef = collection(db,"ranks");
-      // const q = query(rankDocRef,orderBy("power"));
-      const unsubscribe = onSnapshot(rankDocRef,(snapshot) => {
+      const q = query(rankDocRef,orderBy("power","desc"));
+      const unsubscribe = onSnapshot(q,(snapshot) => {
         const newRank = snapshot.docs.map((doc) => doc.data() as Ranks)
         setDatas(newRank);
       });
@@ -43,9 +45,7 @@ export default function Home() {
   
   return (
     <>
-    {    console.log(datas)}
-    <button >ログイン</button>
-    <button >ログアウト</button>
+    {console.log(user)}
     <main className={classes.main}>
       <table className={classes.rankTable}>
         <thead className={classes.rankTableHead}>
@@ -62,7 +62,7 @@ export default function Home() {
               <td className={classes.bodyRank}>1</td>
               <td className={classes.bodyUserName}>
                 <div className={classes.userDisplay}>
-                  <div className={classes.character}><img src="/test.png"/></div>
+                  <div className={classes.character}><img src={data.character}/></div>
                   <div className={classes.userName}>{data.name}</div>
                 </div>  
               </td >
