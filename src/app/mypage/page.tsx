@@ -5,14 +5,24 @@ import Tesseract, { createWorker } from "tesseract.js";
 import Cropper, { ReactCropperElement } from 'react-cropper';
 import 'cropperjs/dist/cropper.css';
 import classes from "./page.module.scss";
+import { Timestamp, addDoc, collection, serverTimestamp,FieldValue } from 'firebase/firestore';
+import { db } from '@/firebase';
 
-
+type Data = {
+    character:string;
+    createdAt:FieldValue;
+    id:string;
+    name:string;
+    power:number;
+    userImage:string;
+}
 
 const MyPage = () => {
     const [url,setUrl] = useState<string | null>(null);
-    const [newurl,setNewUrl] = useState<string | null>(null);
+    const [newUrl,setNewUrl] = useState<string | null>(null);
     const fileInputRef = useRef<HTMLInputElement>(null);
     const cropperRef = useRef<ReactCropperElement>(null);
+    const [newPower,setNewPower] = useState<number>();
 
     
     const handleFileChange = () => {
@@ -30,23 +40,55 @@ const MyPage = () => {
     const convertImagetoText = async () => {
         const worker = await Tesseract.createWorker('eng');
         const rectangle = { left: 1000, top: 545, width: 200, height: 80 };
-        const { data: { text } } = await worker.recognize(url,{rectangle});
-        console.log(text);
-        await worker.terminate();
+        const { data: { text } } = await worker.recognize(url!,{rectangle});
+
+        function removeComma(text:string) {
+            const removed = text.replace(/,/g, '');
+            return parseInt(removed, 10);
+        }
+        
+        const power = removeComma(text);
+        try{
+            if(power > 0 && power < 100000000 ){
+                await worker.terminate();
+                setNewPower(power)
+                return newPower;
+            }else{
+                alert("例にならって画像を投稿してください")
+                return;
+            }
+        }catch(e){
+            console.log(e)
+            return;
+        }
     };
 
     const onCrop = () => {
         const cropper = cropperRef.current?.cropper;
         cropper?.setCropBoxData({left:600,top:308, width:30, height:30})
         let canvas = cropper!.getCroppedCanvas();
-        
         let data = canvas.toDataURL();
-        setNewUrl(data)
+        setNewUrl(data);
+        return newUrl;
       };
 
-    const handleSubmit = (e: { preventDefault: () => void; }) => {
+    const handleSubmit = async(e: { preventDefault: () => void; }) => {
         e.preventDefault();
         convertImagetoText();
+        onCrop();
+        if(newPower && newUrl){
+            const docRef = collection(db,"ranks");
+            const data:Data = {
+                character:newUrl,
+                createdAt:serverTimestamp(),
+                id:"a",
+                name:"a",
+                power:newPower,
+                userImage:"ss",
+            }
+                await addDoc(docRef,data)
+            
+        }
     }
     
     return (
@@ -58,7 +100,6 @@ const MyPage = () => {
             // Cropper.js options
             initialAspectRatio={1 / 1}
             guides={false}
-            crop={onCrop}
             ref={cropperRef}
             movable={false}
             />
@@ -69,7 +110,7 @@ const MyPage = () => {
         <img src={url ? url : ""} alt="" ref={cropperRef}
         className={classes.Url}
         />
-        <img src={newurl ? newurl : ""} alt="" 
+        <img src={newUrl ? newUrl : ""} alt="" 
         // className={classes.newUrl}
         />
     </div>
