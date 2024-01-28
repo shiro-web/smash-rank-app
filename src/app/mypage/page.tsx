@@ -19,10 +19,10 @@ type Data = {
 
 const MyPage = () => {
     const {user} = useContext(AppContext);
-    const [url,setUrl] = useState<string | null>();
-    const [newUrl,setNewUrl] = useState<string | null>();
-    const fileInputRef = useRef<HTMLInputElement>(null);
-    const cropperRef = useRef<ReactCropperElement>(null);
+    const [url,setUrl] = useState<string>();
+    const [newUrl,setNewUrl] = useState<string>();
+    const fileInputRef = useRef<HTMLInputElement>();
+    const cropperRef = useRef<ReactCropperElement>();
     const [newPower,setNewPower] = useState<number>();
 
     
@@ -66,9 +66,9 @@ const MyPage = () => {
 
     const onCrop = () => {
         const cropper = cropperRef.current?.cropper;
-        cropper!.setCropBoxData({left:600,top:308, width:30, height:30})
-        const canvas = cropper!.getCroppedCanvas();
-        const data = canvas.toDataURL();
+        cropper?.setCropBoxData({left:599,top:308, width:30, height:30})
+        const canvas = cropper?.getCroppedCanvas();
+        const data = canvas?.toDataURL();
         setNewUrl(data);
         return newUrl;
       };
@@ -77,16 +77,18 @@ const MyPage = () => {
         e.preventDefault();
         convertImagetoText();
         onCrop();
-        if(newPower && newUrl){
-            const docRef = doc(db,"ranks",user!.uid);
+        console.log(newUrl)
+        if(user && newPower && newUrl){
+            const docRef = doc(db,"ranks",user.uid);
             const data:Data = {
                 character:newUrl,
                 createdAt:serverTimestamp(),
-                id:user!.uid,
-                name:user?.displayName || "",
+                id:user.uid,
+                name:user.displayName,
                 power:newPower,
-                userImage:user?.photoURL || "",
+                userImage:user.photoURL,
             }
+            console.log("mae")
                 await setDoc(docRef,data)
             
         }

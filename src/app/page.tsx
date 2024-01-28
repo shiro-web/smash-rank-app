@@ -45,6 +45,7 @@ export default function Home() {
   
   return (
     <>
+    <h1 className={classes.title}>世界戦闘力ランキング</h1>
     {console.log(user)}
     <main className={classes.main}>
       <table className={classes.rankTable}>
