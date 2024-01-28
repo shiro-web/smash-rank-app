@@ -1,12 +1,16 @@
 "use client";
-import React, { useContext, useRef, useState } from 'react';
+
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import Tesseract from "tesseract.js";
 import Cropper, { ReactCropperElement } from 'react-cropper';
 import 'cropperjs/dist/cropper.css';
 import classes from "./page.module.scss";
-import { serverTimestamp,FieldValue, doc, setDoc } from 'firebase/firestore';
+import { serverTimestamp,FieldValue, doc, setDoc, collection, query, where, onSnapshot, Timestamp } from 'firebase/firestore';
 import { db } from '@/firebase';
 import AppContext from '@/context/AppContext';
+import {Button} from "@mui/material";
+import CloudUploadIcon from '@mui/icons-material/Logout';
+
 
 type Data = {
     character:string;
@@ -17,6 +21,15 @@ type Data = {
     userImage:string;
 }
 
+type Ranks = {
+    id:string;
+    name:string;
+    power:number;
+    userImage:string;
+    character:string;
+    createdAt:Timestamp;
+  }
+
 const MyPage = () => {
     const {user} = useContext(AppContext);
     const [url,setUrl] = useState<string>();
@@ -24,7 +37,22 @@ const MyPage = () => {
     const fileInputRef = useRef<HTMLInputElement>();
     const cropperRef = useRef<ReactCropperElement>();
     const [newPower,setNewPower] = useState<number>();
+    const [datas,setDatas] = useState<Ranks[]>([]);
 
+    // useEffect(() => {
+    //     console.log(user)
+    //     const fetchRanks = async () => {
+    //       const rankDocRef = doc(db,"ranks",user!.uid);
+    //       const unsubscribe = onSnapshot(rankDocRef,(snapshot) => {
+    //         const newRank = snapshot.docs.map((doc) => doc.data() as Ranks)
+    //         setDatas(newRank);
+    //       });
+    //       return() => {
+    //         unsubscribe();
+    //     };
+    //     };
+    //     fetchRanks()
+    //   },[])
     
     const handleFileChange = () => {
         const fileInput = fileInputRef.current;
@@ -80,7 +108,7 @@ const MyPage = () => {
         console.log(newUrl)
         if(user && newPower && newUrl){
             const docRef = doc(db,"ranks",user.uid);
-            const data:Data = {
+            const datas:Data = {
                 character:newUrl,
                 createdAt:serverTimestamp(),
                 id:user.uid,
@@ -89,13 +117,16 @@ const MyPage = () => {
                 userImage:user.photoURL,
             }
             console.log("mae")
-                await setDoc(docRef,data)
+                await setDoc(docRef,datas)
             
         }
     }
+
+   
+      
     
     return (
-        <div>
+        <div className={classes.container}>
             <Cropper
             className={classes.cropper}
             src={url ? url : ""}
@@ -105,18 +136,37 @@ const MyPage = () => {
             guides={false}
             ref={cropperRef}
             />
-        <form action="" onSubmit={handleSubmit}>
-            <input type="file" onChange={handleFileChange} ref={fileInputRef}/>
-            <button type='submit'>送信</button>
-        </form>
-        <img src={url ? url : ""} alt="" ref={cropperRef}
-        className={classes.Url}
-        />
-        <img src={newUrl ? newUrl : ""} alt="" 
-        className={classes.newUrl}
-        />
-    </div>
-  )
-}
+            <div className={classes.userArea}>
+                <div>
+                    <img className={classes.authImage} src={user?.photoURL} alt="" />
+                </div>
+                <p className={classes.authName}>{user?.displayName}</p>
+                <div>
+                    <div className={classes.powerWrapper}>
+                        <h3 className={classes.powerCaption}>世界戦闘力</h3>
+                        <p className={classes.power}>14000000</p>
+                    </div>
+                    <div className={classes.rankWrapper}>
+                        <h3 className={classes.rankCaption}>ランキング</h3>
+                        <p className={classes.rank}><span className={classes.rankSpan}>1</span>位/100000</p>
+                    </div>
+                </div>
+            </div>
+            <form className={classes.form} action="" onSubmit={handleSubmit}>
+                <img src={url ? url : ""} alt="" accept=".png, .jpeg, .jpg" ref={cropperRef} className={classes.Url}/>
+                <Button className={classes.fileButton} color="inherit" component="label" variant="contained" startIcon={<CloudUploadIcon />}>
+                    <label>
+                        <input className={classes.file} type="file" onChange={handleFileChange} ref={fileInputRef}/>ファイルを選択
+                    </label>
+                </Button>
+                {url ? (<button className={classes.submit} type='submit'>送信</button>) : null}
+                
+            </form>
+            <img src={newUrl ? newUrl : ""} alt="" 
+            className={classes.newUrl}
+            />
+        </div>
+        )
+    }
 
 export default MyPage

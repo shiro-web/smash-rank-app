@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import classes from "./page.module.scss";
 import { useContext, useEffect, useState } from "react";
 import { Timestamp, collection, doc, onSnapshot, orderBy, query } from "firebase/firestore";
@@ -26,9 +25,11 @@ type Ranks = {
 }
 
 export default function Home() {
-  const {user} = useContext(AppContext)
+  const {user} = useContext(AppContext);
   const [datas,setDatas] = useState<Ranks[]>([]);
+
   useEffect(() => {
+    console.log(user)
     const fetchRanks = async () => {
       const rankDocRef = collection(db,"ranks");
       const q = query(rankDocRef,orderBy("power","desc"));
