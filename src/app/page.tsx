@@ -31,7 +31,6 @@ export default function Home() {
   const [datas,setDatas] = useState<Ranks[]>([]);
 
   useEffect(() => {
-    console.log(user)
     const fetchRanks = async () => {
       const rankDocRef = collection(db,"ranks");
       const q = query(rankDocRef,orderBy("power","desc"));

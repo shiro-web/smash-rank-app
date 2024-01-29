@@ -17,7 +17,7 @@ const defaultData = {
 const AppContext = createContext<Data>(defaultData);
 
 export const AppProvider = ({ children }: { children: ReactNode }) => {
-    const [user,setUser] = useState<User | null>(null)
+    const [user,setUser] = useState<User | null>(null);
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (newUser) => {

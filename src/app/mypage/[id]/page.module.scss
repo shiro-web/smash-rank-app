@@ -14,18 +14,18 @@
 
         .userAreaHead{
             background-color: #d73737;
-            padding-top: 10px;
+            padding-top: 8px;
             margin-bottom: 21px;
 
             .authName{
                 color: white;
                 font-size: 0.8rem;
-                margin-bottom: 8px;
+                margin-bottom: 6px;
             }
         
             .authImage{
                 border-radius: 100%;
-                margin-bottom: 12px;
+                margin-bottom: 10px;
             }
         }
         
@@ -135,6 +135,7 @@
                     padding: 6px 14px;
                     background-color: #3772d7;
                     margin-top: 12px;
+                    margin-bottom: 12px;
                     cursor: pointer;
                 }
 
@@ -156,11 +157,11 @@
                     margin-bottom: 8px;
                 }
     
-                .newUrl{
-                    display: none;
-                }
             }
             
+            .newUrl{
+                display: none;
+            }
         }
     }
 }

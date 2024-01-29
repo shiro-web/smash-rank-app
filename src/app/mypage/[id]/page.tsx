@@ -5,7 +5,7 @@ import Tesseract from "tesseract.js";
 import Cropper, { ReactCropperElement } from 'react-cropper';
 import 'cropperjs/dist/cropper.css';
 import classes from "./page.module.scss";
-import { serverTimestamp,FieldValue, doc, setDoc, collection, query, where, onSnapshot, Timestamp } from 'firebase/firestore';
+import { serverTimestamp,FieldValue, doc, setDoc, collection, query, where, onSnapshot, Timestamp, orderBy, getDoc, getCountFromServer } from 'firebase/firestore';
 import { auth, db } from '@/firebase';
 import AppContext from '@/context/AppContext';
 import {Button} from "@mui/material";
@@ -30,30 +30,45 @@ type Ranks = {
     createdAt:Timestamp;
   }
 
-const MyPage = ({params}:{params:string}) => {
+const MyPage = ({params}:{params:{id:string}}) => {
     const {user} = useContext(AppContext);
     const [url,setUrl] = useState<string>();
     const [newUrl,setNewUrl] = useState<string>();
     const fileInputRef = useRef<HTMLInputElement>();
     const cropperRef = useRef<ReactCropperElement>();
     const [newPower,setNewPower] = useState<number>();
+    const [count,setCount] = useState<number>();
     const [datas,setDatas] = useState<Ranks[]>([]);
-    
+    const [list,setList] = useState<Ranks[]>([]);
 
-    // useEffect(() => {
-    //     console.log(user)
-    //     const fetchRanks = async () => {
-    //       const rankDocRef = doc(db,"ranks",user!.uid);
-    //       const unsubscribe = onSnapshot(rankDocRef,(snapshot) => {
-    //         const newRank = snapshot.docs.map((doc) => doc.data() as Ranks)
-    //         setDatas(newRank);
-    //       });
-    //       return() => {
-    //         unsubscribe();
-    //     };
-    //     };
-    //     fetchRanks()
-    //   },[])
+    useEffect(() => {
+        const fetchRanks = async () => {
+          const rankDocRef = doc(db,"ranks",params.id);
+          const rankCollectionRef = collection(db,"ranks");
+          const rankData = await getDoc(rankDocRef);
+          setDatas(rankData.data() as Ranks[])
+          const rankCount = await getCountFromServer(rankCollectionRef);
+          setCount(rankCount.data().count)
+        };
+        fetchRanks()
+      },[])
+
+      useEffect(() => {
+        const fetchRanks = async () => {
+          const rankDocRef = collection(db,"ranks");
+          const q = query(rankDocRef,orderBy("power","desc"));
+          const unsubscribe = onSnapshot(q,(snapshot) => {
+            const newRank = snapshot.docs.map((doc) => doc.data() as Ranks)
+            setList(newRank);
+          });
+          return() => {
+            unsubscribe();
+        };
+        };
+        fetchRanks()
+      },[])
+      
+      
     
     const handleFileChange = () => {
         const fileInput = fileInputRef.current;
@@ -121,10 +136,8 @@ const MyPage = ({params}:{params:string}) => {
                 await setDoc(docRef,datas)
             
         }
-    }
-
-
-   
+    }   
+    console.log(list)
       
     
     return (
@@ -153,11 +166,11 @@ const MyPage = ({params}:{params:string}) => {
                         </div>
                         <div className={classes.powerWrapper}>
                             <h3 className={classes.powerCaption}>世界戦闘力</h3>
-                            <p className={classes.power}>14000000</p>
+                            <p className={classes.power}>{datas.power}</p>
                         </div>
                         <div className={classes.rankWrapper}>
                             <h3 className={classes.rankCaption}>ランキング</h3>
-                            <p className={classes.rank}><span className={classes.rankSpan}>1</span>位/100000</p>
+                            <p className={classes.rank}><span className={classes.rankSpan}></span>位/{count}</p>
                         </div>
                     </div>
                     <form className={classes.form} action="" onSubmit={handleSubmit}>
