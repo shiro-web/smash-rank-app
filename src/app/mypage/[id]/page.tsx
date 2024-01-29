@@ -137,9 +137,17 @@ const MyPage = ({params}:{params:{id:string}}) => {
             
         }
     }   
-    console.log(list)
-      
-    
+    function getIndex(value:number, arr:Data[]) {
+        for(var i = 0; i < arr.length; i++) {
+            if(arr[i].power === value) {
+                return list.indexOf(arr[i]);
+            }
+        }
+        return -1; //値が存在しなかったとき
+    }
+
+    var index = getIndex(datas.power, list) + 1;
+        
     return (
         <div className={classes.container}>
             <Cropper
@@ -170,7 +178,7 @@ const MyPage = ({params}:{params:{id:string}}) => {
                         </div>
                         <div className={classes.rankWrapper}>
                             <h3 className={classes.rankCaption}>ランキング</h3>
-                            <p className={classes.rank}><span className={classes.rankSpan}></span>位/{count}</p>
+                            <p className={classes.rank}><span className={classes.rankSpan}>{index}位</span>/{count}人中（上位<span className={classes.rankSpan}>{Math.floor((index / count!) * 1000)/10}%</span>）</p>
                         </div>
                     </div>
                     <form className={classes.form} action="" onSubmit={handleSubmit}>
@@ -185,9 +193,9 @@ const MyPage = ({params}:{params:{id:string}}) => {
                     </form>
                     <img src={newUrl ? newUrl : ""} alt="" className={classes.newUrl}/>
                     <div className={classes.example}>
-                        <h2 className={classes.exampleTitle}>見本</h2>
+                        <h2 className={classes.exampleTitle}>見本<span className={classes.annotation}>（※初めての方は必ずご覧ください）</span> </h2>
                         <img className={classes.exampleImage} src="../OK.png" alt="" />
-                        <p className={classes.exampleDescription}>上の画像のように、Nintendo Switchのスクリーンショット機能を使った画像を使用します。<br />右下のエリアにカーソルを置かないでください。（読み取れない可能性があります。）</p>
+                        <p className={classes.exampleDescription}>上の画像のように、Nintendo Switchのスクリーンショット機能を使った画像を使用します。<br />右下のエリアに<img className={classes.cursor} src="../cursor.png" alt="" /> を置かないでください。（読み取れない可能性があります。）</p>
                     </div>
                 </div>
             </div>

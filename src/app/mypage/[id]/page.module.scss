@@ -120,8 +120,14 @@
                 }
             
                 .fileButton{
-                    margin-top: 12px;
+                    color: white;
                     margin-bottom: 12px;
+                    background-color: #3772d7;
+                    font-size: 1.2rem;
+                }
+
+                .fileButton:hover{
+                    opacity: 0.8;
                 }
             
                 .file[type="file"]{
@@ -150,11 +156,22 @@
                     text-align: left;
                     font-size: 2rem;
                     margin-bottom: 8px;
+
+                    .annotation{
+                        font-size: 0.8rem;
+                        color: red;
+                    }
                 }
     
                 .exampleDescription{
                     text-align: left;
                     margin-bottom: 8px;
+
+                    .cursor{
+                        width: 24px;
+                        height: 24px;
+                        vertical-align: bottom;
+                    }
                 }
     
             }
