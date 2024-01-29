@@ -183,9 +183,7 @@ const MyPage = ({params}:{params:{id:string}}) => {
                     </div>
                     <form className={classes.form} action="" onSubmit={handleSubmit}>
                         <Button className={classes.fileButton} color="inherit" component="label" variant="contained" startIcon={<CloudUploadIcon />}>
-                            <label>
-                                <input className={classes.file} type="file" onChange={handleFileChange} ref={fileInputRef}/>世界戦闘力を投稿
-                            </label>
+                                <input className={classes.file} type="file" onChange={handleFileChange} ref={fileInputRef}/>投稿する画像を選ぶ
                         </Button>
                         <img src={url ? url : ""} alt="" accept=".png, .jpeg, .jpg" ref={cropperRef} className={classes.Url}/>
                         {url ? (<button className={classes.submit} type='submit'>送信</button>) : null}

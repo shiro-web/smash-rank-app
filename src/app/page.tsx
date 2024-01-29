@@ -37,7 +37,8 @@ export default function Home() {
       const rankDocRef = collection(db,"ranks");
       const q = query(rankDocRef,orderBy("power","desc"));
       const rankCount = await getCountFromServer(rankDocRef);
-      setCount(rankCount.data().count)
+      const newCount = rankCount.data().count;
+      setCount(newCount)
       const unsubscribe = onSnapshot(q,(snapshot) => {
         const newRank = snapshot.docs.map((doc) => doc.data() as Ranks)
         setDatas(newRank);
@@ -60,7 +61,7 @@ export default function Home() {
   
   return (
     <>
-    {user ? (<Link href={`/mypage/${user?.uid}`}>マイページへ</Link>) :  <GoogleLogin/>}
+    {user ? (<Link href={`/mypage/${user?.uid}`}>マイページへ</Link>) :  <TwitterLogin/>}
     
     <h1 className={classes.title}>世界戦闘力ランキング</h1>
     <p className={classes.count}>総ユーザー数:{count}</p>
