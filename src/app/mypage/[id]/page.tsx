@@ -6,11 +6,11 @@ import Cropper, { ReactCropperElement } from 'react-cropper';
 import 'cropperjs/dist/cropper.css';
 import classes from "./page.module.scss";
 import { serverTimestamp,FieldValue, doc, setDoc, collection, query, where, onSnapshot, Timestamp } from 'firebase/firestore';
-import { db } from '@/firebase';
+import { auth, db } from '@/firebase';
 import AppContext from '@/context/AppContext';
 import {Button} from "@mui/material";
 import CloudUploadIcon from '@mui/icons-material/Logout';
-
+import Link from 'next/link';
 
 type Data = {
     character:string;
@@ -30,7 +30,7 @@ type Ranks = {
     createdAt:Timestamp;
   }
 
-const MyPage = () => {
+const MyPage = ({params}:{params:string}) => {
     const {user} = useContext(AppContext);
     const [url,setUrl] = useState<string>();
     const [newUrl,setNewUrl] = useState<string>();
@@ -38,6 +38,7 @@ const MyPage = () => {
     const cropperRef = useRef<ReactCropperElement>();
     const [newPower,setNewPower] = useState<number>();
     const [datas,setDatas] = useState<Ranks[]>([]);
+    
 
     // useEffect(() => {
     //     console.log(user)
@@ -122,6 +123,7 @@ const MyPage = () => {
         }
     }
 
+
    
       
     
@@ -136,35 +138,46 @@ const MyPage = () => {
             guides={false}
             ref={cropperRef}
             />
+           
             <div className={classes.userArea}>
-                <div>
-                    <img className={classes.authImage} src={user?.photoURL} alt="" />
-                </div>
-                <p className={classes.authName}>{user?.displayName}</p>
-                <div>
-                    <div className={classes.powerWrapper}>
-                        <h3 className={classes.powerCaption}>世界戦闘力</h3>
-                        <p className={classes.power}>14000000</p>
+                <div className={classes.userAreaHead}>
+                    <p className={classes.authName}>ようこそ{user?.displayName}さん</p>
+                    <div>
+                        <img className={classes.authImage} src={user?.photoURL} alt="" />
                     </div>
-                    <div className={classes.rankWrapper}>
-                        <h3 className={classes.rankCaption}>ランキング</h3>
-                        <p className={classes.rank}><span className={classes.rankSpan}>1</span>位/100000</p>
+                </div>
+                <div className={classes.userAreaBody}>
+                    <div>
+                        <div className={classes.rankLink}>
+                            <Link href={"/"}>ランキング一覧へ</Link>
+                        </div>
+                        <div className={classes.powerWrapper}>
+                            <h3 className={classes.powerCaption}>世界戦闘力</h3>
+                            <p className={classes.power}>14000000</p>
+                        </div>
+                        <div className={classes.rankWrapper}>
+                            <h3 className={classes.rankCaption}>ランキング</h3>
+                            <p className={classes.rank}><span className={classes.rankSpan}>1</span>位/100000</p>
+                        </div>
+                    </div>
+                    <form className={classes.form} action="" onSubmit={handleSubmit}>
+                        <Button className={classes.fileButton} color="inherit" component="label" variant="contained" startIcon={<CloudUploadIcon />}>
+                            <label>
+                                <input className={classes.file} type="file" onChange={handleFileChange} ref={fileInputRef}/>世界戦闘力を投稿
+                            </label>
+                        </Button>
+                        <img src={url ? url : ""} alt="" accept=".png, .jpeg, .jpg" ref={cropperRef} className={classes.Url}/>
+                        {url ? (<button className={classes.submit} type='submit'>送信</button>) : null}
+                        
+                    </form>
+                    <img src={newUrl ? newUrl : ""} alt="" className={classes.newUrl}/>
+                    <div className={classes.example}>
+                        <h2 className={classes.exampleTitle}>見本</h2>
+                        <img className={classes.exampleImage} src="../OK.png" alt="" />
+                        <p className={classes.exampleDescription}>上の画像のように、Nintendo Switchのスクリーンショット機能を使った画像を使用します。<br />右下のエリアにカーソルを置かないでください。（読み取れない可能性があります。）</p>
                     </div>
                 </div>
             </div>
-            <form className={classes.form} action="" onSubmit={handleSubmit}>
-                <img src={url ? url : ""} alt="" accept=".png, .jpeg, .jpg" ref={cropperRef} className={classes.Url}/>
-                <Button className={classes.fileButton} color="inherit" component="label" variant="contained" startIcon={<CloudUploadIcon />}>
-                    <label>
-                        <input className={classes.file} type="file" onChange={handleFileChange} ref={fileInputRef}/>ファイルを選択
-                    </label>
-                </Button>
-                {url ? (<button className={classes.submit} type='submit'>送信</button>) : null}
-                
-            </form>
-            <img src={newUrl ? newUrl : ""} alt="" 
-            className={classes.newUrl}
-            />
         </div>
         )
     }

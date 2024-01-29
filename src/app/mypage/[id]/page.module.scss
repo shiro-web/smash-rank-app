@@ -1,0 +1,167 @@
+.container{
+    width: 640px;
+    margin: 0 auto;
+
+    .cropper{
+        position: absolute;
+        top: -10000px;
+        visibility: hidden;
+    }
+
+    .userArea{
+        text-align: center;
+        background-color: white;
+
+        .userAreaHead{
+            background-color: #d73737;
+            padding-top: 10px;
+            margin-bottom: 21px;
+
+            .authName{
+                color: white;
+                font-size: 0.8rem;
+                margin-bottom: 8px;
+            }
+        
+            .authImage{
+                border-radius: 100%;
+                margin-bottom: 12px;
+            }
+        }
+        
+
+        .userAreaBody{
+            padding: 0 40px 20px;
+
+            .rankLink{
+                width: 160px;
+                border-radius: 8px;
+                padding: 8px;
+                display: block;
+                margin-left: auto;
+            }
+
+            .rankLink:hover{
+                background-color: #333;
+                transition: 0.4s;
+                color: white;
+            }
+
+            .powerWrapper{
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-top: 12px;
+                margin-bottom: 12px;
+                border: 2px solid #d73737;
+
+        
+                .powerCaption{
+                    font-size: 1.2rem;
+                    font-weight: lighter;
+                    background-color: rgb(213, 44, 44);
+                    width: 30%;
+                    padding: 10px;
+                    color: white;
+                }
+        
+                .power{
+                    font-size: 1.2rem;
+                    font-weight:bold;
+                    background-color: white;
+                    width: 70%;
+                    padding: 10px;
+                    background-color: white;
+                }
+                
+            }
+        
+            .rankWrapper{
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border: 2px solid #d73737;
+        
+                .rankCaption{
+                    font-size: 1.2rem;
+                    font-weight: lighter;
+                    background-color: gray;
+                    width: 30%;
+                    padding: 10px;
+                    background-color: rgb(213, 44, 44);
+                    color: white;
+                }
+        
+                .rank{
+                    background-color: white;
+                    width: 70%;
+                    padding: 10px;
+                    background-color: white;
+        
+                    .rankSpan{
+                        font-size: 1.2rem;
+                        font-weight: bold;
+                    }
+                }
+                
+            }
+
+            .form{
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                margin-top: 12px;
+            
+                .Url{
+                    width: 640px;
+                }
+            
+                .fileButton{
+                    margin-top: 12px;
+                    margin-bottom: 12px;
+                }
+            
+                .file[type="file"]{
+                    display: none;
+                }
+            
+                .submit{
+                    font-size: 1.1rem;
+                    color: white;
+                    border-radius: 8px;
+                    padding: 6px 14px;
+                    background-color: #3772d7;
+                    margin-top: 12px;
+                    cursor: pointer;
+                }
+
+                .submit:hover{
+                    opacity: 0.8;
+                }
+            }        
+
+            .example{
+                border-top: 2px dotted #333;
+                .exampleTitle{
+                    text-align: left;
+                    font-size: 2rem;
+                    margin-bottom: 8px;
+                }
+    
+                .exampleDescription{
+                    text-align: left;
+                    margin-bottom: 8px;
+                }
+    
+                .newUrl{
+                    display: none;
+                }
+            }
+            
+        }
+    }
+}
+

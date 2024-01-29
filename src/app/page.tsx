@@ -6,6 +6,8 @@ import { Timestamp, collection, doc, onSnapshot, orderBy, query } from "firebase
 import { db } from "@/firebase";
 import dayjs from 'dayjs';
 import AppContext from "@/context/AppContext";
+import Link from 'next/link';
+import TwitterLogin from "@/conponents/TwitterLogin";
 
 type RankProps = {
   id:string;
@@ -46,6 +48,8 @@ export default function Home() {
   
   return (
     <>
+    {user ? (<Link href={`/mypage/${user?.uid}`}>マイページへ</Link>) : <TwitterLogin/>}
+    
     <h1 className={classes.title}>世界戦闘力ランキング</h1>
     {console.log(user)}
     <main className={classes.main}>
@@ -61,7 +65,7 @@ export default function Home() {
         {datas.map((data,index) => (
           <tbody key={index} className={classes.rankTableBody}>
             <tr className={classes.bodyRow}>
-              <td className={classes.bodyRank}>1</td>
+              <td className={classes.bodyRank}>{index + 1}</td>
               <td className={classes.bodyUserName}>
                 <div className={classes.userDisplay}>
                   <div className={classes.character}><img src={data.character}/></div>
