@@ -56,12 +56,12 @@ export default function Home() {
             return datas.indexOf(arr[i]);
         }
     }
-    return -1; //値が存在しなかったとき
+    return undefined; //値が存在しなかったとき
 }
   
   return (
     <>
-    {user ? (<Link href={`/mypage/${user?.uid}`}>マイページへ</Link>) :  <TwitterLogin/>}
+    {user ? (<Link href={`/mypage/${user?.uid}`}>マイページへ</Link>) :  <GoogleLogin/>}
     
     <h1 className={classes.title}>世界戦闘力ランキング</h1>
     <p className={classes.count}>総ユーザー数:{count}</p>

@@ -40,6 +40,7 @@ const MyPage = ({params}:{params:{id:string}}) => {
     const [count,setCount] = useState<number>();
     const [datas,setDatas] = useState<Ranks[]>([]);
     const [list,setList] = useState<Ranks[]>([]);
+    const [done,setDone] = useState<boolean>(false);
 
     useEffect(() => {
         const fetchRanks = async () => {
@@ -51,7 +52,7 @@ const MyPage = ({params}:{params:{id:string}}) => {
           setCount(rankCount.data().count)
         };
         fetchRanks()
-      },[])
+      },[done])
 
       useEffect(() => {
         const fetchRanks = async () => {
@@ -66,7 +67,7 @@ const MyPage = ({params}:{params:{id:string}}) => {
         };
         };
         fetchRanks()
-      },[])
+      },[done])
       
       
     
@@ -97,7 +98,7 @@ const MyPage = ({params}:{params:{id:string}}) => {
             if(power > 0 && power < 100000000 ){
                 await worker.terminate();
                 setNewPower(power)
-                return newPower;
+                return power;
             }else{
                 alert("例にならって画像を投稿してください")
                 return;
@@ -108,35 +109,47 @@ const MyPage = ({params}:{params:{id:string}}) => {
         }
     };
 
-    const onCrop = () => {
+    const onCrop = async() => {
         const cropper = cropperRef.current?.cropper;
         cropper?.setCropBoxData({left:599,top:308, width:30, height:30})
         const canvas = cropper?.getCroppedCanvas();
         const data = canvas?.toDataURL();
         setNewUrl(data);
-        return newUrl;
+        return data;
       };
 
-    const handleSubmit = async(e:React.FormEvent) => {
+      const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        convertImagetoText();
-        onCrop();
-        console.log(newUrl)
-        if(user && newPower && newUrl){
-            const docRef = doc(db,"ranks",user.uid);
-            const datas:Data = {
-                character:newUrl,
-                createdAt:serverTimestamp(),
-                id:user.uid,
-                name:user.displayName,
-                power:newPower,
-                userImage:user.photoURL,
+        setDone(false);
+    
+        try {
+            const power = await convertImagetoText();
+            const croppedUrl = await onCrop();
+    
+            console.log(power);
+            console.log(croppedUrl);
+    
+            if (user && power && croppedUrl) {
+                const docRef = doc(db, "ranks", user.uid);
+                const datas: Data = {
+                    character: croppedUrl,
+                    createdAt: serverTimestamp(),
+                    id: user.uid,
+                    name: user.displayName,
+                    power: power,
+                    userImage: user.photoURL,
+                };
+    
+                await setDoc(docRef, datas);
             }
-            console.log("mae")
-                await setDoc(docRef,datas)
-            
+        } catch (error) {
+            console.error("エラー:", error);
+        } finally {
+            setDone(true);
         }
-    }   
+    };
+    
+    
     function getIndex(value:number, arr:Data[]) {
         for(var i = 0; i < arr.length; i++) {
             if(arr[i].power === value) {
