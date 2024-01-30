@@ -3,6 +3,8 @@
 import { auth } from '@/firebase';
 import {TwitterAuthProvider, signInWithPopup} from 'firebase/auth';
 import React from 'react';
+import classes from "./HeaderTwitterLogin.module.scss";
+
 
 const TwitterLogin = () => {
     const twitterprovider = new TwitterAuthProvider();
@@ -10,12 +12,11 @@ const TwitterLogin = () => {
     const twitterLogin = () => {
         signInWithPopup(auth,twitterprovider).then((result) => {
             const user = result.user
-            console.log(user)
     })}
 
   return (
-    <div>
-        <button onClick={twitterLogin}>Twitterログイン</button>
+    <div className={classes.twitterLoginWrapper}>
+        <button onClick={twitterLogin} className={classes.twitterLogin}>Xログイン</button>
     </div>
   )
 }

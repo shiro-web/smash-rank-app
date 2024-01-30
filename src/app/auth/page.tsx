@@ -1,6 +1,6 @@
 "use client";
 
-import TwitterLogin from '@/conponents/TwitterLogin';
+import TwitterLogin from '@/conponents/HeaderTwitterLogin';
 import { auth } from '@/firebase';
 import { GoogleAuthProvider, TwitterAuthProvider, signInWithPopup } from 'firebase/auth';
 import React from 'react';

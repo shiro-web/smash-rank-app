@@ -77,7 +77,6 @@ const MyPage = ({params}:{params:{id:string}}) => {
             const selectedFile = fileInput.files[0];
             const imageUrl = URL.createObjectURL(selectedFile);
             setUrl(imageUrl);
-            console.log("ok")
         }else{
             console.log()
         }
@@ -104,7 +103,7 @@ const MyPage = ({params}:{params:{id:string}}) => {
                 return;
             }
         }catch(e){
-            console.log(e)
+            console.error(e)
             return;
         }
     };
@@ -125,9 +124,6 @@ const MyPage = ({params}:{params:{id:string}}) => {
         try {
             const power = await convertImagetoText();
             const croppedUrl = await onCrop();
-    
-            console.log(power);
-            console.log(croppedUrl);
     
             if (user && power && croppedUrl) {
                 const docRef = doc(db, "ranks", user.uid);
@@ -199,7 +195,7 @@ const MyPage = ({params}:{params:{id:string}}) => {
                                 <input className={classes.file} type="file" onChange={handleFileChange} ref={fileInputRef}/>投稿する画像を選ぶ
                         </Button>
                         <img src={url ? url : ""} alt="" accept=".png, .jpeg, .jpg" ref={cropperRef} className={classes.Url}/>
-                        {url ? (<button className={classes.submit} type='submit'>送信</button>) : null}
+                        {url ? (<button className={classes.submit} type='submit'>送信する</button>) : null}
                         
                     </form>
                     <img src={newUrl ? newUrl : ""} alt="" className={classes.newUrl}/>

@@ -6,9 +6,8 @@ import { Timestamp, collection, doc, getCountFromServer, onSnapshot, orderBy, qu
 import { db } from "@/firebase";
 import dayjs from 'dayjs';
 import AppContext from "@/context/AppContext";
-import Link from 'next/link';
-import TwitterLogin from "@/conponents/TwitterLogin";
-import GoogleLogin from "@/conponents/GoogleLogin";
+import ReactPaginate from 'react-paginate';
+
 
 type RankProps = {
   id:string;
@@ -31,6 +30,11 @@ export default function Home() {
   const {user} = useContext(AppContext);
   const [datas,setDatas] = useState<Ranks[]>([]);
   const [count,setCount] = useState<Ranks[]>([]);
+  const itemsPerPage = 50;
+  const[itemsOffSet,setItemsOffSet] = useState<number>(0);
+  const endOffset = itemsOffSet + itemsPerPage;
+  const currentItems = datas.slice(itemsOffSet,endOffset)
+  const pageCount = Math.ceil(datas.length / itemsPerPage)
 
   useEffect(() => {
     const fetchRanks = async () => {
@@ -58,14 +62,16 @@ export default function Home() {
     }
     return undefined; //値が存在しなかったとき
 }
-  
+
+const handlePageClick = (event: { selected: number; }) => {
+  const newOffset = (event.selected * itemsPerPage) % datas.length;
+  setItemsOffSet(newOffset);
+};
+
   return (
     <>
-    {user ? (<Link href={`/mypage/${user?.uid}`}>マイページへ</Link>) :  <GoogleLogin/>}
-    
     <h1 className={classes.title}>世界戦闘力ランキング</h1>
     <p className={classes.count}>総ユーザー数:{count}</p>
-    {console.log(user)}
     <main className={classes.main}>
       <table className={classes.rankTable}>
         <thead className={classes.rankTableHead}>
@@ -76,7 +82,7 @@ export default function Home() {
             <th className={classes.headDate}>日付</th>
           </tr>
         </thead>
-        {datas.map((data) => (
+        {currentItems.map((data) => (
           <tbody key={data.id} className={classes.rankTableBody}>
             <tr className={classes.bodyRow}>
               <td className={classes.bodyRank}>{getIndex(data.power, datas) + 1}</td>
@@ -92,6 +98,25 @@ export default function Home() {
           </tbody>
         ))}
       </table>
+        <ReactPaginate 
+        className={classes.pagenate}
+        nextLabel="次 >"
+        onPageChange={handlePageClick}
+        pageRangeDisplayed={3}
+        marginPagesDisplayed={2}
+        pageCount={pageCount}
+        previousLabel="< 前"
+        pageClassName="page-item"
+        pageLinkClassName="page-link"
+        previousClassName="page-item"
+        previousLinkClassName="page-link"
+        nextClassName="page-item"
+        nextLinkClassName="page-link"
+        breakLabel="..."
+        breakClassName="page-item"
+        breakLinkClassName="page-link"
+        containerClassName="pagination"
+        activeClassName="active"/>
     </main>
     </>
   );

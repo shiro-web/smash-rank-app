@@ -1,0 +1,14 @@
+.twitterLoginWrapper{
+    text-align: center;
+    
+    .twitterLogin{
+        background-color: #0f1419;
+        color: white;
+        border-radius: 5px;
+        padding: 3px 6px;   
+    }
+
+    .twitterLogin:hover{
+        opacity: 0.8;
+    }
+}
