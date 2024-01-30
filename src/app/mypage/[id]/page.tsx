@@ -43,13 +43,14 @@ const MyPage = ({params}:{params:{id:string}}) => {
     const [done,setDone] = useState<boolean>(false);
 
     useEffect(() => {
+        console.log(datas)
         const fetchRanks = async () => {
           const rankDocRef = doc(db,"ranks",params.id);
           const rankCollectionRef = collection(db,"ranks");
           const rankData = await getDoc(rankDocRef);
-          setDatas(rankData.data() as Ranks[])
+          setDatas([rankData.data() as Ranks]);
           const rankCount = await getCountFromServer(rankCollectionRef);
-          setCount(rankCount.data().count)
+          setCount(rankCount.data().count);
         };
         fetchRanks()
       },[done])
@@ -145,7 +146,8 @@ const MyPage = ({params}:{params:{id:string}}) => {
         }
     };
     
-    
+    const index = datas.length > 0 ? getIndex(datas[0].power, list) + 1 : -1;
+
     function getIndex(value:number, arr:Data[]) {
         for(var i = 0; i < arr.length; i++) {
             if(arr[i].power === value) {
@@ -155,8 +157,7 @@ const MyPage = ({params}:{params:{id:string}}) => {
         return -1; //値が存在しなかったとき
     }
 
-    var index = getIndex(datas.power, list) + 1;
-        
+
     return (
         <div className={classes.container}>
             <Cropper
@@ -183,7 +184,7 @@ const MyPage = ({params}:{params:{id:string}}) => {
                         </div>
                         <div className={classes.powerWrapper}>
                             <h3 className={classes.powerCaption}>世界戦闘力</h3>
-                            <p className={classes.power}>{datas.power}</p>
+                            <p className={classes.power}>{datas.length > 0 ? datas[0].power.toLocaleString() : "N/A"}</p>
                         </div>
                         <div className={classes.rankWrapper}>
                             <h3 className={classes.rankCaption}>ランキング</h3>
