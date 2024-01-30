@@ -89,10 +89,10 @@ const handlePageClick = (event: { selected: number; }) => {
               <td className={classes.bodyUserName}>
                 <div className={classes.userDisplay}>
                   <div className={classes.character}><img src={data.character}/></div>
-                  <div className={classes.userName}>{data.name}</div>
+                  <div className={classes.userName}>{data.name}<span className={classes.balloon}>{data.name}</span></div>
                 </div>  
               </td >
-              <td className={classes.bodyPower}>{data.power}</td>
+              <td className={classes.bodyPower}>{data.power.toLocaleString()}</td>
               <td className={classes.bodyDate}>{dayjs(data.createdAt.toDate()).format('YYYY/MM/DD')}</td>
             </tr>         
           </tbody>

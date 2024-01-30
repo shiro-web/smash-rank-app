@@ -25,7 +25,7 @@
   
     .rankTableHead{
       background-color: #d73737;
-      // background-image: linear-gradient(90deg, rgba(248, 15, 15, 1), rgba(207, 63, 245, 1));
+      background-image: linear-gradient(90deg, rgba(248, 15, 15, 1), rgba(207, 63, 245, 1));
         
       .headRank, .headUserName,  .headPower, .headDate{
         padding: 6px 0;
@@ -61,13 +61,41 @@
         font-size: 18px;
         padding: 10px 0;
         vertical-align: middle;
-      }
+
+        .userName{
+            width: 115px; /* 省略せずに表示するサイズを指定 */
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            padding: 0 4px;
+            text-align: left;
+            position: relative;
+
+            .balloon{
+                position: absolute;
+                top: 0px;
+                left: 0px;
+                display: none;
+                padding: 2px 5px;
+                color: white;
+                background-color: white;
+                color: #333;
+                font-size: 0.7rem;
+                z-index: 1000;
+                border-radius: 5px;
+                border: 1px solid #d5d5d5;
+              }
+              
+              &:hover .balloon {
+                cursor: pointer;
+                display: block;
+              }
+          }
+        }
+
 
       .bodyRank{
         font-size: 1.2rem;
-      }
-
-      .bodyRank{
         background-color: #363636;
         font-family:"Impact","Noto Sans CJK JP","ヒラギノ角ゴ Pro W3","Hiragino Kaku Gothic Pro",ui-monospace, "Menlo", "Monaco", 'Cascadia Mono', 'Segoe UI Mono',
         'Roboto Mono', 'Oxygen Mono', 'Ubuntu Monospace', 'Source Code Pro',
@@ -92,4 +120,111 @@
     display: flex;
     justify-content: center;  
   }
+}
+
+@media screen and (max-width:650px) {
+  .main{
+    margin: 8px 0;
+    width: 90%;
+    margin:0 auto;
+    
+    .rankTable{
+    
+      .rankTableBody{
+    
+        .bodyRank, .bodyUserName, .bodyPower, .bodyDate{
+          font-size: 1rem;
+
+          .userName{
+            width: 100px; /* 省略せずに表示するサイズを指定 */
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            padding: 0 4px;
+            text-align: left;
+            position: relative;
+  
+              .balloon{
+                  height: 20px;
+                  line-height: 18px;
+                  position: absolute;
+                  top: 0px;
+                  left: 0px;
+                  display: none;
+                  padding: 0 2px;
+                }
+               
+          }
+        }
+  
+        .bodyRank{
+          font-size: 1rem;
+        }
+  
+        .bodyDate{
+          font-size: 0.9rem;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width:480px) {
+  .title{
+    font-size: 1.6rem;
+  }
+
+  .count{
+    font-size: 0.8rem;
+    margin-bottom: 8px;
+  }
+
+  .main{
+    width: 96%;
+
+    .rankTable{
+    
+      .rankTableHead{
+          
+        .headRank, .headUserName,  .headPower, .headDate{
+          font-size: 0.9rem;
+          padding: 4px 0;
+        }
+      }
+    
+      .rankTableBody{
+    
+        .bodyRow{
+          background-color: #333;
+
+          .bodyRank, .bodyUserName, .bodyPower, .bodyDate{
+            font-size: 0.8rem;
+            padding: 8px 0;
+
+            .userName{
+              width: 80px; /* 省略せずに表示するサイズを指定 */
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              padding: 0 4px;
+              text-align: left;
+          }
+          }
+
+          .bodyDate{
+            font-size: 0.7rem;
+          }
+
+          .userDisplay{
+            gap: 12px;
+  
+            .character{
+              width: 36px;
+              height: 36px;
+            }
+          }
+        }
+      }
+    }
+  }  
 }

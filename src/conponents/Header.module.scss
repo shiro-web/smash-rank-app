@@ -46,3 +46,23 @@
         transition: 0.3s;
       }
   }
+
+  @media screen and (max-width:650px) {
+    .header{
+        width: 100%;
+        margin: 0 auto;
+        display: flex;
+        justify-content: end;
+        position: relative;
+        line-height: 60px;
+
+        .headerInner{
+            width: 100%;
+            margin: 0 20px;
+            display: flex;
+            justify-content: end;
+            position: relative;
+            line-height: 60px;
+        }
+    }
+}
