@@ -4,32 +4,17 @@ import classes from "./page.module.scss";
 import { useContext, useEffect, useState } from "react";
 import { Timestamp, collection, doc, getCountFromServer, onSnapshot, orderBy, query } from "firebase/firestore";
 import { db } from "@/firebase";
-import dayjs from 'dayjs';
 import AppContext from "@/context/AppContext";
-import ReactPaginate from 'react-paginate';
+import RankBody from "@/components/RankBody";
+import Pagenation from "@/components/Pagenation";
+import { Data } from '@/types';
 
 
-type RankProps = {
-  id:string;
-  rank:number;
-  name:string;
-  power:number;
-  createdAt:Timestamp;
-}
-
-type Ranks = {
-  id:string;
-  name:string;
-  power:number;
-  userImage:string;
-  character:string;
-  createdAt:Timestamp;
-}
 
 export default function Home() {
   const {user} = useContext(AppContext);
-  const [datas,setDatas] = useState<Ranks[]>([]);
-  const [count,setCount] = useState<Ranks[]>([]);
+  const [datas,setDatas] = useState<Data[]>([]);
+  const [count,setCount] = useState<Data[]>([]);
   const itemsPerPage = 50;
   const[itemsOffSet,setItemsOffSet] = useState<number>(0);
   const endOffset = itemsOffSet + itemsPerPage;
@@ -44,7 +29,7 @@ export default function Home() {
       const newCount = rankCount.data().count;
       setCount(newCount)
       const unsubscribe = onSnapshot(q,(snapshot) => {
-        const newRank = snapshot.docs.map((doc) => doc.data() as Ranks)
+        const newRank = snapshot.docs.map((doc) => doc.data() as Data)
         setDatas(newRank);
       });
       return() => {
@@ -82,41 +67,9 @@ const handlePageClick = (event: { selected: number; }) => {
             <th className={classes.headDate}>日付</th>
           </tr>
         </thead>
-        {currentItems.map((data) => (
-          <tbody key={data.id} className={classes.rankTableBody}>
-            <tr className={classes.bodyRow}>
-              <td className={classes.bodyRank}>{getIndex(data.power, datas) + 1}</td>
-              <td className={classes.bodyUserName}>
-                <div className={classes.userDisplay}>
-                  <div className={classes.character}><img src={data.character}/></div>
-                  <div className={classes.userName}>{data.name}<span className={classes.balloon}>{data.name}</span></div>
-                </div>  
-              </td >
-              <td className={classes.bodyPower}>{data.power.toLocaleString()}</td>
-              <td className={classes.bodyDate}>{dayjs(data.createdAt.toDate()).format('YYYY/MM/DD')}</td>
-            </tr>         
-          </tbody>
-        ))}
+       <RankBody currentItems={currentItems} getIndex={getIndex} datas={datas}/>
       </table>
-        <ReactPaginate 
-        className={classes.pagenate}
-        nextLabel="次 >"
-        onPageChange={handlePageClick}
-        pageRangeDisplayed={3}
-        marginPagesDisplayed={2}
-        pageCount={pageCount}
-        previousLabel="< 前"
-        pageClassName="page-item"
-        pageLinkClassName="page-link"
-        previousClassName="page-item"
-        previousLinkClassName="page-link"
-        nextClassName="page-item"
-        nextLinkClassName="page-link"
-        breakLabel="..."
-        breakClassName="page-item"
-        breakLinkClassName="page-link"
-        containerClassName="pagination"
-        activeClassName="active"/>
+        <Pagenation handlePageClick={handlePageClick} pageCount={pageCount}/>
     </main>
     </>
   );

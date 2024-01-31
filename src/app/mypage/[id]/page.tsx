@@ -21,65 +21,51 @@ type Data = {
     userImage:string;
 }
 
-type Ranks = {
-    id:string;
-    name:string;
-    power:number;
-    userImage:string;
-    character:string;
-    createdAt:Timestamp;
-  }
-
 const MyPage = ({params}:{params:{id:string}}) => {
     const {user} = useContext(AppContext);
     const [url,setUrl] = useState<string>();
     const [newUrl,setNewUrl] = useState<string>();
-    const fileInputRef = useRef<HTMLInputElement>();
-    const cropperRef = useRef<ReactCropperElement>();
+    const fileInputRef = useRef<HTMLInputElement | null>(null);
+    const cropperRef = useRef<ReactCropperElement>(null);
     const [newPower,setNewPower] = useState<number>();
     const [count,setCount] = useState<number>();
-    const [datas,setDatas] = useState<Ranks[]>([]);
-    const [list,setList] = useState<Ranks[]>([]);
+    const [datas,setDatas] = useState<Data[]>([]);
+    const [list,setList] = useState<Data[]>([]);
     const [done,setDone] = useState<boolean>(false);
 
     useEffect(() => {
         console.log(datas)
         const fetchRanks = async () => {
           const rankDocRef = doc(db,"ranks",params.id);
-          const rankCollectionRef = collection(db,"ranks");
           const rankData = await getDoc(rankDocRef);
-          setDatas([rankData.data() as Ranks]);
-          const rankCount = await getCountFromServer(rankCollectionRef);
-          setCount(rankCount.data().count);
+          setDatas([rankData.data() as Data]);
         };
         fetchRanks()
       },[done])
 
       useEffect(() => {
-        const fetchRanks = async () => {
-          const rankDocRef = collection(db,"ranks");
-          const q = query(rankDocRef,orderBy("power","desc"));
+          const fetchRanks = async () => {
+          const rankCollectionRef = collection(db,"ranks");
+          const q = query(rankCollectionRef,orderBy("power","desc"));
+          const rankCount = await getCountFromServer(rankCollectionRef);
+          setCount(rankCount.data().count);
           const unsubscribe = onSnapshot(q,(snapshot) => {
-            const newRank = snapshot.docs.map((doc) => doc.data() as Ranks)
+            const newRank = snapshot.docs.map((doc) => doc.data() as Data)
             setList(newRank);
           });
           return() => {
             unsubscribe();
-        };
+          };
         };
         fetchRanks()
       },[done])
       
-      
-    
     const handleFileChange = () => {
         const fileInput = fileInputRef.current;
         if (fileInput && fileInput.files && fileInput.files.length > 0) {
             const selectedFile = fileInput.files[0];
             const imageUrl = URL.createObjectURL(selectedFile);
             setUrl(imageUrl);
-        }else{
-            console.log()
         }
     }
     
@@ -87,13 +73,8 @@ const MyPage = ({params}:{params:{id:string}}) => {
         const worker = await Tesseract.createWorker('eng');
         const rectangle = { left: 1000, top: 545, width: 200, height: 80 };
         const { data: { text } } = await worker.recognize(url!,{rectangle});
-
-        function removeComma(text:string) {
-            const removed = text.replace(/,/g, '');
-            return parseInt(removed, 10);
-        }
         
-        const power = removeComma(text);
+        const power = parseInt(text.replace(/,/g, ''), 10);
         try{
             if(power > 0 && power < 100000000 ){
                 await worker.terminate();
@@ -126,7 +107,7 @@ const MyPage = ({params}:{params:{id:string}}) => {
             const power = await convertImagetoText();
             const croppedUrl = await onCrop();
     
-            if (user && power && croppedUrl) {
+            if (user && power && croppedUrl && user.displayName && user.photoURL) {
                 const docRef = doc(db, "ranks", user.uid);
                 const datas: Data = {
                     character: croppedUrl,
@@ -146,9 +127,7 @@ const MyPage = ({params}:{params:{id:string}}) => {
         }
     };
     
-    const index = datas.length > 0 ? getIndex(datas[0].power, list) + 1 : -1;
-
-    function getIndex(value:number, arr:Data[]) {
+    const  getIndex = (value:number, arr:Data[]) => {
         for(var i = 0; i < arr.length; i++) {
             if(arr[i].power === value) {
                 return list.indexOf(arr[i]);
@@ -156,7 +135,8 @@ const MyPage = ({params}:{params:{id:string}}) => {
         }
         return -1; //値が存在しなかったとき
     }
-
+    
+    const index = datas.length > 0 ? getIndex(datas[0].power, list) + 1 : -1;
 
     return (
         <div className={classes.container}>
@@ -165,16 +145,14 @@ const MyPage = ({params}:{params:{id:string}}) => {
             src={url ? url : ""}
             style={{ height: 400, width: 900 }}
             // Cropper.js options
-            initialAspectRatio={1/ 1}
-            guides={false}
             ref={cropperRef}
             />
            
             <div className={classes.userArea}>
                 <div className={classes.userAreaHead}>
-                    <p className={classes.authName}>ようこそ{user?.displayName}さん</p>
+                    <p className={classes.authName}>ようこそ{user ? user.displayName : null}さん</p>
                     <div>
-                        <img className={classes.authImage} src={user?.photoURL} alt="" />
+                        <img className={classes.authImage} src={user?.photoURL || ""} alt="" />
                     </div>
                 </div>
                 <div className={classes.userAreaBody}>
@@ -193,9 +171,9 @@ const MyPage = ({params}:{params:{id:string}}) => {
                     </div>
                     <form className={classes.form} action="" onSubmit={handleSubmit}>
                         <Button className={classes.fileButton} color="inherit" component="label" variant="contained" startIcon={<CloudUploadIcon />}>
-                                <input className={classes.file} type="file" onChange={handleFileChange} ref={fileInputRef}/>投稿する画像を選ぶ
+                                <input className={classes.file} type="file" onChange={handleFileChange} ref={fileInputRef} accept=".png, .jpeg, .jpg"/>投稿する画像を選ぶ
                         </Button>
-                        <img src={url ? url : ""} alt="" accept=".png, .jpeg, .jpg" ref={cropperRef} className={classes.Url}/>
+                        <img src={url ? url : ""} alt="" ref={cropperRef} className={classes.Url}/>
                         {url ? (<button className={classes.submit} type='submit'>送信する</button>) : null}
                         
                     </form>

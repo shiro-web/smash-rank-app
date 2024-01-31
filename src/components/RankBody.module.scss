@@ -1,0 +1,154 @@
+      .rankTableBody{
+        color: white;
+        border-bottom:3px solid #2F2F2F;
+    
+        .bodyRow{
+          background-color: #333;
+          .userDisplay{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+  
+            .character{
+              width: 44px;
+              height: 44px;
+              
+              img{
+                border-radius: 8px;
+                width: 100%;
+              }
+            }
+          }
+        }
+    
+        .bodyRank, .bodyUserName, .bodyPower, .bodyDate{
+          font-size: 18px;
+          padding: 10px 0;
+          vertical-align: middle;
+  
+          .userName{
+              width: 115px; /* 省略せずに表示するサイズを指定 */
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              padding: 0 4px;
+              text-align: left;
+              position: relative;
+  
+              .balloon{
+                  position: absolute;
+                  top: 0px;
+                  left: 0px;
+                  display: none;
+                  padding: 2px 5px;
+                  color: white;
+                  background-color: white;
+                  color: #333;
+                  font-size: 0.7rem;
+                  z-index: 1000;
+                  border-radius: 5px;
+                  border: 1px solid #d5d5d5;
+                }
+                
+                &:hover .balloon {
+                  cursor: pointer;
+                  display: block;
+                }
+            }
+          }
+  
+  
+        .bodyRank{
+          font-size: 1.2rem;
+          background-color: #363636;
+          font-family:"Impact","Noto Sans CJK JP","ヒラギノ角ゴ Pro W3","Hiragino Kaku Gothic Pro",ui-monospace, "Menlo", "Monaco", 'Cascadia Mono', 'Segoe UI Mono',
+          'Roboto Mono', 'Oxygen Mono', 'Ubuntu Monospace', 'Source Code Pro',
+          'Fira Mono', 'Droid Sans Mono', 'Courier New', monospace ;
+        }
+  
+        .bodyPower{
+          background-color: #363636;
+        }
+  
+        .bodyDate{
+          font-weight: lighter;
+          font-size: 1rem;
+          background-color: #393939;
+        }
+      }
+    
+  
+  @media screen and (max-width:650px) {
+        .rankTableBody{
+      
+          .bodyRank, .bodyUserName, .bodyPower, .bodyDate{
+            font-size: 1rem;
+  
+            .userName{
+              width: 100px; /* 省略せずに表示するサイズを指定 */
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              padding: 0 4px;
+              text-align: left;
+              position: relative;
+    
+                .balloon{
+                    height: 20px;
+                    line-height: 18px;
+                    position: absolute;
+                    top: 0px;
+                    left: 0px;
+                    display: none;
+                    padding: 0 2px;
+                  }
+                 
+            }
+          }
+    
+          .bodyRank{
+            font-size: 1rem;
+          }
+    
+          .bodyDate{
+            font-size: 0.9rem;
+          }
+        }
+      }
+  
+  @media screen and (max-width:480px) {
+        .rankTableBody{
+      
+          .bodyRow{
+            background-color: #333;
+  
+            .bodyRank, .bodyUserName, .bodyPower, .bodyDate{
+              font-size: 0.8rem;
+              padding: 8px 0;
+  
+              .userName{
+                width: 80px; /* 省略せずに表示するサイズを指定 */
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                padding: 0 4px;
+                text-align: left;
+            }
+            }
+  
+            .bodyDate{
+              font-size: 0.7rem;
+            }
+  
+            .userDisplay{
+              gap: 12px;
+    
+              .character{
+                width: 36px;
+                height: 36px;
+              }
+            }
+          }
+        }
+      }

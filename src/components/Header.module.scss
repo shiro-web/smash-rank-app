@@ -18,8 +18,8 @@
     outline: none;
     border-radius: 7px;
     position: absolute;
-    right:calc(50% - 360px);
-    top: 80px;
+    right:calc(50% - 330px);
+    top: 90px;
     transform: translateY(-50%);
     width: 120px;
     margin: 0 auto;
@@ -58,11 +58,26 @@
 
         .headerInner{
             width: 100%;
-            margin: 0 20px;
+            margin: 0 50px;
             display: flex;
             justify-content: end;
             position: relative;
             line-height: 60px;
         }
+    }
+
+    .modal{
+        outline: none;
+        border-radius: 7px;
+        position: absolute;
+        right:20px;
+        top: 90px;
+        transform: translateY(-50%);
+        width: 120px;
+        margin: 0 auto;
+        background-color: white;
+        padding: 1rem;
+        border: 1px solid #d5d5d5;
+        z-index: 100000;
     }
 }

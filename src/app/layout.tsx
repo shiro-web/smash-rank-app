@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import "the-new-css-reset/css/reset.css";
 import { AppProvider } from "@/context/AppContext";
-import Header from "@/conponents/Header";
+import Header from "@/components/Header";
 
 export const metadata: Metadata = {
   title: "Create Next App",
