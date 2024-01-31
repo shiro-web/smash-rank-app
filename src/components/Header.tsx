@@ -7,7 +7,7 @@ import { auth } from '@/firebase';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Modal from 'react-modal';
 import AppContext from '@/context/AppContext';
-import TwitterLogin from './HeaderTwitterLogin';
+import HeaderTwitterLogin from './HeaderTwitterLogin';
 
 
 const Header = () => {
@@ -33,7 +33,7 @@ const Header = () => {
         <Modal style={modalStyle} className={classes.modal} isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)} >
           <div className={classes.headerLinks}>
             <Link className={classes.mypage} href={`/mypage/${user?.uid}`} onClick={() => {setModalIsOpen(false)}}>{user && "マイページ"}</Link>
-            <div className={classes.auth} onClick={() => {setModalIsOpen(false)}}>{user ? ( <Link href={"/"} onClick={() => {auth.signOut()}} className={classes.logOut}>ログアウト</Link>) : (<TwitterLogin/>)}</div>
+            <div className={classes.auth} onClick={() => {setModalIsOpen(false)}}>{user ? ( <Link href={"/"} onClick={() => {auth.signOut()}} className={classes.logOut}>ログアウト</Link>) : (<HeaderTwitterLogin/>)}</div>
           </div>
         </Modal>
       </div>
