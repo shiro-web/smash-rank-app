@@ -4,14 +4,19 @@ import { auth } from '@/firebase';
 import {TwitterAuthProvider, signInWithPopup} from 'firebase/auth';
 import React from 'react';
 import classes from "./HeaderTwitterLogin.module.scss";
+import { useRouter } from 'next/navigation';
 
 
-const TwitterLogin = () => {
+const HeaderTwitterLogin = () => {
+    const router = useRouter();
     const twitterprovider = new TwitterAuthProvider();
 
     const twitterLogin = () => {
         signInWithPopup(auth,twitterprovider).then((result) => {
             const user = result.user
+            if(user){
+              router.push(`/mypage/${user.uid}`)
+            }
     })}
 
   return (
@@ -21,4 +26,4 @@ const TwitterLogin = () => {
   )
 }
 
-export default TwitterLogin
+export default HeaderTwitterLogin
