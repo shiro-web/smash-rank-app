@@ -3,6 +3,7 @@
 import { auth } from '@/firebase';
 import { User, onAuthStateChanged } from 'firebase/auth';
 import React, { ReactNode, useState ,createContext, useEffect} from 'react';
+import toast, { Toaster } from 'react-hot-toast'
 
 type Data = {
     user:User | null;
@@ -21,7 +22,8 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (newUser) => {
-            setUser(newUser)
+            setUser(newUser);
+
         });
         return () => {
             unsubscribe();
