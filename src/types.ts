@@ -1,8 +1,8 @@
-import { FieldValue, Timestamp } from "firebase/firestore";
+import {  Timestamp } from "firebase/firestore";
 
 export type Data = {
     character:string;
-    createdAt:FieldValue;
+    createdAt:Timestamp;
     id:string;
     name:string;
     power:number;

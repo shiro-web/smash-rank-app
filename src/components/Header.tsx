@@ -13,7 +13,7 @@ import TwitterLogin from './HeaderTwitterLogin';
 const Header = () => {
   const {user} = useContext(AppContext);
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const modalStyle = {
+  const modalStyle:ReactModal.Styles = {
     overlay: {
       zIndex:"100000",
       position: "fixed",

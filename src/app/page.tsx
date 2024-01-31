@@ -14,7 +14,7 @@ import { Data } from '@/types';
 export default function Home() {
   const {user} = useContext(AppContext);
   const [datas,setDatas] = useState<Data[]>([]);
-  const [count,setCount] = useState<Data[]>([]);
+  const [count,setCount] = useState<number>();
   const itemsPerPage = 50;
   const[itemsOffSet,setItemsOffSet] = useState<number>(0);
   const endOffset = itemsOffSet + itemsPerPage;
@@ -27,7 +27,7 @@ export default function Home() {
       const q = query(rankDocRef,orderBy("power","desc"));
       const rankCount = await getCountFromServer(rankDocRef);
       const newCount = rankCount.data().count;
-      setCount(newCount)
+      setCount(newCount);
       const unsubscribe = onSnapshot(q,(snapshot) => {
         const newRank = snapshot.docs.map((doc) => doc.data() as Data)
         setDatas(newRank);
@@ -39,13 +39,13 @@ export default function Home() {
     fetchRanks()
   },[])
 
-  function getIndex(value:number, arr:Data[]) {
+  function getIndex(value:number, arr:Data[]) : number{
     for(var i = 0; i < arr.length; i++) {
         if(arr[i].power === value) {
             return datas.indexOf(arr[i]);
         }
     }
-    return undefined; //値が存在しなかったとき
+    return -1; //値が存在しなかったとき
 }
 
 const handlePageClick = (event: { selected: number; }) => {
