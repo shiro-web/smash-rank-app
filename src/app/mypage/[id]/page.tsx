@@ -11,6 +11,10 @@ import AppContext from '@/context/AppContext';
 import {Button} from "@mui/material";
 import CloudUploadIcon from '@mui/icons-material/Logout';
 import Link from 'next/link';
+import toast, { Toaster } from 'react-hot-toast'
+import { settings } from 'firebase/analytics';
+import { useRouter } from 'next/navigation';
+
 
 type Data = {
     character:string;
@@ -22,6 +26,7 @@ type Data = {
 }
 
 const MyPage = ({params}:{params:{id:string}}) => {
+    const router = useRouter();
     const {user} = useContext(AppContext);
     const [url,setUrl] = useState<string>();
     const [newUrl,setNewUrl] = useState<string>();
@@ -34,7 +39,9 @@ const MyPage = ({params}:{params:{id:string}}) => {
     const [done,setDone] = useState<boolean>(false);
 
     useEffect(() => {
-        console.log(datas)
+        if(!user){
+            router.push("/");
+        }
         const fetchRanks = async () => {
           const rankDocRef = doc(db,"ranks",params.id);
           const rankData = await getDoc(rankDocRef);
@@ -76,12 +83,12 @@ const MyPage = ({params}:{params:{id:string}}) => {
         
         const power = parseInt(text.replace(/,/g, ''), 10);
         try{
-            if(power > 0 && power < 100000000 ){
+            if(power > 10000 && power < 100000000 ){
                 await worker.terminate();
                 setNewPower(power)
                 return power;
             }else{
-                alert("例にならって画像を投稿してください")
+                toast.error("例にならって画像を投稿してください")
                 return;
             }
         }catch(e){
@@ -117,8 +124,9 @@ const MyPage = ({params}:{params:{id:string}}) => {
                     power: power,
                     userImage: user.photoURL,
                 };
-    
+                toast.loading("投稿中です。",{id:"1"})
                 await setDoc(docRef, datas);
+                toast.success("投稿に成功しました",{id:"1"})
             }
         } catch (error) {
             console.error("エラー:", error);
@@ -140,6 +148,7 @@ const MyPage = ({params}:{params:{id:string}}) => {
 
     return (
         <div className={classes.container}>
+            <Toaster />
             <Cropper
             className={classes.cropper}
             src={url ? url : ""}
