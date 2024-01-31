@@ -8,6 +8,8 @@ import AppContext from "@/context/AppContext";
 import RankBody from "@/components/RankBody";
 import Pagenation from "@/components/Pagenation";
 import { Data } from '@/types';
+import Link from "next/link";
+import TwitterLogin from "@/components/TwitterLogin";
 
 
 
@@ -55,6 +57,10 @@ const handlePageClick = (event: { selected: number; }) => {
 
   return (
     <>
+    <div className={classes.authWrapper}>
+      {user ? (<Link href={`/mypage/${user?.uid}`} className={classes.auth}>マイページ</Link>) : (<TwitterLogin/>)}
+    </div>
+    {user ? null : (<p className={classes.description}>Xでログインすると、世界戦闘力を登録することができます。</p>)}
     <h1 className={classes.title}>世界戦闘力ランキング</h1>
     <p className={classes.count}>総ユーザー数:{count}</p>
     <main className={classes.main}>
