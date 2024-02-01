@@ -15,7 +15,7 @@ const TwitterLogin = () => {
         signInWithPopup(auth,twitterprovider).then((result) => {
             const user = result.user
             if(user){
-              router.push(`/mypage/${user.uid}`)
+              router.push(`/https://smash-rank-app.vercel.app/mypage/${user.uid}`)
             }
     })}
 
