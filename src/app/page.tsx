@@ -58,7 +58,7 @@ const handlePageClick = (event: { selected: number; }) => {
   return (
     <div className={classes.container}>
       <div className={classes.authWrapper}>
-        {user ? (<Link href={`/https://smash-rank-app.vercel.app/mypage/${user?.uid}`} className={classes.auth}>マイページ</Link>) : (<TwitterLogin/>)}
+        {user ? (<Link href={`/mypage/${user?.uid}`} className={classes.auth}>マイページ</Link>) : (<TwitterLogin/>)}
       </div>
       {user ? null : (<p className={classes.description}>Xでログインすると、世界戦闘力を登録することができます。</p>)}
       <h1 className={classes.title}>世界戦闘力ランキング</h1>
