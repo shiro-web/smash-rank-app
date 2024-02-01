@@ -161,7 +161,7 @@ const MyPage = ({params}:{params:{id:string}}) => {
                 <div className={classes.userAreaHead}>
                     <p className={classes.authName}>ようこそ{user ? user.displayName : null}さん</p>
                     <div>
-                        <img className={classes.authImage} src={user?.photoURL || ""} alt="" />
+                        <Image className={classes.authImage} src={user?.photoURL || ""} alt="" width={48} height={48}/>
                     </div>
                 </div>
                 <div className={classes.userAreaBody}>
@@ -186,11 +186,11 @@ const MyPage = ({params}:{params:{id:string}}) => {
                         {url ? (<button className={classes.submit} type='submit'>送信する</button>) : null}
                         
                     </form>
-                    <img src={newUrl ? newUrl : ""} alt="" className={classes.newUrl}/>
+                    <Image src={newUrl ? newUrl : ""} alt="" className={classes.newUrl} width={50} height={50}/>
                     <div className={classes.example}>
                         <h2 className={classes.exampleTitle}>見本<span className={classes.annotation}>（※初めての方は必ずご覧ください）</span> </h2>
                         <Image className={classes.exampleImage} src="/OK.png" alt="OK例" width={675} height={380} layout='responsive'/>
-                        <p className={classes.exampleDescription}>上の画像のように、Nintendo Switchのスクリーンショット機能を使った画像を使用します。<br />右下のエリアに<img className={classes.cursor} src="../cursor.png" alt="" /> を置かないでください。（読み取れない可能性があります。）</p>
+                        <p className={classes.exampleDescription}>上の画像のように、Nintendo Switchのスクリーンショット機能を使った画像を使用します。<br />右下のエリアに<Image className={classes.cursor} src="/cursor.png" alt="" width={24} height={24}/> を置かないでください。（読み取れない可能性があります。）</p>
                     </div>
                 </div>
             </div>
