@@ -14,7 +14,7 @@ import Link from 'next/link';
 import toast, { Toaster } from 'react-hot-toast'
 import { settings } from 'firebase/analytics';
 import { useRouter } from 'next/navigation';
-
+import Image from 'next/image';
 
 type Data = {
     character:string;
@@ -48,7 +48,7 @@ const MyPage = ({params}:{params:{id:string}}) => {
           setDatas([rankData.data() as Data]);
         };
         fetchRanks()
-      },[done])
+      },[done,params.id, router, user])
 
       useEffect(() => {
           const fetchRanks = async () => {
@@ -65,7 +65,7 @@ const MyPage = ({params}:{params:{id:string}}) => {
           };
         };
         fetchRanks()
-      },[done])
+      },[done,params.id, router, user])
       
     const handleFileChange = () => {
         const fileInput = fileInputRef.current;
@@ -189,7 +189,7 @@ const MyPage = ({params}:{params:{id:string}}) => {
                     <img src={newUrl ? newUrl : ""} alt="" className={classes.newUrl}/>
                     <div className={classes.example}>
                         <h2 className={classes.exampleTitle}>見本<span className={classes.annotation}>（※初めての方は必ずご覧ください）</span> </h2>
-                        <img className={classes.exampleImage} src="../OK.png" alt="" />
+                        <Image className={classes.exampleImage} src="/OK.png" alt="OK例" width={675} height={380} layout='responsive'/>
                         <p className={classes.exampleDescription}>上の画像のように、Nintendo Switchのスクリーンショット機能を使った画像を使用します。<br />右下のエリアに<img className={classes.cursor} src="../cursor.png" alt="" /> を置かないでください。（読み取れない可能性があります。）</p>
                     </div>
                 </div>
