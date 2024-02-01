@@ -1,5 +1,3 @@
-"use client";
-
 import React from 'react'
 import ReactPaginate from 'react-paginate';
 import classes from "./Pagenation.module.scss";

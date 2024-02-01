@@ -143,7 +143,7 @@ const MyPage = ({params}:{params:{id:string}}) => {
         return -1; //値が存在しなかったとき
     }
     
-    const index = datas.length > 0 ? getIndex(datas[0].power, list) + 1 : -1;
+    const index = datas.length > 0 ? getIndex(datas[0]?.power, list) + 1 : -1;
 
     return (
         <div className={classes.container}>
@@ -170,7 +170,7 @@ const MyPage = ({params}:{params:{id:string}}) => {
                         </div>
                         <div className={classes.powerWrapper}>
                             <h3 className={classes.powerCaption}>世界戦闘力</h3>
-                            <p className={classes.power}>{datas.length > 0 ? datas[0].power.toLocaleString() : "N/A"}</p>
+                            <p className={classes.power}>{datas.length > 0 ? datas[0]?.power.toLocaleString() : "N/A"}</p>
                         </div>
                         <div className={classes.rankWrapper}>
                             <h3 className={classes.rankCaption}>ランキング</h3>
