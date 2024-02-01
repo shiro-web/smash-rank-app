@@ -7,6 +7,6 @@ body{
   'Fira Mono', 'Droid Sans Mono', 'Courier New', monospace ;
   display: flex;
   flex-direction: column;
-  
+  height: 100vh;
 }
 
