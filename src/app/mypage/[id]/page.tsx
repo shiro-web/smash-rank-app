@@ -31,7 +31,7 @@ const MyPage = ({params}:{params:{id:string}}) => {
     const [newUrl,setNewUrl] = useState<string>();
     const fileInputRef = useRef<HTMLInputElement | null>(null);
     const cropperRef = useRef<ReactCropperElement>(null);
-    const [newPower,setNewPower] = useState<number>();
+    const [newPower,setNewPower] = useState<number | null>(null);
     const [count,setCount] = useState<number>();
     const [datas,setDatas] = useState<Data[]>([]);
     const [list,setList] = useState<Data[]>([]);
