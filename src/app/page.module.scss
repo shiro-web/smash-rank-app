@@ -44,7 +44,10 @@
     
       .rankTableHead{
         background-color: #d73737;
-        background-image: linear-gradient(90deg, rgba(248, 15, 15, 1), rgba(207, 63, 245, 1));
+        
+        .headRow{
+          background-image: linear-gradient(90deg, rgba(248, 15, 15, 1), rgba(207, 63, 245, 1));
+        }
           
         .headRank, .headUserName,  .headPower, .headDate{
           padding: 6px 0;
