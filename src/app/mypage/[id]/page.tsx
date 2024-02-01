@@ -48,7 +48,7 @@ const MyPage = ({params}:{params:{id:string}}) => {
           setDatas([rankData.data() as Data]);
         };
         fetchRanks()
-      },[done,params.id, router, user])
+      },[params.id, router, user])
 
       useEffect(() => {
           const fetchRanks = async () => {
@@ -65,7 +65,7 @@ const MyPage = ({params}:{params:{id:string}}) => {
           };
         };
         fetchRanks()
-      },[done,params.id, router, user])
+      },[params.id, router, user])
       
     const handleFileChange = () => {
         const fileInput = fileInputRef.current;
