@@ -12,7 +12,7 @@ const TwitterLogin = () => {
     const twitterprovider = new TwitterAuthProvider();
 
     const twitterLogin = () => {
-        signInWithRedirect(auth,twitterprovider).then((result) => {
+        signInWithPopup(auth,twitterprovider).then((result) => {
             const user = result.user
             if(user){
               router.push(`/mypage/${user.uid}`)
