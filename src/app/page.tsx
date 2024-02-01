@@ -24,7 +24,6 @@ export default function Home() {
   const pageCount = Math.ceil(datas.length / itemsPerPage)
 
   useEffect(() => {
-    const { innerHeight: height, innerWidth: width } = window
     const fetchRanks = async () => {
       const rankDocRef = collection(db,"ranks");
       const q = query(rankDocRef,orderBy("power","desc"));

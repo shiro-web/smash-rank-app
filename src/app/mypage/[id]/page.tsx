@@ -12,7 +12,6 @@ import {Button} from "@mui/material";
 import CloudUploadIcon from '@mui/icons-material/Logout';
 import Link from 'next/link';
 import toast, { Toaster } from 'react-hot-toast'
-import { settings } from 'firebase/analytics';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 
@@ -39,7 +38,6 @@ const MyPage = ({params}:{params:{id:string}}) => {
     const [done,setDone] = useState<boolean>(false);
 
     useEffect(() => {
-        const { innerHeight: height, innerWidth: width } = window
         if(!user){
             router.push("/");
         }
@@ -52,7 +50,6 @@ const MyPage = ({params}:{params:{id:string}}) => {
       },[done,params.id, router, user])
 
       useEffect(() => {
-        const { innerHeight: height, innerWidth: width } = window
           const fetchRanks = async () => {
           const rankCollectionRef = collection(db,"ranks");
           const q = query(rankCollectionRef,orderBy("power","desc"));
