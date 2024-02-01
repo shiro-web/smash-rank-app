@@ -1,0 +1,32 @@
+.footer{
+    border-top: 1px solid #e0e0e0;
+    background-color: white;
+    color: #333;
+  
+    width: 100%;
+    text-align: center;
+
+    .footerInner{
+        font-size: 0.7rem;
+        font-weight: lighter;
+        width: 640px;
+        margin: 0 auto;
+        text-align: center;
+        padding: 6px 0;
+
+        .footerText{
+            margin: 0;
+        }
+    }
+}
+
+@media screen and (max-width:650px) {
+    .footer{
+        width: 100%;
+        .footerInner{
+            font-size: 0.6rem;
+            width: 100%;
+            padding: 10px;
+        }
+    }
+}

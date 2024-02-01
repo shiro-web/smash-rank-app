@@ -24,6 +24,7 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
         const unsubscribe = onAuthStateChanged(auth, (newUser) => {
             setUser(newUser);
 
+        
         });
         return () => {
             unsubscribe();

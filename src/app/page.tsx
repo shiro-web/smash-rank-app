@@ -56,27 +56,27 @@ const handlePageClick = (event: { selected: number; }) => {
 };
 
   return (
-    <>
-    <div className={classes.authWrapper}>
-      {user ? (<Link href={`/mypage/${user?.uid}`} className={classes.auth}>マイページ</Link>) : (<TwitterLogin/>)}
+    <div className={classes.container}>
+      <div className={classes.authWrapper}>
+        {user ? (<Link href={`/mypage/${user?.uid}`} className={classes.auth}>マイページ</Link>) : (<TwitterLogin/>)}
+      </div>
+      {user ? null : (<p className={classes.description}>Xでログインすると、世界戦闘力を登録することができます。</p>)}
+      <h1 className={classes.title}>世界戦闘力ランキング</h1>
+      <p className={classes.count}>総ユーザー数:{count}</p>
+      <main className={classes.main}>
+        <table className={classes.rankTable}>
+          <thead className={classes.rankTableHead}>
+            <tr className={classes.headRow}>
+              <th className={classes.headRank}>順位</th>
+              <th className={classes.headUserName}>ユーザー名</th>
+              <th className={classes.headPower}>世界戦闘力</th>
+              <th className={classes.headDate}>日付</th>
+            </tr>
+          </thead>
+        <RankBody currentItems={currentItems} getIndex={getIndex} datas={datas}/>
+        </table>
+          <Pagenation handlePageClick={handlePageClick} pageCount={pageCount}/>
+      </main>
     </div>
-    {user ? null : (<p className={classes.description}>Xでログインすると、世界戦闘力を登録することができます。</p>)}
-    <h1 className={classes.title}>世界戦闘力ランキング</h1>
-    <p className={classes.count}>総ユーザー数:{count}</p>
-    <main className={classes.main}>
-      <table className={classes.rankTable}>
-        <thead className={classes.rankTableHead}>
-          <tr className={classes.headRow}>
-            <th className={classes.headRank}>順位</th>
-            <th className={classes.headUserName}>ユーザー名</th>
-            <th className={classes.headPower}>世界戦闘力</th>
-            <th className={classes.headDate}>日付</th>
-          </tr>
-        </thead>
-       <RankBody currentItems={currentItems} getIndex={getIndex} datas={datas}/>
-      </table>
-        <Pagenation handlePageClick={handlePageClick} pageCount={pageCount}/>
-    </main>
-    </>
   );
 }

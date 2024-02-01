@@ -42,7 +42,7 @@ const MyPage = ({params}:{params:{id:string}}) => {
         if(!user){
             router.push("/");
         }
-        const fetchRanks = async () => {
+          const fetchRanks = async () => {
           const rankDocRef = doc(db,"ranks",params.id);
           const rankData = await getDoc(rankDocRef);
           setDatas([rankData.data() as Data]);
