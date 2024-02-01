@@ -39,6 +39,7 @@ const MyPage = ({params}:{params:{id:string}}) => {
     const [done,setDone] = useState<boolean>(false);
 
     useEffect(() => {
+        const { innerHeight: height, innerWidth: width } = window
         if(!user){
             router.push("/");
         }
@@ -48,9 +49,10 @@ const MyPage = ({params}:{params:{id:string}}) => {
           setDatas([rankData.data() as Data]);
         };
         fetchRanks()
-      },[params.id, router, user])
+      },[done,params.id, router, user])
 
       useEffect(() => {
+        const { innerHeight: height, innerWidth: width } = window
           const fetchRanks = async () => {
           const rankCollectionRef = collection(db,"ranks");
           const q = query(rankCollectionRef,orderBy("power","desc"));
@@ -65,7 +67,7 @@ const MyPage = ({params}:{params:{id:string}}) => {
           };
         };
         fetchRanks()
-      },[params.id, router, user])
+      },[done,params.id, router, user])
       
     const handleFileChange = () => {
         const fileInput = fileInputRef.current;
