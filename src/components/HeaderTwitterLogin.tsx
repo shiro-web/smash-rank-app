@@ -21,7 +21,7 @@ const HeaderTwitterLogin = () => {
 
   return (
     <div className={classes.twitterLoginWrapper}>
-        {/* <button onClick={twitterLogin} className={classes.twitterLogin}>Xログイン</button> */}
+        <button onClick={twitterLogin} className={classes.twitterLogin}>Xログイン</button>
     </div>
   )
 }
