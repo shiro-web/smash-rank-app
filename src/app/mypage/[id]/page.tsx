@@ -25,6 +25,7 @@ type Data = {
 }
 
 const MyPage = ({params}:{params:{id:string}}) => {
+    const localCharacter = []
     const router = useRouter();
     const {user} = useContext(AppContext);
     const [url,setUrl] = useState<string>();
@@ -82,7 +83,7 @@ const MyPage = ({params}:{params:{id:string}}) => {
         
         const power = parseInt(text.replace(/,/g, ''), 10);
         try{
-            if(power > 10000 && power < 14180000 ){
+            if(power > 1000000 && power < 14180000 ){
                 await worker.terminate();
                 setNewPower(power)
                 return power;
