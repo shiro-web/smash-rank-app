@@ -25,6 +25,7 @@ type Data = {
 }
 
 const MyPage = ({params}:{params:{id:string}}) => {
+    const localCharacter = []
     const router = useRouter();
     const {user} = useContext(AppContext);
     const [url,setUrl] = useState<string>();
