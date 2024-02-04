@@ -14,8 +14,11 @@ import Link from 'next/link';
 import toast, { Toaster } from 'react-hot-toast'
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
+import { PNG } from 'pngjs';
+import pixelmatch from 'pixelmatch';
 
 type Data = {
+    characterName:string;
     character:string;
     createdAt:FieldValue;
     id:string;
@@ -25,7 +28,7 @@ type Data = {
 }
 
 const MyPage = ({params}:{params:{id:string}}) => {
-    const localCharacter = []
+    const localCharacter = ["banjo_and_kazooie.png","bayonetta.png","bowser.png","bowser_jr.png","byleth.png","captain_falcon.png","chrom.png","cloud.png","corrin.png","daisy.png","dark_pit.png","dark_samus.png","diddy_kong.png","donkey_kong.png","dr_mario.png","duck_hunt.png","falco.png","fox.png","ganondorf.png","greninja.png","hero.png","homura.png","ice_climber.png","ike.png","incineroar.png","inkling.png","isabelle.png","jigglypuff.png","joker.png","kazuya.png","ken.png","king_dedede.png","king_k_rool.png","kirby.png","link.png","little_mac.png","lucario.png","lucas.png","lucina.png","luigi.png","mario.png","marth.png","megaman.png","metaknight.png","mewtwo.png","mii_brawler.png","mii_gunner.png","mii_swordfighter.png","minmin.png","mr_game_and_watch.png","ness.png","olimar.png","pacman.png","palutena.png","peach.png","pichu.png","pikachu.png","piranha_plant.png","pit.png","pokemon_trainer.png","richter.png","ridley.png","rob.png","robin.png","rosalina_luma.png","roy.png","ryu.png","samus.png","sephiroth.png","sheik.png","shulk.png","simon.png","snake.png","sonic.png","sora.png","steve.png","terry.png","toon_link.png","villager.png","wario.png","wii_fit_trainer.png","wolf.png","yoshi.png","young_link.png","zelda.png","zero_suit_samus.png"]
     const router = useRouter();
     const {user} = useContext(AppContext);
     const [url,setUrl] = useState<string>();
@@ -37,6 +40,9 @@ const MyPage = ({params}:{params:{id:string}}) => {
     const [datas,setDatas] = useState<Data[]>([]);
     const [list,setList] = useState<Data[]>([]);
     const [done,setDone] = useState<boolean>(false);
+    const [numDiffPixels, setNumDiffPixels] = useState<number>();
+    const [characterImage,setCharacterImage] = useState<string>();
+    const [characterName,setCharacterName] = useState<string>();
 
     useEffect(() => {
         if(!user){
@@ -106,6 +112,44 @@ const MyPage = ({params}:{params:{id:string}}) => {
         return data;
       };
 
+      const loadImage = async (src: string | URL | Request) => {
+        const response = await fetch(src);
+        const arrayBuffer = await response.arrayBuffer();
+        return Buffer.from(arrayBuffer);
+      };
+
+      const compareImages = async (userPostImage:string) => {
+        for (let i = 0; i < localCharacter.length; i++) {
+  
+          const img1Data = await loadImage(`/${localCharacter[i]}`);
+          const img2Data = await loadImage(userPostImage);
+          
+          const img1 = PNG.sync.read(img1Data);
+          const img2 = PNG.sync.read(img2Data);
+          
+          const { width, height } = img1;
+          const diff = new PNG({ width, height });
+          
+          const diffPixels = pixelmatch(
+          img1.data,
+          img2.data,
+          diff.data,
+          width,
+          height,
+          { threshold: 0.1 }
+          );
+          console.log(diffPixels)
+          setNumDiffPixels(diffPixels);
+          
+          if (diffPixels < 200) {
+            setCharacterImage(localCharacter[i]);
+            setCharacterName(localCharacter[i].slice(0, -4));
+            return localCharacter[i].slice(0, -4)
+          } 
+        };
+      }
+  
+
       const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setDone(false);
@@ -113,10 +157,12 @@ const MyPage = ({params}:{params:{id:string}}) => {
         try {
             const power = await convertImagetoText();
             const croppedUrl = await onCrop();
-    
-            if (user && power && croppedUrl && user.displayName && user.photoURL) {
+            const characterName = await compareImages(croppedUrl!);
+            if (user && power && croppedUrl && user.displayName && user.photoURL && characterName) {
+                
                 const docRef = doc(db, "ranks", user.uid);
                 const datas: Data = {
+                    characterName:characterName,
                     character: croppedUrl,
                     createdAt: serverTimestamp(),
                     id: user.uid,
@@ -169,6 +215,7 @@ const MyPage = ({params}:{params:{id:string}}) => {
                         <div className={classes.rankLink}>
                             <Link href={"/"}>ランキング一覧へ</Link>
                         </div>
+                    
                         <div className={classes.powerWrapper}>
                             <h3 className={classes.powerCaption}>世界戦闘力</h3>
                             <p className={classes.power}>{datas.length > 0 ? datas[0]?.power.toLocaleString() : "N/A"}</p>

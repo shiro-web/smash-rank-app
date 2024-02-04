@@ -2,6 +2,7 @@ import React from 'react';
 import dayjs from 'dayjs';
 import classes from "./RankBody.module.scss";
 import { Data } from '@/types';
+import Link from 'next/link';
 
 
 type RankBodyProps = {
@@ -20,7 +21,7 @@ const RankBody = ({currentItems,getIndex,datas}:RankBodyProps) => {
             <td className={classes.bodyRank}>{getIndex(data.power, datas) + 1}</td>
             <td className={classes.bodyUserName}>
               <div className={classes.userDisplay}>
-                <div className={classes.character}><img src={data.character} alt="使用キャラクター"/></div>
+                <div className={classes.character}><Link href={`/fighter/${data.characterName}`}><img src={data.character} alt="使用キャラクター"/></Link></div>
                 <div className={classes.userName}>{data.name}<span className={classes.balloon}>{data.name}</span></div>
               </div>  
             </td >
