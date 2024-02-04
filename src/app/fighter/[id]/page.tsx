@@ -24,7 +24,6 @@ export default function Home({params}:{params:{id:string}}) {
   const pageCount = Math.ceil(datas.length / itemsPerPage)
 
   useEffect(() => {
-    console.log(params)
     const fetchRanks = async () => {
       const rankCollectionRef = collection(db,"ranks");
       const q = query(rankCollectionRef,where("characterName", "==", params.id), orderBy("power","desc"));
@@ -32,7 +31,6 @@ export default function Home({params}:{params:{id:string}}) {
       const newCount = rankCount.data().count;
       setCount(newCount);
       const unsubscribe = onSnapshot(q,(snapshot) => {
-        console.log(snapshot)
         const newRank = snapshot.docs.map((doc) => doc.data() as Data)
         setDatas(newRank);
       });

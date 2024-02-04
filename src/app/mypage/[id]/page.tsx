@@ -138,7 +138,6 @@ const MyPage = ({params}:{params:{id:string}}) => {
           height,
           { threshold: 0.1 }
           );
-          console.log(diffPixels)
           setNumDiffPixels(diffPixels);
           
           if (diffPixels < 200) {
