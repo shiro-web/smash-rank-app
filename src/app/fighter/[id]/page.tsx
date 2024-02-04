@@ -66,7 +66,7 @@ const handlePageClick = (event: { selected: number; }) => {
       <div className={classes.allCharactersWrapper}>
         {user ? (<Link href={"/"} className={classes.allCharacters}>全キャラクター一覧へ</Link>) : ""}
       </div>
-      <h1 className={classes.title}>世界戦闘力ランキング({params.id})</h1>
+      <h1 className={classes.title}>世界戦闘力ランキング<span className={classes.characterName}>({params.id})</span></h1>
       <p className={classes.count}>総ユーザー数:{count}</p>
       <main className={classes.main}>
         <table className={classes.rankTable}>
