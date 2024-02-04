@@ -153,11 +153,15 @@ const MyPage = ({params}:{params:{id:string}}) => {
       const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setDone(false);
-    
+        toast.loading("投稿中です。",{id:"1"})
         try {
             const power = await convertImagetoText();
             const croppedUrl = await onCrop();
             const characterName = await compareImages(croppedUrl!);
+            if(!characterName){
+                alert("適切な画像を投稿してください")
+                toast.error("投稿に失敗しました。",{id:"1"})
+            }
             if (user && power && croppedUrl && user.displayName && user.photoURL && characterName) {
                 
                 const docRef = doc(db, "ranks", user.uid);
@@ -170,7 +174,6 @@ const MyPage = ({params}:{params:{id:string}}) => {
                     power: power,
                     userImage: user.photoURL,
                 };
-                toast.loading("投稿中です。",{id:"1"})
                 await setDoc(docRef, datas);
                 toast.success("投稿に成功しました",{id:"1"})
             }
