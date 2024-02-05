@@ -119,6 +119,7 @@
             .TwitterShareButton{
                 margin-top: 8px;
                 text-align: right;
+                user-select: none;
             }
 
             .form{
@@ -127,6 +128,21 @@
                 justify-content: center;
                 align-items: center;
                 margin: 32px 0 20px;
+
+                .anonymousWrapper{
+                    display: flex;
+                    align-items: center;
+                    cursor: pointer;
+                    user-select: none;
+                    margin-bottom: 6px;
+
+                    .anonymous{
+                        width: 22px;
+                        height: 22px;
+                        all: revert;
+                    }
+                }
+
             
                 .Url{
                     width: 640px;

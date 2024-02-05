@@ -37,13 +37,14 @@ const MyPage = ({params}:{params:{id:string}}) => {
     const fileInputRef = useRef<HTMLInputElement | null>(null);
     const cropperRef = useRef<ReactCropperElement>(null);
     const [newPower,setNewPower] = useState<number | null>(null);
-    const [count,setCount] = useState<number>();
+    const [count,setCount] = useState<number>(0);
     const [datas,setDatas] = useState<Data[]>([]);
     const [list,setList] = useState<Data[]>([]);
     const [done,setDone] = useState<boolean>(false);
     const [numDiffPixels, setNumDiffPixels] = useState<number>();
     const [characterImage,setCharacterImage] = useState<string>();
     const [characterName,setCharacterName] = useState<string>();
+    const [anonymous,setAnonymous] = useState<boolean>(true);
 
     useEffect(() => {
         if(!user){
@@ -73,6 +74,11 @@ const MyPage = ({params}:{params:{id:string}}) => {
         };
         fetchRanks()
       },[done,params.id, router, user])
+
+      const handleChecked = (anonymous:boolean) => {
+        const checked = !anonymous;
+        setAnonymous(checked)
+      }
       
     const handleFileChange = () => {
         const fileInput = fileInputRef.current;
@@ -166,13 +172,13 @@ const MyPage = ({params}:{params:{id:string}}) => {
                 
                 const docRef = doc(db, "ranks", user.uid);
                 const datas: Data = {
-                    characterName:characterName,
-                    character: croppedUrl,
+                    characterName:anonymous ? "anonymous" : characterName,
+                    character: anonymous ? "anonymous" : croppedUrl,
                     createdAt: serverTimestamp(),
                     id: user.uid,
-                    name: user.displayName,
+                    name: anonymous ? "anonymous" : user.displayName,
                     power: power,
-                    userImage: user.photoURL,
+                    userImage:  anonymous ? "anonymous" : user.photoURL,
                 };
                 await setDoc(docRef, datas);
                 toast.success("投稿に成功しました",{id:"1"})
@@ -237,6 +243,10 @@ const MyPage = ({params}:{params:{id:string}}) => {
                        
                     </div>
                     <form className={classes.form} action="" onSubmit={handleSubmit}>
+                        <div className={classes.anonymousWrapper}>
+                            <input type="checkbox" className={classes.anonymous} id='anonymous' defaultChecked={true} checked={anonymous} disabled={false} onChange={(e) => handleChecked(anonymous)}/>
+                            <label htmlFor='anonymous'>匿名を希望します</label>
+                        </div>
                         <Button className={classes.fileButton} color="inherit" component="label" variant="contained" startIcon={<CloudUploadIcon />}>
                                 <input className={classes.file} type="file" onChange={handleFileChange} ref={fileInputRef} accept=".png, .jpeg, .jpg"/>投稿する画像を選ぶ
                         </Button>

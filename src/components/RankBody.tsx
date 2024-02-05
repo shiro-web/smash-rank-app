@@ -21,8 +21,8 @@ const RankBody = ({currentItems,getIndex,datas}:RankBodyProps) => {
             <td className={classes.bodyRank}>{getIndex(data.power, datas) + 1}</td>
             <td className={classes.bodyUserName}>
               <div className={classes.userDisplay}>
-                <div className={classes.character}><Link href={`/fighter/${data.characterName}`}><img src={data.character} alt="使用キャラクター"/></Link></div>
-                <div className={classes.userName}>{data.name}<span className={classes.balloon}>{data.name}</span></div>
+                <div className={classes.character}><Link href={`/fighter/${data.characterName}`}><img src={data.character == "anonymous" ? "/Anonymous.png" : data.character} alt="使用キャラクター"/></Link></div>
+                <div className={classes.userName}>{data.name == "anonymous" ? "匿名" : data.name}<span className={classes.balloon}>{data.name == "anonymous" ? "匿名" : data.name}</span></div>
               </div>  
             </td >
             <td className={classes.bodyPower}>{data.power.toLocaleString()}</td>
