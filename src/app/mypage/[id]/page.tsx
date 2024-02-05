@@ -16,6 +16,7 @@ import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { PNG } from 'pngjs';
 import pixelmatch from 'pixelmatch';
+import TwitterShareButton from '@/components/TwitterShareButton';
 
 type Data = {
     characterName:string;
@@ -227,6 +228,9 @@ const MyPage = ({params}:{params:{id:string}}) => {
                             <h3 className={classes.rankCaption}>ランキング</h3>
                             <p className={classes.rank}><span className={classes.rankSpan}>{index}位</span>/{count}人中（上位<span className={classes.rankSpan}>{Math.floor((index / count!) * 1000)/10}%</span>）</p>
                         </div>
+                        <div className={classes.TwitterShareButton}>
+                            <TwitterShareButton index={index} count={count}/>
+                        </div>
                         </> 
                         ) : 
                         <p className={classes.emptyState}>はじめまして！<br/> 画像を投稿して、ランキングに参加しましょう！</p>}
@@ -237,8 +241,7 @@ const MyPage = ({params}:{params:{id:string}}) => {
                                 <input className={classes.file} type="file" onChange={handleFileChange} ref={fileInputRef} accept=".png, .jpeg, .jpg"/>投稿する画像を選ぶ
                         </Button>
                         <img src={url ? url : ""} alt="" ref={cropperRef} className={classes.Url}/>
-                        {url ? (<button className={classes.submit} type='submit'>送信する</button>) : null}
-                        
+                        {url ? (<button className={classes.submit} type='submit'>送信する</button>) : null} 
                     </form>
                     <Image src={newUrl ? newUrl : ""} alt="" className={classes.newUrl} width={50} height={50}/>
                     <div className={classes.example}>

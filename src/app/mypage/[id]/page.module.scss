@@ -116,6 +116,11 @@
                 
             }
 
+            .TwitterShareButton{
+                margin-top: 8px;
+                text-align: right;
+            }
+
             .form{
                 display: flex;
                 flex-direction: column;
@@ -158,7 +163,18 @@
                     transition: 0.2s;
                     opacity: 0.8;
                 }
-            }        
+            }
+            
+            .twittersShare{
+                display: flex;
+                justify-content: center;
+                background-color: #000000;
+
+                .TwitterShareText{
+                    background-color: #000000;
+                    color: white;
+                }
+            }
 
             .example{
                 border-top: 2px dotted #333;
