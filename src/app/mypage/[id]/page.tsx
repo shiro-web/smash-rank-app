@@ -217,15 +217,20 @@ const MyPage = ({params}:{params:{id:string}}) => {
                         <div className={classes.rankLink}>
                             <Link href={"/"}>ランキング一覧へ</Link>
                         </div>
-                    
+                        {datas.length > 0 && datas[0]?.power ?  
+                        (<>
                         <div className={classes.powerWrapper}>
                             <h3 className={classes.powerCaption}>世界戦闘力</h3>
-                            <p className={classes.power}>{datas.length > 0 ? datas[0]?.power.toLocaleString() : "N/A"}</p>
+                            <p className={classes.power}>{datas[0]?.power.toLocaleString()}</p>
                         </div>
                         <div className={classes.rankWrapper}>
                             <h3 className={classes.rankCaption}>ランキング</h3>
                             <p className={classes.rank}><span className={classes.rankSpan}>{index}位</span>/{count}人中（上位<span className={classes.rankSpan}>{Math.floor((index / count!) * 1000)/10}%</span>）</p>
                         </div>
+                        </> 
+                        ) : 
+                        <p className={classes.emptyState}>はじめまして！<br/> 画像を投稿して、ランキングに参加しましょう！</p>}
+                       
                     </div>
                     <form className={classes.form} action="" onSubmit={handleSubmit}>
                         <Button className={classes.fileButton} color="inherit" component="label" variant="contained" startIcon={<CloudUploadIcon />}>
