@@ -96,7 +96,7 @@ const MyPage = ({params}:{params:{id:string}}) => {
         
         const power = parseInt(text.replace(/,/g, ''), 10);
         try{
-            if(power > 1000000 && power < 14180000 ){
+            if(power > 1000000 && power < 14210000 ){
                 await worker.terminate();
                 setNewPower(power)
                 return power;
