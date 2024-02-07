@@ -45,6 +45,12 @@ const MyPage = ({params}:{params:{id:string}}) => {
     const [characterImage,setCharacterImage] = useState<string>();
     const [characterName,setCharacterName] = useState<string>();
     const [anonymous,setAnonymous] = useState<boolean>(true);
+    const [limit,setLimit] = useState<number>(14210000);
+    useEffect(() => {
+        setTimeout(() => {
+            setLimit((prevLimit) => prevLimit + 3)
+        }, 60000);
+    },[])
 
     useEffect(() => {
         if(!user){
@@ -96,7 +102,7 @@ const MyPage = ({params}:{params:{id:string}}) => {
         
         const power = parseInt(text.replace(/,/g, ''), 10);
         try{
-            if(power > 1000000 && power < 14210000 ){
+            if(power > 1000000 && power < limit ){
                 await worker.terminate();
                 setNewPower(power)
                 return power;
@@ -146,8 +152,8 @@ const MyPage = ({params}:{params:{id:string}}) => {
           { threshold: 0.1 }
           );
           setNumDiffPixels(diffPixels);
-          
-          if (diffPixels < 200) {
+          console.log(diffPixels)
+          if (diffPixels < 1010) {
             setCharacterImage(localCharacter[i]);
             setCharacterName(localCharacter[i].slice(0, -4));
             return localCharacter[i].slice(0, -4)
