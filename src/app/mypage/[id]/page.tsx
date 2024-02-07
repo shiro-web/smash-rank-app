@@ -46,6 +46,7 @@ const MyPage = ({params}:{params:{id:string}}) => {
     const [characterName,setCharacterName] = useState<string>();
     const [anonymous,setAnonymous] = useState<boolean>(true);
     const [limit,setLimit] = useState<number>(14210000);
+
     useEffect(() => {
         setTimeout(() => {
             setLimit((prevLimit) => prevLimit + 3)
@@ -55,6 +56,7 @@ const MyPage = ({params}:{params:{id:string}}) => {
     useEffect(() => {
         if(!user){
             router.push("/");
+            return;
         }
           const fetchRanks = async () => {
           const rankDocRef = doc(db,"ranks",params.id);
@@ -65,6 +67,9 @@ const MyPage = ({params}:{params:{id:string}}) => {
       },[done,params.id, router, user])
 
       useEffect(() => {
+        if(!user){
+            return;
+        }
           const fetchRanks = async () => {
           const rankCollectionRef = collection(db,"ranks");
           const q = query(rankCollectionRef,orderBy("power","desc"));
@@ -152,7 +157,6 @@ const MyPage = ({params}:{params:{id:string}}) => {
           { threshold: 0.1 }
           );
           setNumDiffPixels(diffPixels);
-          console.log(diffPixels)
           if (diffPixels < 1010) {
             setCharacterImage(localCharacter[i]);
             setCharacterName(localCharacter[i].slice(0, -4));
@@ -258,11 +262,12 @@ const MyPage = ({params}:{params:{id:string}}) => {
                         </Button>
                         <img src={url ? url : ""} alt="" ref={cropperRef} className={classes.Url}/>
                         {url ? (<button className={classes.submit} type='submit'>送信する</button>) : null} 
+                        <Link href={"/info"} className={classes.info}>画像が投稿できないとき</Link>
                     </form>
                     <Image src={newUrl ? newUrl : ""} alt="" className={classes.newUrl} width={50} height={50}/>
                     <div className={classes.example}>
                         <h2 className={classes.exampleTitle}>見本<span className={classes.annotation}>（※初めての方は必ずご覧ください）</span> </h2>
-                        <Image className={classes.exampleImage} src="/OK.png" alt="OK例" width={675} height={380} layout='responsive'/>
+                        <Image className={classes.exampleImage} src="/OK.png" alt="OK例" width={675} height={380} layout="responsive"/>
                         <p className={classes.exampleDescription}>上の画像のように、Nintendo Switchのスクリーンショット機能を使った画像を使用します。<br />右下のエリアに<Image className={classes.cursor} src="/cursor.png" alt="" width={24} height={24}/> を置かないでください。（読み取れない可能性があります。）</p>
                     </div>
                 </div>

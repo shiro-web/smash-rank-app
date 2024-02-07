@@ -33,6 +33,7 @@ const Header = () => {
         </div>
         <Modal style={modalStyle} className={classes.modal} isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)} >
           <div className={classes.headerLinks}>
+            <Link className={classes.info}  href={"/info"} onClick={() => {setModalIsOpen(false)}}>サイトについて</Link>
             <Link className={classes.mypage} href={`/mypage/${user?.uid}`} onClick={() => {setModalIsOpen(false)}}>{user && "マイページ"}</Link>
             <div className={classes.auth} onClick={() => {setModalIsOpen(false)}}>{user ? ( <Link href={"/"} onClick={() => {auth.signOut()}} className={classes.logOut}>ログアウト</Link>) : (<HeaderTwitterLogin/>)}</div>
           </div>
