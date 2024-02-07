@@ -5,8 +5,8 @@ import Tesseract from "tesseract.js";
 import Cropper, { ReactCropperElement } from 'react-cropper';
 import 'cropperjs/dist/cropper.css';
 import classes from "./page.module.scss";
-import { serverTimestamp,FieldValue, doc, setDoc, collection, query, where, onSnapshot, Timestamp, orderBy, getDoc, getCountFromServer } from 'firebase/firestore';
-import { auth, db } from '@/firebase';
+import { serverTimestamp, doc, setDoc, collection, query, onSnapshot, orderBy, getDoc, getCountFromServer } from 'firebase/firestore';
+import { db } from '@/firebase';
 import AppContext from '@/context/AppContext';
 import {Button} from "@mui/material";
 import CloudUploadIcon from '@mui/icons-material/Logout';
@@ -17,19 +17,10 @@ import Image from 'next/image';
 import { PNG } from 'pngjs';
 import pixelmatch from 'pixelmatch';
 import TwitterShareButton from '@/components/TwitterShareButton';
-
-type Data = {
-    characterName:string;
-    character:string;
-    createdAt:FieldValue;
-    id:string;
-    name:string;
-    power:number;
-    userImage:string;
-}
+import { Data } from '@/types';
+import localCharacters from '@/characters';
 
 const MyPage = ({params}:{params:{id:string}}) => {
-    const localCharacter = ["banjo_and_kazooie.png","bayonetta.png","bowser.png","bowser_jr.png","byleth.png","captain_falcon.png","chrom.png","cloud.png","corrin.png","daisy.png","dark_pit.png","dark_samus.png","diddy_kong.png","donkey_kong.png","dr_mario.png","duck_hunt.png","falco.png","fox.png","ganondorf.png","greninja.png","hero.png","homura.png","ice_climber.png","ike.png","incineroar.png","inkling.png","isabelle.png","jigglypuff.png","joker.png","kazuya.png","ken.png","king_dedede.png","king_k_rool.png","kirby.png","link.png","little_mac.png","lucario.png","lucas.png","lucina.png","luigi.png","mario.png","marth.png","megaman.png","metaknight.png","mewtwo.png","mii_brawler.png","mii_gunner.png","mii_swordfighter.png","minmin.png","mr_game_and_watch.png","ness.png","olimar.png","pacman.png","palutena.png","peach.png","pichu.png","pikachu.png","piranha_plant.png","pit.png","pokemon_trainer.png","richter.png","ridley.png","rob.png","robin.png","rosalina_luma.png","roy.png","ryu.png","samus.png","sephiroth.png","sheik.png","shulk.png","simon.png","snake.png","sonic.png","sora.png","steve.png","terry.png","toon_link.png","villager.png","wario.png","wii_fit_trainer.png","wolf.png","yoshi.png","young_link.png","zelda.png","zero_suit_samus.png"]
     const router = useRouter();
     const {user} = useContext(AppContext);
     const [url,setUrl] = useState<string>();
@@ -58,11 +49,12 @@ const MyPage = ({params}:{params:{id:string}}) => {
             router.push("/");
             return;
         }
-          const fetchRanks = async () => {
+        const fetchRanks = async () => {
           const rankDocRef = doc(db,"ranks",params.id);
           const rankData = await getDoc(rankDocRef);
           setDatas([rankData.data() as Data]);
         };
+
         fetchRanks()
       },[done,params.id, router, user])
 
@@ -70,7 +62,7 @@ const MyPage = ({params}:{params:{id:string}}) => {
         if(!user){
             return;
         }
-          const fetchRanks = async () => {
+        const fetchRanks = async () => {
           const rankCollectionRef = collection(db,"ranks");
           const q = query(rankCollectionRef,orderBy("power","desc"));
           const rankCount = await getCountFromServer(rankCollectionRef);
@@ -79,6 +71,7 @@ const MyPage = ({params}:{params:{id:string}}) => {
             const newRank = snapshot.docs.map((doc) => doc.data() as Data)
             setList(newRank);
           });
+
           return() => {
             unsubscribe();
           };
@@ -87,18 +80,18 @@ const MyPage = ({params}:{params:{id:string}}) => {
       },[done,params.id, router, user])
 
       const handleChecked = (anonymous:boolean) => {
-        const checked = !anonymous;
-        setAnonymous(checked)
+        setAnonymous(!anonymous);
       }
       
     const handleFileChange = () => {
         const fileInput = fileInputRef.current;
+
         if (fileInput && fileInput.files && fileInput.files.length > 0) {
             const selectedFile = fileInput.files[0];
             const imageUrl = URL.createObjectURL(selectedFile);
             setUrl(imageUrl);
         }
-    }
+    };
     
     const convertImagetoText = async () => {
         const worker = await Tesseract.createWorker('eng');
@@ -106,6 +99,7 @@ const MyPage = ({params}:{params:{id:string}}) => {
         const { data: { text } } = await worker.recognize(url!,{rectangle});
         
         const power = parseInt(text.replace(/,/g, ''), 10);
+
         try{
             if(power > 1000000 && power < limit ){
                 await worker.terminate();
@@ -137,9 +131,9 @@ const MyPage = ({params}:{params:{id:string}}) => {
       };
 
       const compareImages = async (userPostImage:string) => {
-        for (let i = 0; i < localCharacter.length; i++) {
+        for (let i = 0; i < localCharacters.length; i++) {
   
-          const img1Data = await loadImage(`/${localCharacter[i]}`);
+          const img1Data = await loadImage(`/${localCharacters[i]}`);
           const img2Data = await loadImage(userPostImage);
           
           const img1 = PNG.sync.read(img1Data);
@@ -158,9 +152,9 @@ const MyPage = ({params}:{params:{id:string}}) => {
           );
           setNumDiffPixels(diffPixels);
           if (diffPixels < 1010) {
-            setCharacterImage(localCharacter[i]);
-            setCharacterName(localCharacter[i].slice(0, -4));
-            return localCharacter[i].slice(0, -4)
+            setCharacterImage(localCharacters[i]);
+            setCharacterName(localCharacters[i].slice(0, -4));
+            return localCharacters[i].slice(0, -4)
           } 
         };
       }
