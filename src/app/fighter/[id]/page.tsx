@@ -19,9 +19,6 @@ export default function Home({params}:{params:{id:string}}) {
   const [count,setCount] = useState<number>();
   const itemsPerPage = 50;
   const[itemsOffSet,setItemsOffSet] = useState<number>(0);
-  const endOffset = itemsOffSet + itemsPerPage;
-  const currentItems = datas.slice(itemsOffSet,endOffset)
-  const pageCount = Math.ceil(datas.length / itemsPerPage)
 
   useEffect(() => {
     const fetchRanks = async () => {
@@ -76,9 +73,9 @@ const handlePageClick = (event: { selected: number; }) => {
               <th className={classes.headDate}>日付</th>
             </tr>
           </thead>
-        <RankBody currentItems={currentItems} getIndex={getIndex} datas={datas}/>
+        <RankBody currentItems={datas.slice(itemsOffSet, itemsOffSet + itemsPerPage)} getIndex={getIndex} datas={datas}/>
         </table>
-          <Pagenation handlePageClick={handlePageClick} pageCount={pageCount}/>
+          <Pagenation handlePageClick={handlePageClick} pageCount={Math.ceil(datas.length / itemsPerPage)}/>
       </main>
     </div>
   );

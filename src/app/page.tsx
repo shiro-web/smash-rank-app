@@ -2,7 +2,7 @@
 
 import classes from "./page.module.scss";
 import { useContext, useEffect, useState } from "react";
-import { Timestamp, collection, doc, getCountFromServer, onSnapshot, orderBy, query } from "firebase/firestore";
+import {collection, getCountFromServer, onSnapshot, orderBy, query } from "firebase/firestore";
 import { db } from "@/firebase";
 import AppContext from "@/context/AppContext";
 import RankBody from "@/components/RankBody";
@@ -19,9 +19,6 @@ export default function Home() {
   const [count,setCount] = useState<number>();
   const itemsPerPage = 50;
   const[itemsOffSet,setItemsOffSet] = useState<number>(0);
-  const endOffset = itemsOffSet + itemsPerPage;
-  const currentItems = datas.slice(itemsOffSet,endOffset)
-  const pageCount = Math.ceil(datas.length / itemsPerPage)
 
   useEffect(() => {
     const fetchRanks = async () => {
@@ -42,12 +39,7 @@ export default function Home() {
   },[])
 
   function getIndex(value:number, arr:Data[]) : number{
-    for(var i = 0; i < arr.length; i++) {
-        if(arr[i].power === value) {
-            return datas.indexOf(arr[i]);
-        }
-    }
-    return -1; //値が存在しなかったとき
+    return arr.findIndex(item => item.power === value);
 }
 
 const handlePageClick = (event: { selected: number; }) => {
@@ -73,9 +65,9 @@ const handlePageClick = (event: { selected: number; }) => {
               <th className={classes.headDate}>日付</th>
             </tr>
           </thead>
-        <RankBody currentItems={currentItems} getIndex={getIndex} datas={datas}/>
+        <RankBody currentItems={datas.slice(itemsOffSet, itemsOffSet + itemsPerPage)} getIndex={getIndex} datas={datas}/>
         </table>
-          <Pagenation handlePageClick={handlePageClick} pageCount={pageCount}/>
+          <Pagenation handlePageClick={handlePageClick} pageCount={Math.ceil(datas.length / itemsPerPage)}/>
       </main>
     </div>
   );
