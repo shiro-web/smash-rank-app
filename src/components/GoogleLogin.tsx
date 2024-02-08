@@ -10,7 +10,6 @@ const GoogleLogin = () => {
     const googleLogin = () => {
         signInWithPopup(auth,googleprovider).then((result) => {
         const user = result.user
-        console.log(user)
     })}
 
   return (
