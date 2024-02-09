@@ -5,7 +5,7 @@ import Tesseract from "tesseract.js";
 import Cropper, { ReactCropperElement } from 'react-cropper';
 import 'cropperjs/dist/cropper.css';
 import classes from "./page.module.scss";
-import { serverTimestamp, doc, setDoc, collection, query, onSnapshot, orderBy, getDoc, getCountFromServer } from 'firebase/firestore';
+import { serverTimestamp, doc, setDoc, collection, query, onSnapshot, orderBy, getDoc, getCountFromServer, FieldValue } from 'firebase/firestore';
 import { db } from '@/firebase';
 import AppContext from '@/context/AppContext';
 import {Button} from "@mui/material";
@@ -17,8 +17,17 @@ import Image from 'next/image';
 import { PNG } from 'pngjs';
 import pixelmatch from 'pixelmatch';
 import TwitterShareButton from '@/components/TwitterShareButton';
-import { Data } from '@/types';
 import localCharacters from '@/characters';
+
+export type Data = {
+    characterName:string;
+    character:string;
+    createdAt:FieldValue;
+    id:string;
+    name:string;
+    power:number;
+    userImage:string;
+}
 
 const MyPage = ({params}:{params:{id:string}}) => {
     const router = useRouter();
