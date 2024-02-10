@@ -45,13 +45,19 @@ const MyPage = ({params}:{params:{id:string}}) => {
     const [characterImage,setCharacterImage] = useState<string>();
     const [characterName,setCharacterName] = useState<string>();
     const [anonymous,setAnonymous] = useState<boolean>(true);
-    const [limit,setLimit] = useState<number>(14210000);
+    const [limit,setLimit] = useState<number>(14220000);
 
     useEffect(() => {
-        setTimeout(() => {
-            setLimit((prevLimit) => prevLimit + 3)
-        }, 60000);
-    },[])
+        const interval = setInterval(() => {
+          // 毎日0時にlimitを1増やす
+          const now = new Date();
+          if (now.getHours() === 0 && now.getMinutes() === 0) {
+            setLimit(prevLimit => prevLimit + 4320);
+          }
+        }, 60000); // 1分ごとにチェック
+    
+        return () => clearInterval(interval); // コンポーネントがアンマウントされるときにクリアする
+      }, []); // 初回のみ実行
 
     useEffect(() => {
         if(!user){
