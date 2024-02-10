@@ -1,6 +1,7 @@
 import { Timestamp } from "firebase/firestore";
 
 export type Data = {
+    userName:string;
     characterName:string;
     character:string;
     createdAt:Timestamp;

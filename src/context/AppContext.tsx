@@ -8,17 +8,22 @@ import toast, { Toaster } from 'react-hot-toast'
 type Data = {
     user:User | null;
     setUser:React.Dispatch<React.SetStateAction<User | null>>;
+    userName:string | null;
+    setUserName:React.Dispatch<React.SetStateAction<string | null>>;
 }
 
 const defaultData = {
     user:null,
-    setUser:() => {}
+    setUser:() => {},
+    userName:null,
+    setUserName:() => {},
 }
 
 const AppContext = createContext<Data>(defaultData);
 
 export const AppProvider = ({ children }: { children: ReactNode }) => {
     const [user,setUser] = useState<User | null>(null);
+    const [userName,setUserName] = useState<string | null>(null);
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (newUser) => {
@@ -32,7 +37,7 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
     },[])
 
 return (
-  <AppContext.Provider value={{user,setUser}}>
+  <AppContext.Provider value={{user,setUser,userName,setUserName}}>
     {children}  
   </AppContext.Provider>
 )

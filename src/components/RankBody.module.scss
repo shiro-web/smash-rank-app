@@ -35,26 +35,21 @@
               padding: 0 4px;
               text-align: left;
               position: relative;
+              color: white;
+
+              &Anonymous{
+                margin: 0;
+              }
+
+              &Link{
+                color: white;
+
+                &:hover{
+                  opacity: 0.8;
+                  transition: 0.3s;
+                }
+              }
   
-              .balloon{
-                  position: absolute;
-                  top: 0px;
-                  left: 0px;
-                  display: none;
-                  padding: 2px 5px;
-                  color: white;
-                  background-color: white;
-                  color: #333;
-                  font-size: 0.7rem;
-                  z-index: 1000;
-                  border-radius: 5px;
-                  border: 1px solid #d5d5d5;
-                }
-                
-                &:hover .balloon {
-                  cursor: pointer;
-                  display: block;
-                }
             }
           }
   

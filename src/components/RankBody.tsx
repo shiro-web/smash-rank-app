@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import dayjs from 'dayjs';
 import classes from "./RankBody.module.scss";
 import { Data } from '@/types';
 import Link from 'next/link';
+import AppContext from '@/context/AppContext';
 
 
 type RankBodyProps = {
@@ -13,6 +14,8 @@ type RankBodyProps = {
 
 
 const RankBody = ({currentItems,getIndex,datas}:RankBodyProps) => {
+  const {user,userName} = useContext(AppContext);
+
   return (
     <>
     {currentItems.map((data) => (
@@ -22,7 +25,10 @@ const RankBody = ({currentItems,getIndex,datas}:RankBodyProps) => {
             <td className={classes.bodyUserName}>
               <div className={classes.userDisplay}>
                 <div className={classes.character}><Link href={`/fighter/${data.characterName}`}><img src={data.character == "anonymous" ? "/Anonymous.png" : data.character} alt="使用キャラクター"/></Link></div>
-                <div className={classes.userName}>{data.name == "anonymous" ? "匿名" : data.name}<span className={classes.balloon}>{data.name == "anonymous" ? "匿名" : data.name}</span></div>
+                <div className={classes.userName}>
+                  {data.userName == "anonymous" ? (<p className={classes.userNameAnonymous}>{data.name == "anonymous" ? "匿名" : data.name}</p>) : (<Link className={classes.userNameLink} href={`https://twitter.com/${data.userName}`}>{data.name == "anonymous" ? "匿名" : data.name}</Link> )}
+                {/* <span className={classes.balloon}>{data.name == "anonymous" ? "匿名" : data.name}</span> */}
+                </div>
               </div>  
             </td >
             <td className={classes.bodyPower}>{data.power.toLocaleString()}</td>

@@ -6,7 +6,7 @@ import Cropper, { ReactCropperElement } from 'react-cropper';
 import 'cropperjs/dist/cropper.css';
 import classes from "./page.module.scss";
 import { serverTimestamp, doc, setDoc, collection, query, onSnapshot, orderBy, getDoc, getCountFromServer, FieldValue } from 'firebase/firestore';
-import { db } from '@/firebase';
+import { auth, db } from '@/firebase';
 import AppContext from '@/context/AppContext';
 import {Button} from "@mui/material";
 import CloudUploadIcon from '@mui/icons-material/Logout';
@@ -18,8 +18,10 @@ import { PNG } from 'pngjs';
 import pixelmatch from 'pixelmatch';
 import TwitterShareButton from '@/components/TwitterShareButton';
 import localCharacters from '@/characters';
+import { onAuthStateChanged } from 'firebase/auth';
 
 export type Data = {
+    userName:string;
     characterName:string;
     character:string;
     createdAt:FieldValue;
@@ -31,7 +33,7 @@ export type Data = {
 
 const MyPage = ({params}:{params:{id:string}}) => {
     const router = useRouter();
-    const {user} = useContext(AppContext);
+    const {user,userName,setUserName} = useContext(AppContext);
     const [url,setUrl] = useState<string>();
     const [newUrl,setNewUrl] = useState<string>();
     const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -46,10 +48,25 @@ const MyPage = ({params}:{params:{id:string}}) => {
     const [characterName,setCharacterName] = useState<string>();
     const [anonymous,setAnonymous] = useState<boolean>(true);
     const [limit,setLimit] = useState<number>(14220000);
+    const [newUserName,setNewUserName] = useState<string | null>(() => {
+        const localUserName = localStorage.getItem("userName");
+        return localUserName
+});
+
+    useEffect(() => {
+        onAuthStateChanged(auth,(user) => {
+            if(user && userName){
+                localStorage.setItem('userName', userName!);
+                setNewUserName(userName)
+            }else{
+               
+            }
+        })
+    },[])
 
     useEffect(() => {
         const interval = setInterval(() => {
-          // 毎日0時にlimitを1増やす
+          // 毎日0時にlimitを4320増やす
           const now = new Date();
           if (now.getHours() === 0 && now.getMinutes() === 0) {
             setLimit(prevLimit => prevLimit + 4320);
@@ -187,10 +204,11 @@ const MyPage = ({params}:{params:{id:string}}) => {
                 alert("適切な画像を投稿してください")
                 toast.error("投稿に失敗しました。",{id:"1"})
             }
-            if (user && power && croppedUrl && user.displayName && user.photoURL && characterName) {
+            if (user && power && croppedUrl && user.displayName && user.photoURL && characterName && newUserName) {
                 
                 const docRef = doc(db, "ranks", user.uid);
                 const datas: Data = {
+                    userName:anonymous ? "anonymous" : newUserName,
                     characterName:anonymous ? "anonymous" : characterName,
                     character: anonymous ? "anonymous" : croppedUrl,
                     createdAt: serverTimestamp(),
