@@ -21,8 +21,8 @@ const TwitterLogin = () => {
     const twitterLogin = () => {
       signInWithPopup(auth,twitterprovider).then((result) => {
           const user = result.user
-          const additionalUserInfo: AdditionalUserInfo | null = getAdditionalUserInfo(result);
-          setUserName(additionalUserInfo?.profile?.screen_name ?? null);
+          const additionalUserInfo: AdditionalUserInfo | null = getAdditionalUserInfo(result) as AdditionalUserInfo | null;
+          setUserName(additionalUserInfo?.profile.screen_name ?? null);
 
           if(user){
             router.push(`/mypage/${user.uid}`)
