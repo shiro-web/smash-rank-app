@@ -8,9 +8,19 @@
         width: 640px;
         margin: 0 auto;
         display: flex;
-        justify-content: end;
+        justify-content: space-between;
+        align-items: center;
         position: relative;
         line-height: 60px;
+
+        .logoWrapper{
+            width: 200px;
+            height: 37.2px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
 
         .userIcon{
             cursor: pointer;
@@ -74,15 +84,15 @@
         width: 100%;
         margin: 0 auto;
         display: flex;
-        justify-content: end;
+        justify-content: space-between;
         position: relative;
         line-height: 60px;
 
         .headerInner{
             width: 100%;
-            margin: 0 50px;
+            margin: 0 30px;
             display: flex;
-            justify-content: end;
+            justify-content: space-between;
             position: relative;
             line-height: 60px;
         }

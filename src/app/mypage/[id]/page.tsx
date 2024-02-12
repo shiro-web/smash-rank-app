@@ -47,7 +47,7 @@ const MyPage = ({params}:{params:{id:string}}) => {
     const [characterImage,setCharacterImage] = useState<string>();
     const [characterName,setCharacterName] = useState<string>();
     const [anonymous,setAnonymous] = useState<boolean>(true);
-    const [limit,setLimit] = useState<number>(14220000);
+    const [limit,setLimit] = useState<number>(14230000);
     const [newUserName,setNewUserName] = useState<string | null>(() => {
         const localUserName = localStorage.getItem("userName");
         return localUserName
@@ -277,7 +277,6 @@ const MyPage = ({params}:{params:{id:string}}) => {
                         </> 
                         ) : 
                         <p className={classes.emptyState}>はじめまして！<br/> 画像を投稿して、ランキングに参加しましょう！</p>}
-                       
                     </div>
                     <form className={classes.form} action="" onSubmit={handleSubmit}>
                         <div className={classes.anonymousWrapper}>

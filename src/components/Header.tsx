@@ -27,7 +27,9 @@ const Header = () => {
   return (
     <div className={classes.header}>
       <div className={classes.headerInner}>
-        {/* <h1>スマッシュランク</h1> */}
+        <div className={classes.logoWrapper}>
+          <img src="logo.png" className={classes.log} alt="" />
+        </div>
         <div className={classes.headerimg}>
            <div className={classes.userIcon} onClick={() => {setModalIsOpen(true)}}><AccountCircleIcon sx={{ fontSize: 40 }}/></div>
         </div>
