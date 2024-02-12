@@ -1,5 +1,19 @@
 .container{
   flex-grow: 1;
+  position: relative;
+
+  .openingWrapper{
+    display: none;
+    
+    .opening{
+     display: none;
+    }
+
+  }
+  
+  .openingHiddenWrapper{
+    display: none;
+  }
 
   .authWrapper{
     margin-top: 20px;
@@ -197,6 +211,54 @@
 
 @media screen and (max-width:480px) {
   .container{
+
+    .openingWrapper{
+      background-color: rgb(32, 32, 32);
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      z-index: 100000;
+      display: block;
+      
+      .opening{
+        display: block;
+        position: absolute;
+        top: calc(50vh - 200px);
+        right: 0;
+        bottom: 0;
+        left: 0;
+        animation-name: fadeInAnime;
+        animation-duration: 2s;
+        animation-fill-mode: forwards;
+        opacity: 0;
+        z-index: 1000000;
+      }
+      
+      @keyframes fadeInAnime {
+        0% {
+          opacity: 0;
+        }
+  
+        40%{
+          opacity: 1;
+        }
+      
+        75%{
+          opacity: 1;
+        }
+      
+        to {
+          opacity: 0;
+        }
+      }
+    }
+
+    .openingHiddenWrapper{
+      display: none;
+    }
+    
     .description{
       color: white;
       text-align: center;

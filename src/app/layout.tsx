@@ -5,6 +5,7 @@ import { AppProvider } from "@/context/AppContext";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Script from "next/script";
+import Opening from "@/components/Opening";
 
 export const metadata: Metadata = {
   title: "スマブラ世界戦闘力ランキング",
@@ -29,6 +30,7 @@ export default function RootLayout({
       </head>
       <AppProvider>
         <body>
+          <Opening/>
           <Header/>
             {children}
           <Footer/>
