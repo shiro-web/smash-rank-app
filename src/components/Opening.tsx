@@ -5,15 +5,11 @@ import classes from "./Opening.module.scss";
 import { useRouter } from 'next/navigation';
 
 const Opening = () => {
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
     useEffect(() => {
         //セッションストレージで初回訪問かどうかを判定
-        const keyName:string = 'visited';
-        const keyValue:boolean = true;
         const handleReload = () => {
-          // ページがリロードされたときに実行したい処理をここに記述
-          sessionStorage.setItem(keyName, keyValue);
           setIsLoading(true);
           setTimeout(() => {
             setIsLoading(false);
