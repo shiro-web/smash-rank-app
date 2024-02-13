@@ -14,7 +14,6 @@
   @media screen and (max-width:480px) {
   
       .openingWrapper{
-        will-change: animation;
         background-color: rgb(32, 32, 32);
         position: absolute;
         top: 0;
@@ -32,7 +31,6 @@
         display: block;
         
         .opening{
-          will-change: animation;
           width: 80%;
           margin: 0 auto;
           display: block;
