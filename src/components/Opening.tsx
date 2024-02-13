@@ -9,9 +9,9 @@ const Opening = () => {
     useEffect(() => {
         const handleReload = () => {
           setIsLoading(true);
-          setTimeout(() => {
-            setIsLoading(false);
-          }, 2000);
+          // setTimeout(() => {
+          //   setIsLoading(false);
+          // }, 2000);
         };
         return () => {
           handleReload()
