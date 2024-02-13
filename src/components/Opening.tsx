@@ -4,19 +4,19 @@ import React, { useEffect, useState } from 'react';
 import classes from "./Opening.module.scss";
 
 const Opening = () => {
-    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [isLoading, setIsLoading] = useState<boolean>(true);
 
-    useEffect(() => {
-        const handleReload = () => {
-          setIsLoading(true);
-          // setTimeout(() => {
-          //   setIsLoading(false);
-          // }, 2000);
-        };
-        return () => {
-          handleReload()
-        };
-      }, [])
+    // useEffect(() => {
+    //     const handleReload = () => {
+    //       setIsLoading(true);
+    //       setTimeout(() => {
+    //         setIsLoading(false);
+    //       }, 2000);
+    //     };
+    //     return () => {
+    //       handleReload()
+    //     };
+    //   }, [])
       
   return (
     <div>
