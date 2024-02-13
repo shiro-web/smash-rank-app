@@ -7,15 +7,13 @@ const Opening = () => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
     useEffect(() => {
-        const handleReload = () => {
+      
           setIsLoading(true);
           setTimeout(() => {
             setIsLoading(false);
           }, 2000);
-        };
-        return () => {
-          handleReload()
-        };
+      
+       
       }, [])
       
   return (
