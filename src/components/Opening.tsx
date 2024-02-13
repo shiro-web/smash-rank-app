@@ -7,25 +7,26 @@ const Opening = () => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
     useEffect(() => {
-        const handleReload = () => {
+      
           setIsLoading(true);
           setTimeout(() => {
             setIsLoading(false);
           }, 2000);
-        };
-        return () => {
-          handleReload()
-        };
+      
+       
       }, [])
       
   return (
     <div>
-      {isLoading ? (<div className={classes.openingWrapper} id="fadeInBox">
+      {isLoading ? 
+      (<div className={classes.openingWrapper} id="fadeInBox">
         <img src="/opening.png" className={classes.opening}  alt="" />
-      </div>)
+      </div>
+      )
       :
       (<div className={classes.openingHiddenWrapper} id="fadeInBox">
-      </div>)}
+       </div>
+       )}
       
     </div>
   )
