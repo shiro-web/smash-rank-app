@@ -23,6 +23,9 @@
         animation-name: fadeInAnime1;
         animation-duration: 2s;
         animation-fill-mode: forwards;
+        -webkit-animation-name: fadeInAnime1;
+        -webkit-animation-duration: 2s;
+        -webkit-animation-fill-mode: forwards;
         opacity: 0;
         z-index: 100000;
         display: block;
@@ -39,6 +42,9 @@
           animation-name: fadeInAnime2;
           animation-duration: 2s;
           animation-fill-mode: forwards;
+          -webkit-animation-name: fadeInAnime2;
+          -webkit-animation-duration: 2s;
+          -webkit-animation-fill-mode: forwards;
           opacity: 0;
           z-index: 1000000;
         }
@@ -48,7 +54,11 @@
             opacity: 1;
           }
     
-          40%{
+          20%{
+            opacity: 1;
+          }
+
+          75%{
             opacity: 1;
           }
         
@@ -59,10 +69,14 @@
 
         @keyframes fadeInAnime2 {
           0% {
-            opacity: 1;
+            opacity: 0;
           }
     
-          40%{
+          20%{
+            opacity: 1;
+          }
+
+          75%{
             opacity: 1;
           }
         
