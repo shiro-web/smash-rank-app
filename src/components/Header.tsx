@@ -28,7 +28,7 @@ const Header = () => {
     <div className={classes.header}>
       <div className={classes.headerInner}>
         <div className={classes.logoWrapper}>
-          <img src="logo.png" className={classes.log} alt="" />
+          <Link href={'/'}><img src="logo.png" className={classes.logo} alt="" /></Link>
         </div>
         <div className={classes.headerimg}>
            <div className={classes.userIcon} onClick={() => {setModalIsOpen(true)}}><AccountCircleIcon sx={{ fontSize: 40 }}/></div>
@@ -37,6 +37,7 @@ const Header = () => {
           <div className={classes.headerLinks}>
             <Link className={classes.info}  href={"/info"} onClick={() => {setModalIsOpen(false)}}>サイトについて</Link>
             <Link className={classes.mypage} href={`/mypage/${user?.uid}`} onClick={() => {setModalIsOpen(false)}}>{user && "マイページ"}</Link>
+            <Link className={classes.form} href={"/form"} onClick={() => {setModalIsOpen(false)}}>{user && "お問い合わせ"}</Link>
             <div className={classes.auth} onClick={() => {setModalIsOpen(false)}}>{user ? ( <Link href={"/"} onClick={() => {auth.signOut()}} className={classes.logOut}>ログアウト</Link>) : (<HeaderTwitterLogin/>)}</div>
           </div>
         </Modal>
