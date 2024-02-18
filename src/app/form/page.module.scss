@@ -1,0 +1,36 @@
+.form{
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    width: 600px;
+    margin: 40px auto;
+    border-radius: 8px;
+    padding: 20px;
+
+    .labelContent{
+        color: #212121;
+        margin-bottom: 8px;
+    }
+
+    .inputContent{
+        height: 120px;
+        border: 1px solid #cccccc;
+        border-radius: 5px;
+    }
+
+    .sendButton{
+        text-align: center;
+        color: white;
+        background: #d73737;
+        border-radius: 5px;
+        width: 60px;
+        height: 30px;
+        margin: 10px auto 0;
+        
+        &:hover{
+            transition: 0.2s;
+            opacity: 0.8;
+        }
+    }
+
+}

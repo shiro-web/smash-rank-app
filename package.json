@@ -27,6 +27,7 @@
     "react": "^18",
     "react-cropper": "^2.3.3",
     "react-dom": "^18",
+    "react-hook-form": "^7.50.1",
     "react-hot-toast": "^2.4.1",
     "react-image-crop": "^11.0.5",
     "react-modal": "^3.16.1",
@@ -35,7 +36,8 @@
     "sass": "^1.70.0",
     "tesseract.js": "^5.0.4",
     "the-new-css-reset": "^1.11.2",
-    "twilio": "^4.21.0"
+    "twilio": "^4.21.0",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@types/node": "^20",
