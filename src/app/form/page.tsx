@@ -42,7 +42,7 @@ const Form = () => {
         <Toaster />
         <form className={classes.form} onSubmit={handleSubmit(onSubmit)} >
             <h2 className={classes.formTitle}>お問い合わせ</h2>
-            <label htmlFor="email" className={classes.labelEmail}>ユーザーID</label>
+            <label htmlFor="email" className={classes.labelEmail}>メールアドレス</label>
             <input type='email'  className={classes.inputEmail} id="email" 
             {...register("email" ,{
               required:"メールアドレスは必須です。",
