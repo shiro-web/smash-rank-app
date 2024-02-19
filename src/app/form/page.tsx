@@ -56,7 +56,11 @@ const Form = () => {
              {...register("content" , { 
               required: "お問い合わせ内容を入力してください。" ,
               minLength:{value:10,message:"10文字以上で入力してください。"},
-              maxLength:{value:150,message:"150文字以内で入力してください。"}})
+              maxLength:{value:150,message:"150文字以内で入力してください。"},
+              pattern: {
+                value: /^[^^＾"”`‘'’<>＜＞_＿%$#＆％＄|￥]+$/,
+                message: '特殊文字を使用しないでください'
+              }})
              }/>
             {errors.content && <p className={classes.caution}>{errors.content?.message}</p>}
             <button type='submit' className={classes.sendButton} disabled={isSubmitting}>{isSubmitting ? "送信中" : "送信"}</button>
