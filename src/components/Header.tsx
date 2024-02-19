@@ -37,7 +37,7 @@ const Header = () => {
           <div className={classes.headerLinks}>
             <Link className={classes.info}  href={"/info"} onClick={() => {setModalIsOpen(false)}}>サイトについて</Link>
             <Link className={classes.mypage} href={`/mypage/${user?.uid}`} onClick={() => {setModalIsOpen(false)}}>{user && "マイページ"}</Link>
-            {/* <Link className={classes.form} href={"/form"} onClick={() => {setModalIsOpen(false)}}>{user && "お問い合わせ"}</Link> */}
+            <Link className={classes.form} href={"/form"} onClick={() => {setModalIsOpen(false)}}>{user && "お問い合わせ"}</Link>
             <div className={classes.auth} onClick={() => {setModalIsOpen(false)}}>{user ? ( <Link href={"/"} onClick={() => {auth.signOut()}} className={classes.logOut}>ログアウト</Link>) : (<HeaderTwitterLogin/>)}</div>
           </div>
         </Modal>
