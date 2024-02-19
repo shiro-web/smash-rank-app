@@ -10,16 +10,23 @@
     .formTitle{
         font-size: 1.3rem;
         text-align: center;
+        margin-bottom: 12px;
+    }
+
+    .labelEmail{
+        color: #212121;
+        margin-bottom: 8px;
+    }
+
+    .inputEmail{
+        border: 1px solid #cccccc;
+        border-radius: 5px;
+        margin-bottom: 12px;
     }
 
     .labelContent{
         color: #212121;
         margin-bottom: 8px;
-    }
-
-    .formHidden{
-        position: absolute;
-        transform: translateY(-1000px);
     }
 
     .inputContent{
@@ -48,4 +55,16 @@
         color: rgb(255, 57, 57);
     }
 
+}
+
+@media screen and (max-width:600px) {
+    .form{
+        display: flex;
+        flex-direction: column;
+        background-color: white;
+        width: 80vw;
+        margin: 40px auto;
+        border-radius: 8px;
+        padding: 20px;
+    }    
 }
