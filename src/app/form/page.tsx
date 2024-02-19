@@ -46,7 +46,7 @@ const Form = () => {
             <input type='email'  className={classes.inputEmail} id="email" 
             {...register("email" ,{
               required:"メールアドレスは必須です。",
-              maxLength:{value:150,message:"150文字以内で入力してください。"},
+              maxLength:{value:140,message:"140文字以内で入力してください。"},
               pattern: {
                 value: /^[^^＾"”`‘'’<>＜＞_＿%$#＆％＄|￥]+$/,
                 message: '特殊文字を使用しないでください'
