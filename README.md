@@ -12,9 +12,10 @@ URL：https://smash-rank.com/
 
 
 2, 使用技術
-HTML、CSS Modules(scss)、Next.js14、TypeScript、MUI、Firebase、Vercel、GitHub、Cropper.js、Tesseract.js、react-hot-toast、pngjs、pixelmatch、Peact-Pagenation
+HTML、CSS Modules(scss)、Next.js14、TypeScript、MUI、Firebase、Vercel、GitHub、Cropper.js、Tesseract.js、react-hot-toast、pngjs、pixelmatch、React-Pagenation
 
 3, 機能一覧
+
 ●ログイン機能
 
 ●投稿機能(firebase)
