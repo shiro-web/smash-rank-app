@@ -1,9 +1,8 @@
 "use client"
 
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import classes from "./page.module.scss";
-import { useForm, SubmitHandler } from "react-hook-form";
-import AppContext from '@/context/AppContext';
+import { useForm } from "react-hook-form";
 import toast, { Toaster } from 'react-hot-toast';
 
 type Inputs = {
@@ -15,7 +14,6 @@ const Form = () => {
     const {
         register,
         handleSubmit,
-        watch,
         formState: {isSubmitSuccessful,isSubmitting, errors },
       } = useForm<Inputs>()
       const onSubmit = async(values: any) => {
