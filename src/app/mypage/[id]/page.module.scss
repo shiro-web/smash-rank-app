@@ -40,18 +40,28 @@
                 margin-top: 8px;
             }
 
-            .rankLink{
-                width: 160px;
-                border-radius: 8px;
-                padding: 8px;
-                display: block;
-                margin-left: auto;
+            .topLink{
+                width: 180px;
+                border-radius: 5px;
+                padding: 4px 8px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin:6px auto 6px;
+                color: white;
+                
+                &:hover{
+                    opacity: 0.8;
+                    transition: 0.2s;
+                }
+                
+                .top{
+                    font-size: 0.8rem;
+                    color: #212121;
+                    text-decoration: underline;
+                }
             }
 
-            .rankLink:hover{
-                opacity: 0.8;
-                transition: 0.2s;
-            }
 
             .powerWrapper{
                 width: 100%;
@@ -181,8 +191,14 @@
                 }
 
                 .info{
+                    display: flex;
+                    align-items: center;
                     font-size: 0.8rem;
                     color: #333;
+
+                    .helpIcon{
+                        padding-top: 1px;
+                    }
                 }
             }
             

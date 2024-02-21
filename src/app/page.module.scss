@@ -18,10 +18,31 @@
   .authWrapper{
     margin-top: 20px;
     text-align: center;
+
     .auth{
-      width: auto;
+      width: 200px;
+      margin: 0 auto;
       text-align: center; 
       color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-decoration: none;
+      color: white;
+      
+      &:hover{
+        opacity: 0.8;
+        transition: 0.3s;
+      }
+
+      .mypage{
+        width: 200px;
+        background-color: white;
+        border-radius: 8px;
+        padding: 3px 6px;
+        color: #212121;
+        font-size: 0.8rem;
+      }
     }
   }
   

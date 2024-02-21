@@ -19,6 +19,7 @@ import pixelmatch from 'pixelmatch';
 import TwitterShareButton from '@/components/TwitterShareButton';
 import localCharacters from '@/characters';
 import { onAuthStateChanged } from 'firebase/auth';
+import HelpOutlineIcon from '@mui/icons-material/HelpOutline';;
 
 export type Data = {
     userName:string;
@@ -258,9 +259,7 @@ const MyPage = ({params}:{params:{id:string}}) => {
                 </div>
                 <div className={classes.userAreaBody}>
                     <div>
-                        <div className={classes.rankLink}>
-                            <Link href={"/"}>ランキング一覧へ</Link>
-                        </div>
+                        <Link href={"/"} className={classes.topLink}><span className={classes.top}>トップページに戻る</span></Link>
                         {datas.length > 0 && datas[0]?.power ?  
                         (<>
                         <div className={classes.powerWrapper}>
@@ -288,7 +287,7 @@ const MyPage = ({params}:{params:{id:string}}) => {
                         </Button>
                         <img src={url ? url : ""} alt="" ref={cropperRef} className={classes.Url}/>
                         {url ? (<button className={classes.submit} type='submit'>送信する</button>) : null} 
-                        <Link href={"/info"} className={classes.info}>画像が投稿できないとき</Link>
+                        <Link href={"/info"} className={classes.info}><HelpOutlineIcon style={{fontSize:"16px"}} className={classes.helpIcon}/> 画像が投稿できないとき</Link>
                     </form>
                     <Image src={newUrl ? newUrl : ""} alt="" className={classes.newUrl} width={50} height={50}/>
                     <div className={classes.example}>

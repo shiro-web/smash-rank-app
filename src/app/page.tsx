@@ -10,7 +10,7 @@ import Pagenation from "@/components/Pagenation";
 import { Data } from '@/types';
 import Link from "next/link";
 import TwitterLogin from "@/components/TwitterLogin";
-
+import HomeIcon from '@mui/icons-material/Home';;
 
 
 export default function Home() {
@@ -50,7 +50,7 @@ const handlePageClick = (event: { selected: number; }) => {
   return (
     <div className={classes.container}>
       <div className={classes.authWrapper}>
-        {user ? (<Link href={`mypage/${user?.uid}`} className={classes.auth}>マイページ</Link>) : (<TwitterLogin/>)}
+        {user ? (<Link href={`mypage/${user?.uid}`} className={classes.auth}><HomeIcon/><span className={classes.mypage}>マイページ</span></Link>) : (<TwitterLogin/>)}
       </div>
       {user ? null : (<p className={classes.description}>Xでログインすると、世界戦闘力を登録することができます。</p>)}
       <h1 className={classes.title}>世界戦闘力ランキング</h1>
