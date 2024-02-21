@@ -1,3 +1,11 @@
+.emergency{
+    text-align: center;
+    color: red;
+    width: 600px;
+    margin: 20px auto;
+    font-size: 0.8rem;
+}
+
 .form{
     display: flex;
     flex-direction: column;
@@ -59,6 +67,12 @@
 }
 
 @media screen and (max-width:600px) {
+    .emergency{
+        text-align: center;
+        color: red;
+        width: 300px;
+        margin: 20px auto;
+    }
     .form{
         display: flex;
         flex-direction: column;
