@@ -19,7 +19,7 @@ const Form = () => {
       const onSubmit = async(values: any) => {
         const {email,content} = values;
         try{
-          await fetch("http://localhost:3000/api/send",{
+          await fetch("https://smash-rank.com/api/send",{
             method:"POST",
             headers:{
               "Content-Type":"application/json"
