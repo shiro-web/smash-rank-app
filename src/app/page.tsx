@@ -38,7 +38,7 @@ export default function Home() {
     fetchRanks()
   },[])
 
-  function getIndex(value:number, arr:Data[]) : number{
+  const getIndex =  (value:number, arr:Data[]) : number => {
     return arr.findIndex(item => item.power === value);
 }
 

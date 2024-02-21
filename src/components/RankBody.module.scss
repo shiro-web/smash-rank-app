@@ -26,6 +26,8 @@
           font-size: 18px;
           padding: 10px 0;
           vertical-align: middle;
+
+          
   
           .userName{
               width: 115px; /* 省略せずに表示するサイズを指定 */
@@ -60,6 +62,34 @@
           font-family:"Impact","Noto Sans CJK JP","ヒラギノ角ゴ Pro W3","Hiragino Kaku Gothic Pro",ui-monospace, "Menlo", "Monaco", 'Cascadia Mono', 'Segoe UI Mono',
           'Roboto Mono', 'Oxygen Mono', 'Ubuntu Monospace', 'Source Code Pro',
           'Fira Mono', 'Droid Sans Mono', 'Courier New', monospace ;
+          position: relative;
+
+          .first{
+            position: absolute;
+            top: 50%;
+            left: 51%;
+            transform: translate(-50%, -50%);
+            -webkit-transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+          }
+
+          .second{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            -webkit-transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+          }
+
+          .third{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            -webkit-transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+          }
         }
   
         .bodyPower{
@@ -88,17 +118,6 @@
               padding: 0 4px;
               text-align: left;
               position: relative;
-    
-                .balloon{
-                    height: 20px;
-                    line-height: 18px;
-                    position: absolute;
-                    top: 0px;
-                    left: 0px;
-                    display: none;
-                    padding: 0 2px;
-                  }
-                 
             }
           }
     
@@ -121,6 +140,18 @@
             .bodyRank, .bodyUserName, .bodyPower, .bodyDate{
               font-size: 0.8rem;
               padding: 8px 0;
+
+              .first{
+                width: 90%;
+              }
+
+              .second{
+                width: 90%;
+              }
+
+              .third{
+                width: 90%;
+              }
   
               .userName{
                 width: 80px; /* 省略せずに表示するサイズを指定 */
