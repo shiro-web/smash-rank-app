@@ -10,6 +10,7 @@ const Info = () => {
         <div className={classes.infoWrapper}>
             <h2 className={classes.info}>SmashRankとは</h2>
             <p className={classes.description}>SmashRankとは、大乱闘スマッシュブラザーズSPECIALのオンライン対戦における世界戦闘力を扱ったWebサービスです。<br />X（旧Twitter）ログインをすることで、ランキングに参加することができます。<br />オンライン対戦（vipマッチ）のモチベーションを上げるのにお役立てください。</p>
+            <p className={classes.important}>当サイトはスマブラSP非公式のWebサービスです。</p>
         </div>
         <div className={classes.infoWrapper}>
             <h2 className={classes.info} id='ng'>うまく画像が投稿できない</h2>

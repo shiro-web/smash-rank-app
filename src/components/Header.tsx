@@ -4,10 +4,10 @@ import React, { useContext, useState } from 'react';
 import classes from "./Header.module.scss";
 import Link from 'next/link';
 import { auth } from '@/firebase';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Modal from 'react-modal';
 import AppContext from '@/context/AppContext';
 import HeaderTwitterLogin from './HeaderTwitterLogin';
+import MenuIcon from '@mui/icons-material/Menu';
 
 
 const Header = () => {
@@ -31,11 +31,12 @@ const Header = () => {
           <Link href={'/'}><img src="logo.png" className={classes.logo} alt="" /></Link>
         </div>
         <div className={classes.headerimg}>
-           <div className={classes.userIcon} onClick={() => {setModalIsOpen(true)}}><AccountCircleIcon sx={{ fontSize: 40 }}/></div>
+           <div className={classes.userIcon} onClick={() => {setModalIsOpen(true)}}><MenuIcon sx={{ fontSize: 40 }}/></div>
         </div>
         <Modal style={modalStyle} className={classes.modal} isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)} >
           <div className={classes.headerLinks}>
             <Link className={classes.info}  href={"/info"} onClick={() => {setModalIsOpen(false)}}>サイトについて</Link>
+            <Link className={classes.policy}  href={"/policy"} onClick={() => {setModalIsOpen(false)}}>利用規約</Link>
             <Link className={classes.mypage} href={`/mypage/${user?.uid}`} onClick={() => {setModalIsOpen(false)}}>{user && "マイページ"}</Link>
             <Link className={classes.form} href={"/form"} onClick={() => {setModalIsOpen(false)}}>{user && "お問い合わせ"}</Link>
             <div className={classes.auth} onClick={() => {setModalIsOpen(false)}}>{user ? ( <Link href={"/"} onClick={() => {auth.signOut()}} className={classes.logOut}>ログアウト</Link>) : (<HeaderTwitterLogin/>)}</div>
