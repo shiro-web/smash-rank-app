@@ -40,9 +40,9 @@ const Form = () => {
   return (
     <div>
         <Toaster />
-        <div className={classes.emergency}>
+        {/* <div className={classes.emergency}>
           <p>※お手数おかけしますが現在外部サービスが停止中のため、お問い合わせフォームが使えません。お手数おかけしますが <a href="https://twitter.com/SmashRank0201">@SmashRank0201</a>こちらにご連絡をお願いします。</p>
-        </div>
+        </div> */}
         <form className={classes.form} onSubmit={handleSubmit(onSubmit)} >
             <h2 className={classes.formTitle}>お問い合わせ</h2>
             <label htmlFor="email" className={classes.labelEmail}>メールアドレス</label>
