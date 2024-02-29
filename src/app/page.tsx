@@ -1,18 +1,13 @@
 "use client";
 
 import classes from "./page.module.scss";
-import { useContext, useEffect, useState } from "react";
-import {collection, getCountFromServer, onSnapshot, orderBy, query } from "firebase/firestore";
-import { db } from "@/firebase";
+import { useContext} from "react";
 import AppContext from "@/context/AppContext";
 import RankBody from "@/components/RankBody";
 import Pagenation from "@/components/Pagenation";
-import { Data } from '@/types';
 import Link from "next/link";
 import TwitterLogin from "@/components/TwitterLogin";
 import HomeIcon from '@mui/icons-material/Home';import useRank from "./hooks/useRank";
-;
-
 
 export default function Home({ params }: { params: { id: string } }) {
   const {user} = useContext(AppContext);

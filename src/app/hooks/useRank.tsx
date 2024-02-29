@@ -1,8 +1,7 @@
-import AppContext from "@/context/AppContext";
 import { db } from "@/firebase";
 import { Data } from "@/types";
-import { CollectionReference, Query, QueryConstraint, collection, getCountFromServer, onSnapshot, orderBy, query, where } from "firebase/firestore";
-import { useContext, useEffect, useState } from "react";
+import { collection, getCountFromServer, onSnapshot, orderBy, query, where } from "firebase/firestore";
+import { useEffect, useState } from "react";
 
 const useRank = ({params}:{params:{id:string}}) => {
   const [datas, setDatas] = useState<Data[]>([]);
