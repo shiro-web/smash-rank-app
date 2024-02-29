@@ -4,13 +4,7 @@ import { Data } from "@/types";
 import { CollectionReference, Query, QueryConstraint, collection, getCountFromServer, onSnapshot, orderBy, query, where } from "firebase/firestore";
 import { useContext, useEffect, useState } from "react";
 
-type useRankProps = {
-  params:{
-    id:string
-  };
-}
-
-const useRank = ({params}:useRankProps) => {
+const useRank = ({params}:{params:{id:string}}) => {
   const [datas, setDatas] = useState<Data[]>([]);
   const [count, setCount] = useState<number>();
   const itemsPerPage = 50;
