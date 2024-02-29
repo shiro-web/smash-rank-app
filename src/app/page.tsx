@@ -10,43 +10,14 @@ import Pagenation from "@/components/Pagenation";
 import { Data } from '@/types';
 import Link from "next/link";
 import TwitterLogin from "@/components/TwitterLogin";
-import HomeIcon from '@mui/icons-material/Home';;
+import HomeIcon from '@mui/icons-material/Home';import useRank from "./hooks/useRank";
+;
 
 
-export default function Home() {
+export default function Home({ params }: { params: { id: string } }) {
   const {user} = useContext(AppContext);
-  const [datas,setDatas] = useState<Data[]>([]);
-  const [count,setCount] = useState<number>();
-  const itemsPerPage = 50;
-  const[itemsOffSet,setItemsOffSet] = useState<number>(0);
-
-  useEffect(() => {
-    const fetchRanks = async () => {
-      const rankDocRef = collection(db,"ranks");
-      const q = query(rankDocRef,orderBy("power","desc"));
-      const rankCount = await getCountFromServer(rankDocRef);
-      const newCount = rankCount.data().count;
-      setCount(newCount);
-      const unsubscribe = onSnapshot(q,(snapshot) => {
-        const newRank = snapshot.docs.map((doc) => doc.data() as Data)
-        setDatas(newRank);
-      });
-      return() => {
-        unsubscribe();
-    };
-    };
-    fetchRanks()
-  },[])
-
-  const getIndex =  (value:number, arr:Data[]) : number => {
-    return arr.findIndex(item => item.power === value);
-}
-
-const handlePageClick = (event: { selected: number; }) => {
-  const newOffset = (event.selected * itemsPerPage) % datas.length;
-  setItemsOffSet(newOffset);
-};
-
+  const { itemsPerPage,datas, count, itemsOffSet, getIndex, handlePageClick } = useRank({ params }); 
+  
   return (
     <div className={classes.container}>
       <div className={classes.authWrapper}>

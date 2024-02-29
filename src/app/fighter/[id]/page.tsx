@@ -10,47 +10,13 @@ import Pagenation from "@/components/Pagenation";
 import { Data } from '@/types';
 import Link from "next/link";
 import TwitterLogin from "@/components/TwitterLogin";
+import useRank from "@/app/hooks/useRank";
 
 
 
 export default function Home({params}:{params:{id:string}}) {
   const {user} = useContext(AppContext);
-  const [datas,setDatas] = useState<Data[]>([]);
-  const [count,setCount] = useState<number>();
-  const itemsPerPage = 50;
-  const[itemsOffSet,setItemsOffSet] = useState<number>(0);
-
-  useEffect(() => {
-    const fetchRanks = async () => {
-      const rankCollectionRef = collection(db,"ranks");
-      const q = query(rankCollectionRef,where("characterName", "==", params.id), orderBy("power","desc"));
-      const rankCount = await getCountFromServer(rankCollectionRef);
-      const newCount = rankCount.data().count;
-      setCount(newCount);
-      const unsubscribe = onSnapshot(q,(snapshot) => {
-        const newRank = snapshot.docs.map((doc) => doc.data() as Data)
-        setDatas(newRank);
-      });
-      return() => {
-        unsubscribe();
-    };
-    };
-    fetchRanks()
-  },[])
-
-  function getIndex(value:number, arr:Data[]) : number{
-    for(var i = 0; i < arr.length; i++) {
-        if(arr[i].power === value) {
-            return datas.indexOf(arr[i]);
-        }
-    }
-    return -1; //値が存在しなかったとき
-}
-
-const handlePageClick = (event: { selected: number; }) => {
-  const newOffset = (event.selected * itemsPerPage) % datas.length;
-  setItemsOffSet(newOffset);
-};
+  const { itemsPerPage,datas, count, itemsOffSet, getIndex, handlePageClick } = useRank({ params }); 
 
   return (
     <div className={classes.container}>
