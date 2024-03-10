@@ -48,7 +48,7 @@ const MyPage = ({params}:{params:{id:string}}) => {
     const [characterImage,setCharacterImage] = useState<string>();
     const [characterName,setCharacterName] = useState<string>();
     const [anonymous,setAnonymous] = useState<boolean>(true);
-    const [limit,setLimit] = useState<number>(14600000);
+    const [limit,setLimit] = useState<number>(15000000);
     const [newUserName,setNewUserName] = useState<string | null>(() => {
         const localUserName = localStorage.getItem("userName");
         return localUserName
