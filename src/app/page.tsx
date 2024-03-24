@@ -8,6 +8,7 @@ import Pagenation from "@/components/Pagenation";
 import Link from "next/link";
 import TwitterLogin from "@/components/TwitterLogin";
 import HomeIcon from '@mui/icons-material/Home';import useRank from "./hooks/useRank";
+import { AdMax } from "@/components/AdMax";
 
 export default function Home({ params }: { params: { id: string } }) {
   const {user} = useContext(AppContext);
@@ -35,6 +36,9 @@ export default function Home({ params }: { params: { id: string } }) {
         </table>
           <Pagenation handlePageClick={handlePageClick} pageCount={Math.ceil(datas.length / itemsPerPage)}/>
       </main>
+      <div className={classes.add}>
+        <AdMax id="264830f2e32e7abd21c59063ffd2873b" />
+      </div>
     </div>
   );
 }
