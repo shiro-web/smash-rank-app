@@ -8,7 +8,7 @@ import Script from "next/script";
 import Opening from "@/components/Opening";
 
 export const metadata: Metadata = {
-  title: "スマブラ世界戦闘力ランキング",
+  title: "SmashRank",
   description: "大乱闘スマッシュブラザーズspの世界戦闘力のランキングサイトです。X(旧Twitter)でログインしてスクリーンショットを投稿することで、ランクに参加することができます。",
 };
 
