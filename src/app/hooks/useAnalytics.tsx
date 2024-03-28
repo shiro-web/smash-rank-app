@@ -1,3 +1,5 @@
+"use client"
+
 import { analytics } from '@/firebase'
 import { logEvent } from 'firebase/analytics'
 
