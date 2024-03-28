@@ -36,9 +36,9 @@ export default function Home({ params }: { params: { id: string } }) {
         </table>
           <Pagenation handlePageClick={handlePageClick} pageCount={Math.ceil(datas.length / itemsPerPage)}/>
       </main>
-      <div className={classes.add}>
+      {/* <div className={classes.add}>
         <AdMax id="264830f2e32e7abd21c59063ffd2873b" />
-      </div>
+      </div> */}
     </div>
   );
 }
