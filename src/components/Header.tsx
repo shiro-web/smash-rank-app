@@ -49,13 +49,13 @@ const Header = () => {
             </Link>
             )
           }
-          <Link className={classes.info}  href={"/info"}>
-            <InfoIcon className={classes.infoIcon}/>
-            <p className={classes.infoText}>サイトについて</p>
-          </Link>
           <Link className={classes.top}  href={"/"}>
             <HomeIcon className={classes.topIcon}/>
             <p className={classes.topText}>サイトトップ</p>
+          </Link>
+          <Link className={classes.info}  href={"/info"}>
+            <InfoIcon className={classes.infoIcon}/>
+            <p className={classes.infoText}>サイトについて</p>
           </Link>
           <Link className={classes.form} href={"/form"}>
             <EmailIcon className={classes.formIcon}/>

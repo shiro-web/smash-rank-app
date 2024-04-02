@@ -197,7 +197,7 @@ const MyPage = ({params}:{params:{id:string}}) => {
       const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setDone(false);
-        toast.loading("投稿中です。",{id:"1"})
+        toast.loading("投稿中です。10秒ほどお待ちください。",{id:"1"})
         try {
             const power = await convertImagetoText();
             const croppedUrl = await onCrop();
