@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { VictoryPie, VictoryAnimation, VictoryLabel } from 'victory';
-  const getData = (percent) => {
+  const getData = (percent: number) => {
     return [{ x: 1, y: percent }, { x: 2, y: 100 - percent }];
   };
 const Chart = ({topNumber}:{topNumber:number}) => {
