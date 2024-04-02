@@ -42,7 +42,7 @@ const Chart = ({topNumber}:{topNumber:number}) => {
               <VictoryLabel
                 textAnchor="middle" verticalAnchor="middle"
                 x={200} y={200}
-                text={`TOP${Math.round(newProps.percent)}%`}
+                text={`TOP${Math.round(Number(newProps.percent))}%`}
                 style={{ fontSize: 50 }}
               />
             );
