@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { render } from 'react-dom';
 import { VictoryPie, VictoryAnimation, VictoryLabel } from 'victory';
   const getData = (percent) => {
     return [{ x: 1, y: percent }, { x: 2, y: 100 - percent }];
