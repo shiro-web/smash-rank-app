@@ -6,6 +6,7 @@ import React, { useContext } from 'react';
 import classes from "./HeaderTwitterLogin.module.scss";
 import { useRouter } from 'next/navigation';
 import AppContext from '@/context/AppContext';
+import XIcon from '@mui/icons-material/X';
 
 type AdditionalUserInfo = {
   profile: {
@@ -14,7 +15,7 @@ type AdditionalUserInfo = {
 }
 
 const HeaderTwitterLogin = () => {
-  const {userName,setUserName} = useContext(AppContext);
+  const {setUserName} = useContext(AppContext);
     const router = useRouter();
     const twitterprovider = new TwitterAuthProvider();
 
@@ -31,7 +32,7 @@ const HeaderTwitterLogin = () => {
 
   return (
     <div className={classes.twitterLoginWrapper}>
-        <button onClick={twitterLogin} className={classes.twitterLogin}>Xログイン</button>
+        <button onClick={twitterLogin} className={classes.twitterLogin}><XIcon/>ログイン</button>
     </div>
   )
 }

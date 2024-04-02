@@ -1,6 +1,7 @@
 .container{
     width: 640px;
     margin: 0 auto;
+    padding-top: 90px;
 
     .cropper{
         position: absolute;
@@ -10,26 +11,47 @@
 
     .userArea{
         text-align: center;
-        background-color: white;
+        background-color: #efefef;
+        position: relative;
+
 
         .userAreaHead{
-            background-color: #d73737;
-            padding-top: 8px;
-            margin-bottom: 12px;
+  
+            padding-bottom: 10px;
+            margin-bottom: 18px;
+            position: relative;
+
+            .pageTitle{
+                color: #FFFFFF;
+                background-color: #d73737;
+                font-size: 1.2rem;
+                padding: 6px;
+            }
 
             .authName{
-                color: white;
-                font-size: 0.8rem;
+                color: #212121;
+                font-size: 1rem;
+                font-weight: 600;
                 margin-bottom: 6px;
             }
         
             .authImage{
                 border-radius: 100%;
-                margin-bottom: 10px;
-                width: 48px;
-                height: 48px;
+                margin-top: 18px;
+                margin-bottom: 4px;
             }
         }
+
+        // .userAreaHead::after{
+        //     content:"";
+        //     position: absolute;
+        //     width: 300px;
+        //     height: 1px;
+        //     bottom: 0;
+        //     left: 50%;
+        //     transform: translateX(-50%);
+        //     background-color: #b9b9b9;
+        // }
         
 
         .userAreaBody{
@@ -62,67 +84,85 @@
                 }
             }
 
-
+            .dataWrapper{
+                display: flex;
+                align-items: stretch;
+                gap: 24px;
+                margin-bottom: 32px;
+                
             .powerWrapper{
                 width: 100%;
                 display: flex;
+                flex-direction: column;
                 justify-content: center;
                 align-items: center;
-                margin-top: 4px;
-                margin-bottom: 12px;
-                border: 2px solid #d73737;
+                background-color: #FFFFFF;
+                border-radius: 20px;
+                box-shadow: 4px 4px 4px #b0b0b0;
+                
+                .powerImage{
+                    width: 108px;
+                }
 
-        
-                .powerCaption{
-                    font-size: 1.2rem;
-                    font-weight: lighter;
-                    background-color: #d73737;
-                    width: 30%;
-                    padding: 10px;
-                    color: white;
-                    margin: 0;
-                }
-        
                 .power{
-                    font-size: 1.2rem;
-                    font-weight:bold;
-                    background-color: white;
-                    width: 70%;
-                    background-color: white;
-                    margin: 0;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+
+
+                    .powerCaption{
+                        font-size: 1.2rem;
+                        font-weight: bold;
+                        color: #313131;
+                        margin: 0;
+                    }
+            
+                    .powerNumber{
+                        font-family: "Impact","Noto Sans CJK JP";
+                        font-size: 2rem;
+                        font-weight: 800;
+                        color: #d73737;
+                        margin: 0;
+                    }
                 }
+        
                 
             }
         
             .rankWrapper{
                 width: 100%;
                 display: flex;
+                flex-direction: column;
                 justify-content: center;
                 align-items: center;
-                border: 2px solid #d73737;
-        
-                .rankCaption{
-                    font-size: 1.2rem;
-                    font-weight: lighter;
-                    background-color: gray;
-                    width: 30%;
-                    padding: 10px;
-                    background-color: #d73737;
-                    color: white;
-                    margin: 0;
-                }
-        
+                background-color: #FFFFFF;
+                border-radius: 20px;
+                box-shadow: 4px 4px 4px #b0b0b0;
+
                 .rank{
-                    background-color: white;
-                    width: 70%;
-                    background-color: white;
-                    margin: 0;
-        
-                    .rankSpan{
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+
+                    .rankCaption{
                         font-size: 1.2rem;
                         font-weight: bold;
+                        color: #313131;
+                        margin: 0;
+                    }
+            
+                    .rankNumber{
+                        font-family: "Impact","Noto Sans CJK JP";
+                        margin: 0;
+            
+                        .rankSpan{
+                            font-size: 2rem;
+                            font-weight: 800;
+                            color: #d73737;
+                        }
                     }
                 }
+        
                 
             }
 
@@ -131,6 +171,9 @@
                 text-align: right;
                 user-select: none;
             }
+            }
+
+
 
             .form{
                 display: flex;
@@ -140,16 +183,20 @@
                 margin: 32px 0 20px;
 
                 .anonymousWrapper{
-                    display: flex;
-                    align-items: center;
-                    cursor: pointer;
-                    user-select: none;
-                    margin-bottom: 6px;
-
-                    .anonymous{
-                        width: 22px;
-                        height: 22px;
-                        all: revert;
+                    
+                    .checkbox{
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        cursor: pointer;
+                        user-select: none;
+                        margin-bottom: 6px;
+    
+                        .anonymous{
+                            width: 22px;
+                            height: 22px;
+                            all: revert;
+                        }
                     }
                 }
 
@@ -193,6 +240,8 @@
                 .info{
                     display: flex;
                     align-items: center;
+                    margin-left: auto;
+                    margin-top: 40px;
                     font-size: 0.8rem;
                     color: #333;
 
@@ -252,6 +301,7 @@
     .container{
         width: 100%;
         margin: 0;
+        padding-top: 100px;
 
         .userArea{
     
@@ -271,9 +321,19 @@
         margin: 0;
 
         .userArea{
+
             .userAreaHead{
+                padding-bottom: 4px;
+                 
+                .pageTitle{
+                    color: #FFFFFF;
+                    padding: 4px;
+                    margin-bottom: 16px;
+                    font-size: 1.1rem;
+                }
+    
                 .authName{
-                    font-size: 0.6rem;
+                    font-size: 0.9rem;
                 }
             
                 .authImage{
@@ -290,52 +350,83 @@
                     margin-top: 8px;
                 }
 
-                .powerWrapper{
-                    width: 100%;
+                .dataWrapper{
                     display: flex;
                     flex-direction: column;
-    
-            
-                    .powerCaption{
-                        background-color: #d73737;
-                        width: 100%;
-                        padding: 4px;
-                        font-size: 1rem;
-                    }
-            
-                    .power{
-                        width: 100%;
-                        background-color: white;
-                        padding: 4px 0;
-                    }
-                    
-                }
+                    width: 90%;
+                    margin: 0 auto 20px;
 
-                .rankWrapper{
-                    width: 100%;
-                    display: flex;
-                    flex-direction: column;
-            
-                    .rankCaption{
-                        background-color: #d73737;
+                    .powerWrapper{
                         width: 100%;
-                        padding: 4px;
-                        font-size: 1rem;
-
-                    }
-            
-                    .rank{
-                        width: 100%;
-                        background-color: white;
-                        padding: 4px 0;
-            
-                        .rankSpan{
-                            font-size: 1.2rem;
-                            font-weight: bold;
+                        display: flex;
+                        flex-direction: column;
+                        padding-bottom: 20px;
+                
+                        .powerCaption{
+                            background-color: none;
+                            width: 100%;
+                            padding: 0px;
+                            font-size: 1rem;
                         }
+                
+                        .power{
+                            width: 100%;
+                            background-color: white;
+                            padding: 4px 0;
+
+                            .powerNumber{
+                                font-family: "Impact","Noto Sans CJK JP";
+                                font-size: 1.8rem;
+                                font-weight: 800;
+                                color: #d73737;
+                                margin: 0;
+                            }
+                        }
+                        
                     }
+    
+                    .rankWrapper{
+                        width: 100%;
+                        display: flex;
+                        flex-direction: column;
+                        padding-bottom: 20px;
+                
+                        .rankCaption{
+                            background-color: none;
+                            width: 100%;
+                            padding: 0px;
+                            font-size: 1rem;
+    
+                        }
+                
+                        .rank{
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+        
+                            .rankCaption{
+                                font-size: 1.2rem;
+                                font-weight: bold;
+                                color: #313131;
+                                margin: 0;
+                            }
                     
+                            .rankNumber{
+                                font-family: "Impact","Noto Sans CJK JP";
+                                margin: 0;
+                    
+                                .rankSpan{
+                                    font-size: 1.8rem;
+                                    font-weight: 800;
+                                    color: #d73737;
+                                }
+                            }
+                        }
+                        
+                    }
+
                 }
+
                 .example{
                    .exampleTitle{
                        text-align: left;

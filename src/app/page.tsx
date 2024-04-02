@@ -5,9 +5,8 @@ import { useContext} from "react";
 import AppContext from "@/context/AppContext";
 import RankBody from "@/components/RankBody";
 import Pagenation from "@/components/Pagenation";
+import useRank from "./hooks/useRank";
 import Link from "next/link";
-import TwitterLogin from "@/components/TwitterLogin";
-import HomeIcon from '@mui/icons-material/Home';import useRank from "./hooks/useRank";
 import { AdMax } from "@/components/AdMax";
 
 export default function Home({ params }: { params: { id: string } }) {
@@ -16,12 +15,18 @@ export default function Home({ params }: { params: { id: string } }) {
   
   return (
     <div className={classes.container}>
-      <div className={classes.authWrapper}>
+      {/* <div className={classes.authWrapper}>
         {user ? (<Link href={`mypage/${user?.uid}`} className={classes.auth}><HomeIcon/><span className={classes.mypage}>マイページ</span></Link>) : (<TwitterLogin/>)}
       </div>
-      {user ? null : (<p className={classes.description}>Xでログインすると、世界戦闘力を登録することができます。</p>)}
-      <h1 className={classes.title}>世界戦闘力ランキング</h1>
+      {user ? null : (<p className={classes.description}>Xでログインすると、世界戦闘力を登録することができます。</p>)} */}
+      {/* <h1 className={classes.title}>世界戦闘力ランキング</h1> */}
+    
       <p className={classes.count}>総ユーザー数:{count}</p>
+        <div className={classes.infoWrapper}>
+            <h1 className={classes.title}>当サイトについて</h1>
+            <p className={classes.important}>当サイトはスマブラSP非公式のWebサービスです。</p>
+            <p className={classes.description}>当サイトは、大乱闘スマッシュブラザーズSPECIALのオンライン対戦における世界戦闘力を扱ったWebサービスです。<br />X（旧Twitter）ログインをすることで、ランキングに参加することができます。</p>
+        </div>
       <main className={classes.main}>
         <table className={classes.rankTable}>
           <thead className={classes.rankTableHead}>

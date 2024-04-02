@@ -38,7 +38,7 @@ const Form = () => {
       },[isSubmitSuccessful])
 
   return (
-    <div>
+    <div className={classes.container}>
         <Toaster />
         {/* <div className={classes.emergency}>
           <p>※お手数おかけしますが現在外部サービスが停止中のため、お問い合わせフォームが使えません。お手数おかけしますが <a href="https://twitter.com/SmashRank0201">@SmashRank0201</a>こちらにご連絡をお願いします。</p>
