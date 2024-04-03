@@ -25,7 +25,7 @@ export default function Home({ params }: { params: { id: string } }) {
         <div className={classes.infoWrapper}>
             <h1 className={classes.title}>当サイトについて</h1>
             <p className={classes.important}>当サイトはスマブラSP非公式のWebサービスです。</p>
-            <p className={classes.description}>当サイトは、大乱闘スマッシュブラザーズSPECIALのオンライン対戦における世界戦闘力を扱ったWebサービスです。<br />X（旧Twitter）ログインをすることで、ランキングに参加することができます。</p>
+            <p className={classes.description}>当サイトは、大乱闘スマッシュブラザーズSPECIALのオンライン対戦における世界戦闘力を扱ったWebサービスです。<br />X（旧Twitter）ログインをすることで、ランキングに参加することができます。<br /><small>※あくまで投稿されたプレイヤー内のランキングのため、実際の世界戦闘力ランキングとは異なります。</small></p>
         </div>
       <main className={classes.main}>
         <table className={classes.rankTable}>
