@@ -255,7 +255,7 @@ console.log( user?.photoURL)
            
             <div className={classes.userArea}>
                 <div className={classes.userAreaHead}>
-                    <p className={classes.pageTitle}>現在バグのオンパレードです。がんばって直している最中ですので、どうかお許しください。</p>
+                    <p className={classes.pageTitle}>マイページ</p>
                     <div>
                         {user && (<Image className={classes.authImage} src={user.photoURL || ""} alt="" width={48} height={48}/>)}
                     </div>
