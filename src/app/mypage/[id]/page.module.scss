@@ -363,32 +363,47 @@
             }
 
             .example{
-                border-top: 2px dotted #333;
-                padding: 4px 0;
-                .exampleTitle{
-                    text-align: left;
-                    font-size: 2rem;
-                    margin-bottom: 8px;
-
-                    .annotation{
-                        font-size: 0.8rem;
+                border-top: 2px dotted #000;
+                text-align: left;
+                width: 560px;
+                margin: 90px auto;
+                padding: 4px 0 0;
+            
+                .title{
+                    font-size: 1.6rem;
+                    margin-bottom: 10px;
+                }
+            
+                .infoWrapper{
+            
+                    .info{
+                        color: white;
+                        background-color:#d73737 ;
+                        font-size: 1.2rem;
+                        padding: 6px;
+                        margin-bottom: 8px;
+                    }
+            
+                    .usageImage{
+                        margin-bottom: 16px;
+                    }
+            
+                    .mypageImage{
+                        margin-bottom: 16px;
+                    }
+            
+                    .important{
                         color: red;
                     }
-                }
-    
-                .exampleDescription{
-                    text-align: left;
-                    margin-top: 6px;
-                    margin-bottom: 8px;
-
-                    .cursor{
-                        width: 24px;
-                        height: 24px;
-                        vertical-align: bottom;
+            
+                    .patern{
+                        margin-top: 10px;
+                        font-weight: bold;
+                        font-size: 1rem;
                     }
                 }
-    
             }
+            
             
             .newUrl{
                 display: none;
@@ -754,31 +769,7 @@
                 }
     
                 .example{
-                    border-top: 2px dotted #333;
-                    padding: 4px 0;
-                    .exampleTitle{
-                        text-align: left;
-                        font-size: 2rem;
-                        margin-bottom: 8px;
-    
-                        .annotation{
-                            font-size: 0.8rem;
-                            color: red;
-                        }
-                    }
-        
-                    .exampleDescription{
-                        text-align: left;
-                        margin-top: 6px;
-                        margin-bottom: 8px;
-    
-                        .cursor{
-                            width: 24px;
-                            height: 24px;
-                            vertical-align: bottom;
-                        }
-                    }
-        
+                    width: 100%;
                 }
                 
                 .newUrl{
