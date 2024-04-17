@@ -327,7 +327,11 @@ const MyPage = ({params}:{params:{id:string}}) => {
                             </div>
                         </>
                         ) : 
-                        <p className={classes.emptyState}>はじめまして！<br/> 画像を投稿して、ランキングに参加しましょう！</p>}
+                        <div>
+                            <Image className={classes.characterImg} src="/first-time.png" width={300} height={300} alt="使用キャラクター"/>
+                            <p className={classes.emptyState}>はじめまして！<br/> 画像を投稿して、ランキングに参加しましょう！</p>
+                        </div>
+                        }
                     </div>
                     <form className={classes.form} action="" onSubmit={handleSubmit}>
                         <Button className={classes.fileButton} color="inherit" component="label" variant="contained" startIcon={<CloudUploadIcon />}>

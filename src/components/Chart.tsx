@@ -30,7 +30,7 @@ const Chart = ({topNumber}:{topNumber:number}) => {
           labels={() => null}
           style={{
             data: { fill: ({ datum }) => {
-              const color = datum.y > 0 ? "#d73737" : "red";
+              const color = datum.y > 0 ? "#b81d2c" : "red";
               return datum.x === 1 ? color : "#F1F1F1";
             }
             }
