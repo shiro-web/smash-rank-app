@@ -5,7 +5,7 @@ import Tesseract from "tesseract.js";
 import Cropper, { ReactCropperElement } from 'react-cropper';
 import 'cropperjs/dist/cropper.css';
 import classes from "./page.module.scss";
-import { serverTimestamp, doc, setDoc, collection, query, onSnapshot, orderBy, getDoc, getCountFromServer, FieldValue } from 'firebase/firestore';
+import { serverTimestamp, doc, setDoc, collection, query, onSnapshot, orderBy, getDoc, getCountFromServer, FieldValue, where, getDocs } from 'firebase/firestore';
 import { auth, db } from '@/firebase';
 import AppContext from '@/context/AppContext';
 import {Button} from "@mui/material";
@@ -43,13 +43,16 @@ const MyPage = ({params}:{params:{id:string}}) => {
     const [newPower,setNewPower] = useState<number | null>(null);
     const [count,setCount] = useState<number>(0);
     const [datas,setDatas] = useState<Data[]>([]);
+    const [characterDatas,setCaracterDatas] = useState<Data[]>([]);
     const [list,setList] = useState<Data[]>([]);
+    const [characterList,setCharacterList] = useState<Data[]>([]);
     const [done,setDone] = useState<boolean>(false);
     const [numDiffPixels, setNumDiffPixels] = useState<number>();
     const [characterImage,setCharacterImage] = useState<string>();
     const [characterName,setCharacterName] = useState<string>();
     const [anonymous,setAnonymous] = useState<boolean>(true);
-    const [limit,setLimit] = useState<number>(15000000);
+    const [limit,setLimit] = useState<number>(16000000);
+    const [characterRank,setCharacterRank] = useState<number>();
     const [newUserName,setNewUserName] = useState<string | null>(() => {
         const localUserName = localStorage.getItem("userName");
         return localUserName
@@ -67,18 +70,6 @@ const MyPage = ({params}:{params:{id:string}}) => {
     },[])
 
     useEffect(() => {
-        const interval = setInterval(() => {
-          // 毎日0時にlimitを4320増やす
-          const now = new Date();
-          if (now.getHours() === 0 && now.getMinutes() === 0) {
-            setLimit(prevLimit => prevLimit + 4320);
-          }
-        }, 60000); // 1分ごとにチェック
-    
-        return () => clearInterval(interval); // コンポーネントがアンマウントされるときにクリアする
-      }, []); // 初回のみ実行
-
-    useEffect(() => {
         if(!user){
             router.push("/");
             return;
@@ -87,10 +78,37 @@ const MyPage = ({params}:{params:{id:string}}) => {
           const rankDocRef = doc(db,"ranks",params.id);
           const rankData = await getDoc(rankDocRef);
           setDatas([rankData.data() as Data]);
+
         };
 
         fetchRanks()
       },[done,params.id, router, user])
+
+
+    useEffect(() => {
+        if(!user){
+            router.push("/");
+            return;
+        }
+        const fetchRanks = async () => {
+            const rankDocRef = doc(db, "ranks", params.id);
+            const rankData = await getDoc(rankDocRef);
+    
+            const rankCollectionRef = collection(db, "ranks");
+            const q = query(rankCollectionRef, where("characterName", "==", rankData.data()?.characterName), orderBy("power", "desc"));
+            const rankCount = await getCountFromServer(q);
+            setDatas([rankData.data() as Data]);
+            const newCount = rankCount.data().count;
+            setCharacterRank(newCount)
+            onSnapshot(q,(snapshot) => {
+                const newCharacterRank = snapshot.docs.map((doc) => doc.data() as Data)
+                setCharacterList(newCharacterRank);
+              });
+        };
+
+        fetchRanks()
+      },[done,params.id, router, user,datas])
+
 
       useEffect(() => {
         if(!user){
@@ -232,16 +250,17 @@ const MyPage = ({params}:{params:{id:string}}) => {
     const  getIndex = (value:number, arr:Data[]) => {
         for(var i = 0; i < arr.length; i++) {
             if(arr[i].power === value) {
-                return list.indexOf(arr[i]);
+                return arr.indexOf(arr[i]);
             }
         }
         return -1; //値が存在しなかったとき
     }
-    
+
     const index = datas.length > 0 ? getIndex(datas[0]?.power, list) + 1 : -1;
     const topNumber = count > 0 ? Math.floor((index / count) * 1000) / 10 : 0;
-    const modifiedPhotoURL = user && user.photoURL ? user.photoURL.replace("normal", "200x200") : "";
-console.log( user?.photoURL)
+    const characterIndex = datas.length > 0 ? getIndex(datas[0]?.power, characterList) + 1 : -1;
+    
+    // const modifiedPhotoURL = user && user.photoURL ? user.photoURL.replace("_normal", "200x200") : "";
     return (
         <div className={classes.container}>
             <Toaster />
@@ -249,7 +268,6 @@ console.log( user?.photoURL)
             className={classes.cropper}
             src={url ? url : ""}
             style={{ height: 400, width: 900 }}
-            // Cropper.js options
             ref={cropperRef}
             />
            
@@ -264,20 +282,42 @@ console.log( user?.photoURL)
                 <div className={classes.userAreaBody}>
                     <div>
                         {/* <Link href={"/"} className={classes.topLink}><span className={classes.top}>トップページに戻る</span></Link> */}
+                        <div className={classes.characterArea}>
+                            {datas.length > 0 ?
+                            (
+                            <div className={classes.characterWrapper}>
+                                <div className={classes.characterData}>
+                                    <Link href={`/fighter/${datas[0].characterName}`}><Image className={classes.characterImg} src={datas[0].character == "anonymous" ? "/Anonymous.png" : datas[0].character} width={38} height={38} alt="使用キャラクター"/></Link>
+                                    <div className={classes.characterText}>
+                                        <p className={classes.charactertitle}>キャラ内順位</p>
+                                        <p className={classes.characterRank}><span className={classes.characterSpan}>{characterIndex}位</span>/{characterRank}人中</p>
+                                    </div>
+                                </div>
+                                <Link href={"/fighters"} className={classes.characterLink}>
+                                    <img className={classes.icon} src="/crown-icon.png" alt="" />
+                                    <p className={classes.characterLinkText}>キャラごとのランキング</p>
+                                    <img className={classes.arrow} src="/right-arrow.png" alt="" />
+                                </Link>
+                            </div>
+                            )
+                        :
+                        null
+                        }
+                        </div>
                         {datas.length > 0 && datas[0]?.power ?  
                         (<>
                         <div className={classes.dataWrapper}>
                             <div className={classes.rankWrapper}>
+                            <h3 className={classes.rankCaption}>全体順位</h3>
                                 <Chart topNumber={topNumber}/>
                                 <div className={classes.rank}>
-                                    <h3 className={classes.rankCaption}>順位</h3>
                                     <p className={classes.rankNumber}><span className={classes.rankSpan}>{index}位</span>/{count}人中</p>
                                 </div>
                             </div>
                             <div className={classes.powerWrapper}>
+                                <h3 className={classes.powerCaption}>世界戦闘力</h3>
                                 <img className={classes.powerImage} src="/powerIcon.png" alt=""/>
                                 <div className={classes.power}>
-                                    <h3 className={classes.powerCaption}>世界戦闘力</h3>
                                     <p className={classes.powerNumber}>{datas[0]?.power.toLocaleString()}</p>
                                 </div>
                             </div>

@@ -14,17 +14,17 @@
         background-color: #efefef;
         position: relative;
 
-
         .userAreaHead{
-  
+            height: 70px;
             padding-bottom: 10px;
             margin-bottom: 18px;
             position: relative;
-            background-color: #eb5050;
-            background-color: #4d1a1a;
-            background-color: #c24242;
-            background-image: url("https://www.transparenttextures.com/patterns/inspiration-geometry.png");
-            /* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
+            background-color: #b81d2c;
+            position: relative;
+            background-image: url("/mypage-background.png");
+            background-size: 87px;
+            background-position: right 30px center;
+            background-repeat: no-repeat;
 
             .pageTitle{
                 color: #FFFFFF;
@@ -34,37 +34,128 @@
             }
 
             .authName{
-                color: #FFFFFF;
+                color: #212121;
                 font-size: 1rem;
                 font-weight: 600;
                 margin-bottom: 6px;
+                position: absolute;
+                top: 90px;
+                left: calc(50% - 22.5px);
             }
         
             .authImage{
                 border-radius: 100%;
                 margin-top: 0px;
                 margin-bottom: 4px;
+                border: 3px solid #efefef;
+                position: absolute;
+                top: 47.5px;
+                left: calc(50% - 22.5px);
             }
         }
 
-        // .userAreaHead::after{
-        //     content:"";
-        //     position: absolute;
-        //     width: 300px;
-        //     height: 1px;
-        //     bottom: 0;
-        //     left: 50%;
-        //     transform: translateX(-50%);
-        //     background-color: #b9b9b9;
-        // }
-        
-
         .userAreaBody{
-            padding: 0 40px 20px;
+            padding: 50px 40px 20px;
 
             .emptyState{
                 font-size: 1.5rem;
                 margin-top: 8px;
+            }
+            
+            .characterWrapper{
+                max-width: 170px;
+                background-color: #FFFFFF;
+                padding: 12px;
+                margin: 0 auto 36px;
+                border-radius: 6px;
+                position: relative;
+
+                &::after{
+                    content: "";
+                    width: 320px;
+                    height: 2px;
+                    background-color: #d2d2d2;
+                    position: absolute;
+                    bottom:-36px;
+                    left:calc(50% - 160px);
+                }
+
+                .characterData{
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin-bottom: 10px;
+                    position: relative;
+                    padding: 0 10px;
+    
+                    .characterImg{
+                        border-radius: 8px;
+                        width: 38px;
+                        height: 38px;
+                    }
+    
+                    .characterText{
+
+                        .charactertitle{
+                            margin: 0;
+                            font-size: 12px;
+                            color: #212121;
+
+                        }
+    
+                        .characterRank{
+                            font-size: 10px;
+                            color: #212121;
+                            margin: 0;
+                            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+
+
+                            .characterSpan{
+                                font-size: 19px;
+                                font-weight: 700;
+                                color: #b81d2c;
+                            }
+                        }
+
+                        &::before{
+                            content: "";
+                            width: 2px;
+                            height: 36px;
+                            background-color: #f0f0f0;
+                            position: absolute;
+                            top:calc(50% - 18px);
+                            left:57px;
+                        }
+                    }
+
+                }
+                .characterLink{
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    width: 138px;
+                    height: 22px;
+                    margin: 0 auto;
+                    background-color: #b81d2c;
+                    border-radius: 4px;
+                    padding: 6px 8px;
+                    text-decoration: none;
+                    position: relative;
+
+                    .icon{
+                        position: absolute;
+                        top: -12px;
+                        left: calc(50% - 12px);
+                    }
+                    
+                    .characterLinkText{
+                        font-size: 10px;
+                        color: #FFFFFF;
+                        margin: 0;
+                    }
+
+                    
+                }
             }
 
             .topLink{
@@ -93,68 +184,33 @@
                 display: flex;
                 align-items: stretch;
                 gap: 24px;
+                margin-top: 72px;
                 margin-bottom: 32px;
                 
-            .powerWrapper{
-                width: 100%;
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                background-color: #FFFFFF;
-                border-radius: 20px;
-                box-shadow: 4px 4px 4px #b0b0b0;
-                
-                .powerImage{
-                    width: 108px;
-                }
-
-                .power{
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-
-
-                    .powerCaption{
-                        font-size: 1.2rem;
-                        font-weight: bold;
-                        color: #313131;
-                        margin: 0;
-                    }
-            
-                    .powerNumber{
-                        font-family: "Impact","Noto Sans CJK JP";
-                        font-size: 2rem;
-                        font-weight: 800;
-                        color: #d73737;
-                        margin: 0;
-                    }
-                }
-        
-                
-            }
-        
             .rankWrapper{
                 width: 100%;
-                display: flex;
-                flex-direction: column;
                 justify-content: center;
                 align-items: center;
                 background-color: #FFFFFF;
-                border-radius: 20px;
-                box-shadow: 4px 4px 4px #b0b0b0;
+                border-radius: 10px;
+                padding-bottom: 13px;
+
+                .rankCaption{
+                    width: 100%;
+                    font-size: 1.2rem;
+                    font-weight: bold;
+                    color: #FFFFFF;
+                    background-color: #b81d2c;
+                    border-top-left-radius:10px ;
+                    border-top-right-radius:10px ;
+                    padding: 6px 0;
+                    margin: 0 0 10px 0;
+                }
 
                 .rank{
                     display: flex;
                     flex-direction: column;
                     align-items: center;
-
-                    .rankCaption{
-                        font-size: 1.2rem;
-                        font-weight: bold;
-                        color: #313131;
-                        margin: 0;
-                    }
             
                     .rankNumber{
                         font-family: "Impact","Noto Sans CJK JP";
@@ -163,12 +219,51 @@
                         .rankSpan{
                             font-size: 2rem;
                             font-weight: 800;
-                            color: #d73737;
+                            color: #b81d2c;
                         }
                     }
                 }
         
                 
+            }
+
+            .powerWrapper{
+                width: 100%;
+                justify-content: center;
+                align-items: center;
+                background-color: #FFFFFF;
+                border-radius: 20px;
+                padding-bottom: 13px;
+                
+                .powerCaption{
+                    width: 100%;
+                    font-size: 1.2rem;
+                    font-weight: bold;
+                    color: #FFFFFF;
+                    background-color: #b81d2c;
+                    border-top-left-radius:10px ;
+                    border-top-right-radius:10px ;
+                    padding: 6px 0;
+                    margin: 0 0 10px 0;
+                }
+
+                .powerImage{
+                    width: 108px;
+                }
+
+                .power{
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+            
+                    .powerNumber{
+                        font-family: "Impact","Noto Sans CJK JP";
+                        font-size: 2rem;
+                        font-weight: 800;
+                        color: #b81d2c;
+                        margin: 0;
+                    }
+                }        
             }
 
             .TwitterShareButton{
@@ -302,149 +397,394 @@
     }
 }
 
-@media screen and (max-width:650px) {
+
+@media screen and (max-width:768px) {
     .container{
         width: 100%;
         margin: 0;
-        padding-top: 100px;
 
         .userArea{
+            text-align: center;
+            background-color: #efefef;
+            position: relative;
     
             .userAreaHead{
-            
-                .authImage{
-                    width: 48px;
-                }
-            }
-        }
-    }
-}
-
-@media screen and (max-width:480px) {
-    .container{
-        width: 100%;
-        margin: 0;
-
-        .userArea{
-
-            .userAreaHead{
-                padding-bottom: 4px;
-                 
+                height: 70px;
+                padding-bottom: 10px;
+                margin-bottom: 18px;
+                position: relative;
+                background-color: #b81d2c;
+                position: relative;
+                background-image: url("/mypage-background.png");
+                background-size: 87px;
+                background-position: right 30px center;
+                background-repeat: no-repeat;
+    
                 .pageTitle{
                     color: #FFFFFF;
+                    font-size: 1rem;
                     padding: 12px;
                     margin-bottom: 4px;
-                    font-size: 1rem;
                 }
     
                 .authName{
-                    font-size: 0.9rem;
+                    color: #212121;
+                    font-size: 1rem;
+                    font-weight: 600;
+                    margin-bottom: 6px;
+                    position: absolute;
+                    top: 90px;
+                    left: calc(50% - 22.5px);
                 }
             
                 .authImage{
-                    width: 40px;
-                    height:40px;
+                    border-radius: 100%;
+                    margin-top: 0px;
+                    margin-bottom: 4px;
+                    border: 3px solid #efefef;
+                    position: absolute;
+                    top: 47.5px;
+                    left: calc(50% - 22.5px);
                 }
             }
-
+    
             .userAreaBody{
-                padding:0 20px 20px;
-
+                padding: 50px 40px 20px;
+    
                 .emptyState{
-                    font-size: 1.3rem;
+                    font-size: 1.5rem;
                     margin-top: 8px;
                 }
-
-                .dataWrapper{
-                    display: flex;
-                    flex-direction: column;
-                    width: 90%;
-                    margin: 0 auto 20px;
-
-                    .powerWrapper{
-                        width: 100%;
-                        display: flex;
-                        flex-direction: column;
-                        padding-bottom: 20px;
                 
-                        .powerCaption{
-                            background-color: none;
-                            width: 100%;
-                            padding: 0px;
-                            font-size: 1rem;
-                        }
-                
-                        .power{
-                            width: 100%;
-                            background-color: white;
-                            padding: 4px 0;
-
-                            .powerNumber{
-                                font-family: "Impact","Noto Sans CJK JP";
-                                font-size: 1.8rem;
-                                font-weight: 800;
-                                color: #d73737;
-                                margin: 0;
-                            }
-                        }
-                        
+                .characterWrapper{
+                    max-width: 170px;
+                    background-color: #FFFFFF;
+                    padding: 12px;
+                    margin: 0 auto 36px;
+                    border-radius: 6px;
+                    position: relative;
+    
+                    &::after{
+                        content: "";
+                        width: 320px;
+                        height: 2px;
+                        background-color: #d2d2d2;
+                        position: absolute;
+                        bottom:-36px;
+                        left:calc(50% - 160px);
                     }
     
-                    .rankWrapper{
-                        width: 100%;
+                    .characterData{
                         display: flex;
-                        flex-direction: column;
-                        padding-bottom: 20px;
-                
-                        .rankCaption{
-                            background-color: none;
-                            width: 100%;
-                            padding: 0px;
-                            font-size: 1rem;
-    
-                        }
-                
-                        .rank{
-                            display: flex;
-                            flex-direction: column;
-                            align-items: center;
+                        justify-content: space-between;
+                        align-items: center;
+                        margin-bottom: 10px;
+                        position: relative;
+                        padding: 0 10px;
         
-                            .rankCaption{
-                                font-size: 1.2rem;
-                                font-weight: bold;
-                                color: #313131;
+                        .characterImg{
+                            border-radius: 8px;
+                            width: 38px;
+                            height: 38px;
+                        }
+        
+                        .characterText{
+    
+                            .charactertitle{
                                 margin: 0;
+                                font-size: 12px;
+                                color: #212121;
+    
                             }
-                    
-                            .rankNumber{
-                                font-family: "Impact","Noto Sans CJK JP";
+        
+                            .characterRank{
+                                font-size: 10px;
+                                color: #212121;
                                 margin: 0;
-                    
-                                .rankSpan{
-                                    font-size: 1.8rem;
-                                    font-weight: 800;
-                                    color: #d73737;
+                                font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    
+    
+                                .characterSpan{
+                                    font-size: 19px;
+                                    font-weight: 700;
+                                    color: #b81d2c;
                                 }
                             }
+    
+                            &::before{
+                                content: "";
+                                width: 2px;
+                                height: 36px;
+                                background-color: #f0f0f0;
+                                position: absolute;
+                                top:calc(50% - 18px);
+                                left:57px;
+                            }
+                        }
+    
+                    }
+                    .characterLink{
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        width: 138px;
+                        height: 22px;
+                        margin: 0 auto;
+                        background-color: #b81d2c;
+                        border-radius: 4px;
+                        padding: 6px 8px;
+                        text-decoration: none;
+                        position: relative;
+    
+                        .icon{
+                            position: absolute;
+                            top: -12px;
+                            left: calc(50% - 12px);
                         }
                         
+                        .characterLinkText{
+                            font-size: 10px;
+                            color: #FFFFFF;
+                            margin: 0;
+                        }
+    
+                        
                     }
-
+                }
+    
+                .topLink{
+                    width: 180px;
+                    border-radius: 5px;
+                    padding: 4px 8px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    margin:6px auto 6px;
+                    color: white;
+                    
+                    &:hover{
+                        opacity: 0.8;
+                        transition: 0.2s;
+                    }
+                    
+                    .top{
+                        font-size: 0.8rem;
+                        color: #212121;
+                        text-decoration: underline;
+                    }
+                }
+    
+                .dataWrapper{
+                    display: block;
+                    width: 300px;
+                    margin: 72px auto 32px;
+                
+                .rankWrapper{
+                    width: 100%;
+                    justify-content: center;
+                    align-items: center;
+                    background-color: #FFFFFF;
+                    border-radius: 10px;
+                    margin-bottom: 23px;
+    
+                    .rankCaption{
+                        width: 100%;
+                        font-size: 1.2rem;
+                        font-weight: bold;
+                        color: #FFFFFF;
+                        background-color: #b81d2c;
+                        border-top-left-radius:10px ;
+                        border-top-right-radius:10px ;
+                        padding: 6px 0;
+                        margin: 0 0 10px 0;
+                    }
+    
+                    .rank{
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                
+                        .rankNumber{
+                            font-family: "Impact","Noto Sans CJK JP";
+                            margin: 0;
+                
+                            .rankSpan{
+                                font-size: 2rem;
+                                font-weight: 800;
+                                color: #b81d2c;
+                            }
+                        }
+                    }
+            
+                    
                 }
 
+                .powerWrapper{
+                    width: 100%;
+                    justify-content: center;
+                    align-items: center;
+                    background-color: #FFFFFF;
+                    border-radius: 20px;
+                    
+                    .powerCaption{
+                        width: 100%;
+                        font-size: 1.2rem;
+                        font-weight: bold;
+                        color: #FFFFFF;
+                        background-color: #b81d2c;
+                        border-top-left-radius:10px ;
+                        border-top-right-radius:10px ;
+                        padding: 6px 0;
+                        margin: 0 0 10px 0;
+                    }
+    
+                    .powerImage{
+                        width: 108px;
+                    }
+    
+                    .power{
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                
+                        .powerNumber{
+                            font-family: "Impact","Noto Sans CJK JP";
+                            font-size: 2rem;
+                            font-weight: 800;
+                            color: #b81d2c;
+                            margin: 0;
+                        }
+                    }        
+                }
+    
+                .TwitterShareButton{
+                    margin-top: 8px;
+                    text-align: right;
+                    user-select: none;
+                }
+                }
+    
+    
+    
+                .form{
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    margin: 32px 0 20px;
+    
+                    .anonymousWrapper{
+                        
+                        .checkbox{
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            cursor: pointer;
+                            user-select: none;
+                            margin-bottom: 6px;
+        
+                            .anonymous{
+                                width: 22px;
+                                height: 22px;
+                                all: revert;
+                            }
+                        }
+                    }
+    
+                
+                    .Url{
+                        width: 640px;
+                    }
+                
+                    .fileButton{
+                        color: white;
+                        margin-bottom: 12px;
+                        background-color: #3772d7;
+                        font-size: 1.2rem;
+                    }
+    
+                    .fileButton:hover{
+                        transition: 0.2s;
+                        opacity: 0.8;
+                    }
+                
+                    .file[type="file"]{
+                        display: none;
+                    }
+                
+                    .submit{
+                        font-size: 1.1rem;
+                        color: white;
+                        border-radius: 5px;
+                        padding: 6px 14px;
+                        background-color: #3772d7;
+                        margin-top: 12px;
+                        margin-bottom: 12px;
+                        cursor: pointer;
+                    }
+    
+                    .submit:hover{
+                        transition: 0.2s;
+                        opacity: 0.8;
+                    }
+    
+                    .info{
+                        display: flex;
+                        align-items: center;
+                        margin-left: auto;
+                        margin-top: 40px;
+                        font-size: 0.8rem;
+                        color: #333;
+    
+                        .helpIcon{
+                            padding-top: 1px;
+                        }
+                    }
+                }
+                
+                .twittersShare{
+                    display: flex;
+                    justify-content: center;
+                    background-color: #000000;
+    
+                    .TwitterShareText{
+                        background-color: #000000;
+                        color: white;
+                    }
+                }
+    
                 .example{
-                   .exampleTitle{
-                       text-align: left;
-                       font-size: 1.6rem;
-                       margin-bottom: 8px;
-       
-                       .annotation{
-                           font-size: 0.8rem;
-                           color: red;
-                       }
-                   }
+                    border-top: 2px dotted #333;
+                    padding: 4px 0;
+                    .exampleTitle{
+                        text-align: left;
+                        font-size: 2rem;
+                        margin-bottom: 8px;
+    
+                        .annotation{
+                            font-size: 0.8rem;
+                            color: red;
+                        }
+                    }
+        
+                    .exampleDescription{
+                        text-align: left;
+                        margin-top: 6px;
+                        margin-bottom: 8px;
+    
+                        .cursor{
+                            width: 24px;
+                            height: 24px;
+                            vertical-align: bottom;
+                        }
+                    }
+        
+                }
+                
+                .newUrl{
+                    display: none;
+                }
             }
-        }
         }
 
     }
