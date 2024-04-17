@@ -1,0 +1,11 @@
+.container{
+    height: 100vh;
+
+    .text{
+        color:#FFFFFF;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
