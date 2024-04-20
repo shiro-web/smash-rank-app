@@ -458,6 +458,30 @@
                 background-size: 87px;
                 background-position: right 30px center;
                 background-repeat: no-repeat;
+
+                .backButoon{
+                    position: absolute;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    text-decoration: none;
+                    gap: 5px;
+                    margin: 14px 0 0 7px;
+    
+                    .arrow{
+                        transform: rotate(180deg);
+                        width: 3.5px;
+                        height: 5.5px;
+                        margin-top: 1px;
+                    }
+    
+                    .backButtonText{
+                        font-size: 10px;
+                        color: #FFFFFF; 
+                        border-bottom: 1px solid #FFFFFF;
+                        margin-bottom: 0;
+                    }
+                }
     
                 .pageTitle{
                     color: #FFFFFF;
