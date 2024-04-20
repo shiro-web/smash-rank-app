@@ -273,6 +273,10 @@ const MyPage = ({params}:{params:{id:string}}) => {
            
             <div className={classes.userArea}>
                 <div className={classes.userAreaHead}>
+                    <Link href={"../"} className={classes.backButoon}>
+                        <img className={classes.arrow} src="/right-arrow.png" alt="" />
+                        <p className={classes.backButtonText}>ランキング一覧へ</p>
+                    </Link>
                     <p className={classes.pageTitle}>マイページ</p>
                     <div>
                         {user && (<Image className={classes.authImage} src={user.photoURL || ""} alt="" width={48} height={48}/>)}
@@ -306,6 +310,10 @@ const MyPage = ({params}:{params:{id:string}}) => {
                         </div>
                         {datas.length > 0 && datas[0]?.power ?  
                         (<>
+                        {/* <Link href={"#usage"} className={classes.usageLink}>
+                            <img className={classes.arrow} src="/bottom-arrow.png" alt="" />
+                            <p className={classes.backButtonText}>使い方</p>
+                        </Link> */}
                         <div className={classes.dataWrapper}>
                             <div className={classes.rankWrapper}>
                             <h3 className={classes.rankCaption}>全体順位</h3>
@@ -349,7 +357,7 @@ const MyPage = ({params}:{params:{id:string}}) => {
                         <Link href={"/info"} className={classes.info}><HelpOutlineIcon style={{fontSize:"16px"}} className={classes.helpIcon}/> 画像が投稿できないとき</Link>
                     </form>
                     <Image src={newUrl ? newUrl : ""} alt="" className={classes.newUrl} width={50} height={50}/>
-                    <div className={classes.example}>
+                    <div className={classes.example} id='usage'>
                         <h1 className={classes.title}>当サイトの使い方</h1>
                         <div className={classes.infoWrapper}>
                             <h2 className={classes.info}>① 写真を撮る</h2>
