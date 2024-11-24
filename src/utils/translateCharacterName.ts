@@ -1,5 +1,3 @@
-// translateCharacterName.ts
-
 // 英語名と日本語名の対応表
 export const characterTranslations: { [key: string]: string } = {
   mario: "マリオ",
