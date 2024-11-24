@@ -1,14 +1,12 @@
-import React from 'react';
-import { CircularProgress } from '@mui/material';
-import classes from "./loading.module.scss";
-
+import React from "react";
+import { CircularProgress } from "@mui/material";
 
 const Loading = () => {
   return (
-    <div className={classes.loading}>
-        <CircularProgress />
+    <div>
+      <CircularProgress />
     </div>
-  )
-}
+  );
+};
 
-export default Loading
+export default Loading;

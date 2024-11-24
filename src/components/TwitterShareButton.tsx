@@ -1,11 +1,11 @@
 import { useEffect } from "react";
 
 type TwitterShareButtonProps = {
-    index:number;
-    count:number;
-}
+  index: number;
+  count: number;
+};
 
-function TwitterShareButton({index,count}:TwitterShareButtonProps) {
+function TwitterShareButton({ index, count }: TwitterShareButtonProps) {
   useEffect(() => {
     // Twitterのスクリプトを動的にロード
     const script = document.createElement("script");
@@ -21,11 +21,14 @@ function TwitterShareButton({index,count}:TwitterShareButtonProps) {
   }, []);
 
   return (
-    <a href={`https://twitter.com/intent/tweet?&text=%23SmashRank%0a${count}人中${index}位きちゃ%0a%0a&url=https://smash-rank.com/`} className="twitter-share-button" data-url="https://smash-rank.com/" data-show-count="true" data-size="medium">
-        
-    </a>
+    <a
+      href={`https://twitter.com/intent/tweet?&text=%23SmashRank%0a${count}人中${index}位!%0a%0a&url=https://smash-rank.com/`}
+      className="twitter-share-button"
+      data-url="https://smash-rank.com/"
+      data-show-count="true"
+      data-size="medium"
+    ></a>
   );
 }
 
 export default TwitterShareButton;
-

@@ -1,76 +1,28 @@
-"use client"
-
-import React, { useEffect } from 'react';
-import classes from "./page.module.scss";
-import { useForm } from "react-hook-form";
-import toast, { Toaster } from 'react-hot-toast';
-
-type Inputs = {
-    email:string;
-    content: string;
-  }
+import React from "react";
+import MailOutlineIcon from "@mui/icons-material/MailOutline";
+import XIcon from "@mui/icons-material/X";
 
 const Form = () => {
-    const {
-        register,
-        handleSubmit,
-        formState: {isSubmitSuccessful,isSubmitting, errors },
-      } = useForm<Inputs>()
-      const onSubmit = async(values: any) => {
-        const {email,content} = values;
-        try{
-          await fetch("https://smash-rank.com/api/send",{
-            method:"POST",
-            headers:{
-              "Content-Type":"application/json"
-            },
-            body:JSON.stringify({email,content})
-          });
-        }catch(error){
-          console.error(error)
-        }
-      };
-
-      useEffect(() => {
-        if(isSubmitSuccessful){
-          toast.success('送信に成功しました');
-        }
-      },[isSubmitSuccessful])
-
   return (
-    <div className={classes.container}>
-        <Toaster />
-        {/* <div className={classes.emergency}>
-          <p>※お手数おかけしますが現在外部サービスが停止中のため、お問い合わせフォームが使えません。お手数おかけしますが <a href="https://twitter.com/SmashRank0201">@SmashRank0201</a>こちらにご連絡をお願いします。</p>
-        </div> */}
-        <form className={classes.form} onSubmit={handleSubmit(onSubmit)} >
-            <h2 className={classes.formTitle}>お問い合わせ</h2>
-            <label htmlFor="email" className={classes.labelEmail}>メールアドレス</label>
-            <input type='email'  className={classes.inputEmail} id="email" 
-            {...register("email" ,{
-              required:"メールアドレスは必須です。",
-              maxLength:{value:140,message:"140文字以内で入力してください。"},
-              pattern: {
-                value: /^[^^＾"”`‘'’<>＜＞_＿%$#＆％＄|￥]+$/,
-                message: '特殊文字を使用しないでください'
-              }})} />
-            {errors.email && <p className={classes.caution}>{errors.email?.message}</p>}
-            <label htmlFor="content" className={classes.labelContent}>お問い合わせ内容</label>
-            <textarea  id='content' className={classes.inputContent}
-             {...register("content" , { 
-              required: "お問い合わせ内容を入力してください。" ,
-              minLength:{value:10,message:"10文字以上で入力してください。"},
-              maxLength:{value:150,message:"150文字以内で入力してください。"},
-              pattern: {
-                value: /^[^^＾"”`‘'’<>＜＞_＿%$#＆％＄|￥]+$/,
-                message: '特殊文字を使用しないでください'
-              }})
-             }/>
-            {errors.content && <p className={classes.caution}>{errors.content?.message}</p>}
-            <button type='submit' className={classes.sendButton} disabled={isSubmitting}>{isSubmitting ? "送信中" : "送信"}</button>
-        </form>
+    <div className="flex flex-col text-[#333] p-4 min-h-screen w-full md:max-w-[484px] mx-auto">
+      <div className="border-[1px] border-gray-300 p-6 mb-6 rounded-md w-full">
+        <div className="flex gap-2 mb-2 justify-center items-center">
+          <MailOutlineIcon />
+          <p className="text-2xl">お問い合わせ</p>
+        </div>
+        <p>なにか不具合などありましたら、下記のアカウントへDMをください。</p>
+        <div className="flex items-center justify-center gap-2">
+          <XIcon fontSize="small" />
+          <a
+            href="https://twitter.com/SmashRank0201"
+            className="text-lg underline"
+          >
+            @SmashRank0201
+          </a>
+        </div>
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default Form
+export default Form;

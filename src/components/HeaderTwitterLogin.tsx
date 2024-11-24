@@ -3,7 +3,6 @@
 import { auth } from '@/firebase';
 import {TwitterAuthProvider, getAdditionalUserInfo, signInWithPopup, signInWithRedirect} from 'firebase/auth';
 import React, { useContext } from 'react';
-import classes from "./HeaderTwitterLogin.module.scss";
 import { useRouter } from 'next/navigation';
 import AppContext from '@/context/AppContext';
 import XIcon from '@mui/icons-material/X';
@@ -31,8 +30,8 @@ const HeaderTwitterLogin = () => {
     })}
 
   return (
-    <div className={classes.twitterLoginWrapper}>
-        <button onClick={twitterLogin} className={classes.twitterLogin}><XIcon/>ログイン</button>
+    <div>
+        <button onClick={twitterLogin} ><XIcon/>ログイン</button>
     </div>
   )
 }

@@ -1,74 +1,89 @@
 "use client";
 
-import React, { useContext, useState } from 'react';
-import classes from "./Header.module.scss";
-import Link from 'next/link';
-import { auth } from '@/firebase';
-import AppContext from '@/context/AppContext';
-import HeaderTwitterLogin from './HeaderTwitterLogin';
-import HomeIcon from '@mui/icons-material/Home';
-import InfoIcon from '@mui/icons-material/Info';
-import EmailIcon from '@mui/icons-material/Email';
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import DescriptionIcon from '@mui/icons-material/Description';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import React, { useContext, useState } from "react";
+import Link from "next/link";
+import { auth } from "@/firebase";
+import AppContext from "@/context/AppContext";
+import HeaderTwitterLogin from "./HeaderTwitterLogin";
+import HomeIcon from "@mui/icons-material/Home";
+import InfoIcon from "@mui/icons-material/Info";
+import EmailIcon from "@mui/icons-material/Email";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import DescriptionIcon from "@mui/icons-material/Description";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import Image from "next/image";
 
-const Header = () => {
-  const {user} = useContext(AppContext);
-  const [modalIsOpen, setModalIsOpen] = useState(false);
-  const modalStyle:ReactModal.Styles = {
-    overlay: {
-      zIndex:"100000",
-      position: "fixed",
-      top: 0,
-      left: 0,
-      backgroundColor: "transparent"
-    },
-
-  };
+export default function Header() {
+  const { user } = useContext(AppContext);
 
   return (
-    <div className={classes.header}>
-      <div className={classes.headerInner}>
-        <div className={classes.logoWrapper}>
-          <Link href={'/'}><img src="logo.png" className={classes.logo} alt="" /></Link>
-        </div>
-        <div className={classes.auth}>{user ? ( <Link href={"/"} onClick={() => {auth.signOut()}} className={classes.logOut}>ログアウト</Link>) : (<HeaderTwitterLogin/>)}</div>
-      </div>
-      <div className={classes.links}>
-        <div className={classes.linksInner}>
-          <Link className={classes.usage}  href={"/usage"}>
-            <CheckCircleIcon className={classes.usageIcon}/>
-            <p className={classes.usageText}>使い方</p> 
-          </Link>
-          {user && 
-            (
-            <Link className={classes.mypage} href={`/mypage/${user?.uid}`} >
-              <AccountCircleIcon className={classes.mypageIcon}/>
-              <p className={classes.mypageText}>マイページ</p>
+    <header className="bg-white">
+      <div>
+        {/* Top bar */}
+        <div className="px-2 py-3 items-center">
+          <div className="flex justify-between md:max-w-[800px] md:mx-auto">
+            <Link href="/">
+              <Image width={200} height={37} src="/logo.png" alt="" />
             </Link>
-            )
-          }
-          <Link className={classes.top}  href={"/"}>
-            <HomeIcon className={classes.topIcon}/>
-            <p className={classes.topText}>サイトトップ</p>
-          </Link>
-          <Link className={classes.info}  href={"/info"}>
-            <InfoIcon className={classes.infoIcon}/>
-            <p className={classes.infoText}>サイトについて</p>
-          </Link>
-          <Link className={classes.form} href={"/form"}>
-            <EmailIcon className={classes.formIcon}/>
-            <p className={classes.formText}>お問い合わせ</p>
-          </Link>
-          <Link className={classes.policy}  href={"/policy"}>
-            <DescriptionIcon className={classes.policyIcon}/>
-            <p className={classes.policyText}>利用規約</p>
-          </Link>
+            {user ? (
+              <button
+                onClick={() => auth.signOut()}
+                className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+              >
+                ログアウト
+              </button>
+            ) : (
+              <HeaderTwitterLogin />
+            )}
+          </div>
         </div>
+
+        {/* Navigation */}
+        <nav className="p-2 bg-gray-50 border-y border-gray-200">
+          <div className="overflow-x-auto hidden-scrollbar">
+            {/* 横スクロールを有効にするためにw-fullとflexの調整 */}
+            <div className="flex space-x-4 min-w-max md:justify-center">
+              <NavLink href="/usage" icon={<CheckCircleIcon />} text="使い方" />
+              {user && (
+                <NavLink
+                  href={`/mypage/${user?.uid}`}
+                  icon={<AccountCircleIcon />}
+                  text="マイページ"
+                />
+              )}
+              <NavLink href="/" icon={<HomeIcon />} text="サイトトップ" />
+              <NavLink href="/info" icon={<InfoIcon />} text="サイトについて" />
+              <NavLink href="/form" icon={<EmailIcon />} text="お問い合わせ" />
+              <NavLink
+                href="/policy"
+                icon={<DescriptionIcon />}
+                text="利用規約"
+              />
+            </div>
+          </div>
+        </nav>
       </div>
-    </div>
-  )
+    </header>
+  );
 }
 
-export default Header
+// Helper component for navigation links
+function NavLink({
+  href,
+  icon,
+  text,
+}: {
+  href: string;
+  icon: React.ReactNode;
+  text: string;
+}) {
+  return (
+    <Link
+      href={href}
+      className="flex gap-1 text-xs items-center font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50 transition-colors"
+    >
+      {icon}
+      <span>{text}</span>
+    </Link>
+  );
+}
