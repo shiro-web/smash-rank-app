@@ -50,7 +50,7 @@ export default function Home({ params }: { params: { id: string } }) {
         <div>
           <Link
             href={`/mypage/${user?.uid}`}
-            className="bg-gradient-to-r from-orange-500 to-orange-600 flex gap-2 justify-center rounded-lg md:text-xl text-sm text-white p-2 items-center mb-4 hover:opacity-50 transition"
+            className="bg-[#0F1419] flex gap-2 justify-center rounded-lg md:text-xl text-sm text-white p-2 items-center mb-4 hover:opacity-50 transition"
           >
             <motion.div
               animate={{ y: [0, -3, 0] }}
@@ -62,7 +62,7 @@ export default function Home({ params }: { params: { id: string } }) {
               <span>ランキングに参加　→</span>
             ) : (
               <span onClick={() => twitterLogin()}>
-                Xでログインしてランキングに参加　→
+                xでログインしてランキングに参加 →
               </span>
             )}
             <motion.div
