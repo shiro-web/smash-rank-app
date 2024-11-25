@@ -267,7 +267,7 @@ const MyPage = ({ params }: { params: { id: string } }) => {
             </form>
           ) : (
             <>
-              <div className="border-[1px] mb-4 border-gray-300 p-6 rounded-md w-full">
+              <div className="border-[1px] mb-4 border-gray-300 p-6 pb-3 rounded-md w-full">
                 <div className="border-b-[1px] border-gray-300 pb-4">
                   <div className="flex gap-2 justify-between mb-2">
                     <p>全体順位</p>
@@ -283,9 +283,9 @@ const MyPage = ({ params }: { params: { id: string } }) => {
                   </div>
                 </div>
                 {/* <!-- ポストボタン --> */}
-                <div className="w-full max-w-md mt-2">
-                  <p className="text-center mb-2 text-sm">シェアする</p>
-                  <div className="w-full flex justify-center bg-black text-white py-3 rounded-lg">
+                <div className="w-full max-w-md mt-1">
+                  <p className="text-center mb-1 text-xs">シェアする</p>
+                  <div className="flex justify-center">
                     <TwitterShareButton index={index} count={count} />
                   </div>
                 </div>
