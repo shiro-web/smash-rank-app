@@ -4,4 +4,3 @@
 //     admaxads?: AdmaxAdType[];
 //     __admax_tag__?: { [key: string]: unknown }[];
 //   }
-  
