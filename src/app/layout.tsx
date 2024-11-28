@@ -1,6 +1,4 @@
 import type { Metadata } from "next";
-// import "./globals.css";
-// import "the-new-css-reset/css/reset.css";
 import { AppProvider } from "@/context/AppContext";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -24,7 +22,6 @@ export default function RootLayout({
       <head>
         <Script
           id="Absence-banner"
-          async
           strategy="afterInteractive"
           src={
             "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3254973128088123"

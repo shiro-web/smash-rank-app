@@ -14,7 +14,6 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import TwitterShareButton from "@/components/TwitterShareButton";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
-import useUserNameStorage from "@/app/hooks/useUserNameStorage";
 import {
   useCharakterRankData,
   useRankCalculate,
@@ -37,7 +36,8 @@ export type Data = {
 
 const MyPage = ({ params }: { params: { id: string } }) => {
   const router = useRouter();
-  const { user, userName, setDone, anonymous, setAnonymous } = useContext(AppContext);
+  const { user, userName, setDone, anonymous, setAnonymous } =
+    useContext(AppContext);
   useState<number>();
   const [selectedType, setSelectedType] = useState<string>("picture");
   const { datas, characterParticipantsCount } = useCharakterRankData({

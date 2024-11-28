@@ -1,6 +1,6 @@
 "use client";
 
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import AppContext from "@/context/AppContext";
 import RankBody from "@/components/RankBody";
 import Pagenation from "@/components/Pagenation";
@@ -12,12 +12,23 @@ import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
 import { motion } from "framer-motion";
 import TwitterLogin from "@/components/TwitterLogin";
 import useTwitterLogin from "@/components/hooks/TwitterLogin.ts/page";
+import { RankBodySkelton } from "@/components/Fallback/RankBodySkelton";
 
 export default function Home({ params }: { params: { id: string } }) {
   const { user } = useContext(AppContext);
   const { itemsPerPage, datas, count, itemsOffSet, getIndex, handlePageClick } =
     useRank({ params });
   const { twitterLogin } = useTwitterLogin();
+
+  // ローディング状態を管理
+  const [loading, setLoading] = useState(true);
+
+  // データが読み込まれたら loading を false に
+  useEffect(() => {
+    if (datas.length > 0) {
+      setLoading(false);
+    }
+  }, [datas]);
 
   return (
     <div className="px-[8px] mx-auto w-full md:max-w-[800px]">
@@ -88,11 +99,18 @@ export default function Home({ params }: { params: { id: string } }) {
               </th>
             </tr>
           </thead>
-          <RankBody
-            currentItems={datas.slice(itemsOffSet, itemsOffSet + itemsPerPage)}
-            getIndex={getIndex}
-            datas={datas}
-          />
+          {loading ? (
+            <RankBodySkelton />
+          ) : (
+            <RankBody
+              currentItems={datas.slice(
+                itemsOffSet,
+                itemsOffSet + itemsPerPage
+              )}
+              getIndex={getIndex}
+              datas={datas}
+            />
+          )}
         </table>
 
         {/* Pagination */}
