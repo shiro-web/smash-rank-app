@@ -6,7 +6,7 @@ import RankBody from "@/components/RankBody";
 import Pagenation from "@/components/Pagenation";
 import useRank from "./hooks/useRank";
 import Link from "next/link";
-import { AdMax } from "@/components/AdMax";
+// import { AdMax } from "@/components/AdMax";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
 import { motion } from "framer-motion";

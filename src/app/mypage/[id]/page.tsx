@@ -37,10 +37,9 @@ export type Data = {
 
 const MyPage = ({ params }: { params: { id: string } }) => {
   const router = useRouter();
-  const { user, setDone, anonymous, setAnonymous } = useContext(AppContext);
+  const { user, userName, setDone, anonymous, setAnonymous } = useContext(AppContext);
   useState<number>();
   const [selectedType, setSelectedType] = useState<string>("picture");
-  const { newUserName } = useUserNameStorage();
   const { datas, characterParticipantsCount } = useCharakterRankData({
     params,
   });
@@ -91,11 +90,11 @@ const MyPage = ({ params }: { params: { id: string } }) => {
         user.displayName &&
         user.photoURL &&
         characterName &&
-        newUserName
+        userName
       ) {
         const docRef = doc(db, "ranks", user.uid); // ユーザー用のドキュメント参照
         const datas: Data = {
-          userName: anonymous ? "anonymous" : newUserName, // 匿名か通常名を決定
+          userName: anonymous ? "anonymous" : userName, // 匿名か通常名を決定
           characterName: anonymous ? "anonymous" : characterName, // キャラクター名
           character: anonymous ? "anonymous" : croppedUrl, // クロップした画像
           createdAt: serverTimestamp(), // 作成日時
