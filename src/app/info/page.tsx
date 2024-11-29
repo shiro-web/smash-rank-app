@@ -66,7 +66,11 @@ const Info = () => {
             上記を改善しても投稿できない場合、
             <a href="https://twitter.com/SmashRank0201" className="underline">
               こちら
-              <OpenInNewIcon className="inline" fontSize="small" />
+              <OpenInNewIcon
+                className="inline"
+                fontSize="small"
+                classes="w-2 h-2"
+              />
             </a>
             からお問い合わせください。
           </p>
@@ -74,9 +78,12 @@ const Info = () => {
       </div>
       <div className="border-[1px] text-sm border-gray-300 px-3 py-2 rounded-md">
         <h2 className="text-xl mb-2 font-bold">お問い合わせ</h2>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1">
           <XIcon fontSize="small" />
-          <a href="https://twitter.com/SmashRank0201" className="text-base">
+          <a
+            href="https://twitter.com/SmashRank0201"
+            className="text-base underline"
+          >
             @SmashRank0201
           </a>
         </div>

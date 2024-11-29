@@ -321,21 +321,20 @@ const MyPage = ({ params }: { params: { id: string } }) => {
                 />
                 <label htmlFor="anonymous">匿名を希望します</label>
               </div>
-              <Button
-                color="inherit"
-                component="label"
-                variant="contained"
-                className="bg-black w-full mb-2"
+              <label
+                htmlFor="fileUpload"
+                className="bg-black w-full mb-2 text-center py-3 px-4 block text-white rounded-md cursor-pointer"
               >
+                画像アップロード
                 <input
                   type="file"
+                  id="fileUpload"
                   onChange={handleFileChange}
                   ref={fileInputRef}
                   accept=".png, .jpeg, .jpg"
                   className="hidden"
                 />
-                <p className="text-white">画像アップロード</p>
-              </Button>
+              </label>
               {url ? (
                 <Image
                   src={url ? url : ""}
