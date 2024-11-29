@@ -220,16 +220,20 @@ const MyPage = ({ params }: { params: { id: string } }) => {
                 />
                 <label htmlFor="anonymous">匿名を希望します</label>
               </div>
-              <div className="bg-black w-full mb-2 text-center rounded-md py-2 px-4">
+              <label
+                htmlFor="fileUpload"
+                className="bg-black w-full mb-2 text-center py-3 px-4 block text-white rounded-md cursor-pointer"
+              >
+                画像アップロード
                 <input
                   type="file"
+                  id="fileUpload"
                   onChange={handleFileChange}
                   ref={fileInputRef}
                   accept=".png, .jpeg, .jpg"
                   className="hidden"
                 />
-                <p className="text-white">画像アップロード</p>
-              </div>
+              </label>
               <div>
                 {/* <p>チェックを入れた状態で画像を投稿すると、匿名でランキングに参加することができます。</p> */}
               </div>
