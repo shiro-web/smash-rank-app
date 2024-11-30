@@ -57,24 +57,28 @@ const Info = () => {
             </p>
           </div>
         </div>
-        <div>
+        <div className="border-b-[1px] border-gray-300 mb-4 pb-4">
           <h3 className="mb-2 font-bold">よくあるパターン2:Xからの投稿</h3>
           <p className="text-sm">
             スマホのXから写真を保存する場合は、長押しして保存するのではなく、写真をタップして右上の…マークから保存して下さい
           </p>
-          <p>
-            上記を改善しても投稿できない場合、
-            <a href="https://twitter.com/SmashRank0201" className="underline">
-              こちら
-              <OpenInNewIcon
-                className="inline"
-                fontSize="small"
-                classes="w-2 h-2"
-              />
-            </a>
-            からお問い合わせください。
+        </div>
+        <div className="border-b-[1px] border-gray-300 mb-4 pb-4">
+          <h3 className="mb-2 font-bold">
+            よくあるパターン3:キャッシュがたまっている
+          </h3>
+          <p className="text-sm">
+            キャッシュを削除してからもう一度お試しください。
           </p>
         </div>
+        <p>
+          上記を改善しても投稿できない場合、
+          <a href="https://twitter.com/SmashRank0201" className="underline">
+            こちら
+            <OpenInNewIcon className="inline" fontSize="small" />
+          </a>
+          からお問い合わせください。
+        </p>
       </div>
       <div className="border-[1px] text-sm border-gray-300 px-3 py-2 rounded-md">
         <h2 className="text-xl mb-2 font-bold">お問い合わせ</h2>
