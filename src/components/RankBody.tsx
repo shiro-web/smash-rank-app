@@ -62,7 +62,7 @@ const RankBody = ({ currentItems, getIndex, datas }: RankBodyProps) => {
                   />
                 </Link>
                 {data.userName === "anonymous" ? (
-                  <span className="text-muted-foreground">
+                  <span className="text-muted-foreground text-xs md:text-base">
                     {data.name === "anonymous" ? "匿名" : data.name}
                   </span>
                 ) : (
