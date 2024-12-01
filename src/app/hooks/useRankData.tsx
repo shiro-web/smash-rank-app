@@ -55,7 +55,6 @@ export const useCharakterRankData = ({
           });
         }
       } catch (error) {
-        console.error("Error fetching ranks:", error); // エラーハンドリング
       }
     };
 

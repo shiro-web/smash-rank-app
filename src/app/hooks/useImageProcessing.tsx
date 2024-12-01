@@ -59,7 +59,6 @@ export const useImageProcessing = () => {
         return;
       }
     } catch (e) {
-      console.error(e);
       return;
     }
   };

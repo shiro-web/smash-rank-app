@@ -107,7 +107,6 @@ const MyPage = ({ params }: { params: { id: string } }) => {
         toast.success("投稿に成功しました", { id: "1" }); // 成功メッセージ
       }
     } catch (error) {
-      console.error("エラー:", error); // エラーハンドリング
     } finally {
       setDone(true); // 投稿処理終了
     }
