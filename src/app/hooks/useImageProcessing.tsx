@@ -28,6 +28,10 @@ export const useImageProcessing = () => {
     const fileInput = fileInputRef.current;
 
     if (fileInput && fileInput.files && fileInput.files.length > 0) {
+      // 古いURLを解放
+      if (url) {
+        URL.revokeObjectURL(url);
+      }
       const selectedFile = fileInput.files[0]; // 選択されたファイル
       const imageUrl = URL.createObjectURL(selectedFile); // URLを生成
       setUrl(imageUrl); // URLをstateにセット
