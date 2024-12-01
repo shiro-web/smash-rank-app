@@ -6,7 +6,6 @@ import "cropperjs/dist/cropper.css";
 import { serverTimestamp, doc, setDoc, FieldValue } from "firebase/firestore";
 import { db } from "@/firebase";
 import AppContext from "@/context/AppContext";
-import { Button } from "@mui/material";
 import CloudUploadIcon from "@mui/icons-material/Logout";
 import Link from "next/link";
 import toast, { Toaster } from "react-hot-toast";
@@ -72,6 +71,7 @@ const MyPage = ({ params }: { params: { id: string } }) => {
     e.preventDefault(); // デフォルトのフォーム送信を防止
     setDone(false); // 投稿状態をリセット
     toast.loading("投稿中です。10秒ほどお待ちください。", { id: "1" }); // ローディング表示
+
     try {
       const power = await convertImagetoText(); // 画像からパワーを抽出
       const croppedUrl = await onCrop(); // 画像をクロップ

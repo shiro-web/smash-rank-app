@@ -36,6 +36,11 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   const [anonymous, setAnonymous] = useState<boolean>(true);
 
   useEffect(() => {
+    const storedUserName = localStorage.getItem("userName");
+    if (storedUserName) {
+      setUserName(storedUserName);
+    }
+
     const unsubscribe = onAuthStateChanged(auth, (newUser) => {
       setUser(newUser);
     });
@@ -43,6 +48,13 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
       unsubscribe();
     };
   }, []);
+
+  // userNameが変更されたらlocalStorageに保存
+  useEffect(() => {
+    if (userName) {
+      localStorage.setItem("userName", userName);
+    }
+  }, [userName]);
 
   return (
     <AppContext.Provider

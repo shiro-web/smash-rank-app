@@ -3,7 +3,7 @@ import { useState, useRef } from "react";
 import Tesseract from "tesseract.js";
 import { PNG } from "pngjs";
 import pixelmatch from "pixelmatch";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import localCharacters from "@/characters";
 
 export const useImageProcessing = () => {
